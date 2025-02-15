@@ -2,20 +2,112 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+
+
+.card{
+  border: 1px solid #f3e9e9;
+  border-radius: 4px;
+  box-shadow: 5px 5px 5px #000000;
+  padding: 20px;
+  margin: 10px;
+  text-align: center;
+  max-width: 250px;
+  display: inline-block;
+
+}
+.card .card-image{
+  max-width: 60%;
+  height: auto;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+.card .card-title{
+  font-family: Arial , sans-serif;
+  margin: 0;
+  color: black;
+
+}
+card .card-text{
+  font-family: Arial , sans-serif;
+  color: black;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.card .button {
+  background-color: #1a79af;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.Header .home{
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: Arial , sans-serif;
+  border: 1px solid #f3e9e9;
+  background-color: #1a79af;
+  color: white;
+  cursor: pointer;
 }
+.Header .about{
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: Arial , sans-serif;
+  border: 1px solid #f3e9e9;
+  background-color: #1a79af;
+  color: white;
+  cursor: pointer;
+}
+
+.Header .services{
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: Arial , sans-serif;
+  border: 1px solid #f3e9e9;
+  background-color: #1a79af;
+  color: white;
+  cursor: pointer;
+}
+
+.Header .contact{
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: Arial , sans-serif;
+  border: 1px solid #f3e9e9;
+  background-color: #1a79af;
+  color: white;
+  cursor: pointer;
+}
+
+.Header .nav{
+  text-align: center;
+  display: flex;
+
+
+}
+
+.Header .logo{
+  background-color: #1a79af;
+  color: white;
+}
+.Footer {
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  font-family: Arial , sans-serif;
+  border: 1px solid #f3e9e9;
+  background-color: #1a79af;
+  color: white;
+  position: relative;
+}
+
+.username{}
+.password{}
+
+

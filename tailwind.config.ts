@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import {blackA, mauve, violet} from "@radix-ui/colors";
 
 export default {
   content: [
@@ -11,6 +12,9 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        ...blackA,
+        ...violet,
+        ...mauve,
       },
     },
   },

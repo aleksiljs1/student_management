@@ -1,0 +1,20 @@
+step 1: learn components how do they work? how are they called? can they be nested? limits?
+2:make a simple home page combining components something with cards?
+3: make models to use on cards and pass them to an array after which call them
+4:connect them to the cards using for loop. (i was introduced into maping)
+5: fix whatever was wrong with the daata passing of the cars
+6: learn next js. what are routes how are they used.
+7.make a log in form in a log in route. and a sighn in form in a sighn in route
+8.find a way to fetch data that is not so brute forcy.
+9. tea introduced me to hooks learn and use usecase to fetch and save the data.
+10. what is local storage how to use it.
+11. if and else logic to check auth
+12. roland whants a working api for auth how to make a nextjs api ? how does it work?
+13. learn basic axios. what is it? how to use it?
+14. make backend api
+15.test login with existing data using postman
+16.make front end port
+17.test with postman
+18.make sign up logic
+19.make log in logic
+20. display a sighn in on sucess
