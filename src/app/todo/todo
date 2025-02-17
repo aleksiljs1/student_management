@@ -1,20 +1,38 @@
-step 1: learn components how do they work? how are they called? can they be nested? limits?
-2:make a simple home page combining components something with cards?
-3: make models to use on cards and pass them to an array after which call them
-4:connect them to the cards using for loop. (i was introduced into maping)
-5: fix whatever was wrong with the daata passing of the cars
-6: learn next js. what are routes how are they used.
-7.make a log in form in a log in route. and a sighn in form in a sighn in route
-8.find a way to fetch data that is not so brute forcy.
-9. tea introduced me to hooks learn and use usecase to fetch and save the data.
-10. what is local storage how to use it.
-11. if and else logic to check auth
-12. roland whants a working api for auth how to make a nextjs api ? how does it work?
-13. learn basic axios. what is it? how to use it?
-14. make backend api
-15.test login with existing data using postman
-16.make front end port
-17.test with postman
-18.make sign up logic
-19.make log in logic
-20. display a sighn in on sucess
+step 1: learn components how do they work? how are they called? can they be nested? limits? +++
+2:make a simple home page combining components something with cards?++++
+3: make models to use on cards and pass them to an array after which call them++++
+4:connect them to the cards using for loop. (i was introduced into maping)++++
+5: fix whatever was wrong with the daata passing of the cars+
+6: learn next js. what are routes how are they used.++++
+7.make a log in form in a log in route. and a sighn in form in a sighn in route++++
+8.find a way to fetch data that is not so brute forcy.++++
+9. tea introduced me to hooks learn and use usecase to fetch and save the data.++++
+10. what is local storage how to use it.++++
+11. if and else logic to check auth++++
+12. roland whants a working api for auth how to make a nextjs api ? how does it work?+++
+13. learn basic axios. what is it? how to use it?+++
+14. make backend api++++
+15.test login with existing data using postman+++
+16.make front end port+++
+17.test with postman+++
+18.make sign up logic+++
+19.make log in logic+++
+20. display a log in on sucess+++
+21. learn jwt and its implementation simply+++
+22.create token++++
+23.save on local storage+++
+24.redirect to dashboard on sucess or if token exists++++
+25.redirect from dashboard to login if i dont have a token++++
+26.accept me in dashboard if i have a token ==================show roland here +++
+27.logout function ( delete token or delete local storage)  ----------------------come back to this
+28.redirect login/register/logout using their corresponding buttons++++
+29.Make THE PICTURE WORK
+30.nda backun e loginit dhe registerit brenda nje folderi auth
+31.bej gjith url constante edhe theriti ku duhen
+32.formato kodin me pretty
+33.put secret in .env and call it
+34.make it so login dhe register butoni nuk duken kur je i loguar
+35.beje qe  logout buttoni duket vetem kur je i loguar same for dashboardin .
+36.headeri te jet lart ne cdo faqe per navigim
+37. do THE CLASSIC dont have an account? >>>>> Register , ku te ben redirect tek register---------and this
+

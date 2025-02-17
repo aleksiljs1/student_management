@@ -1,16 +1,14 @@
-
 import ShowStudents from "./show-students";
-import Footer from "./Footer";
+import Footer from "./footer";
 import Header from "@/components/header";
 
-
-
-
 function StudentBoard() {
-    return <>
-        <Header/>
-        <ShowStudents/>
-        <Footer/>
+  return (
+    <>
+      <Header />
+      <ShowStudents />
+      <Footer />
     </>
+  );
 }
 export default StudentBoard;

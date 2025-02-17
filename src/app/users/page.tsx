@@ -1,8 +1,7 @@
 import StudentBoard from "@/components/student-board";
 
-
 const login = () => {
-    return ( <StudentBoard/>)
-}
+  return <StudentBoard />;
+};
 
-export default login
+export default login;

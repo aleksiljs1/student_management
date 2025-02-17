@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-import {blackA, mauve, violet} from "@radix-ui/colors";
+import { blackA, mauve, violet } from "@radix-ui/colors";
 
 export default {
   content: [
