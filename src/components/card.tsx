@@ -1,4 +1,4 @@
-import { Student } from "@/models/Student";
+import { Student } from "@/app/api/student-data/models/Student";
 import Image from "next/image";
 import ProfilePic from "../images/Student.png";
 
