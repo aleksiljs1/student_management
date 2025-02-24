@@ -5,7 +5,6 @@ import {SECRET_KEY, users} from "@/lib/user-store";
 export async function POST(request: Request) {
     const { userName, password} = await request.json();
 
-
         const userExists = users.some(
             (user) => user.userName === userName && user.password === password,
         );

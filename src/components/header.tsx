@@ -1,7 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
-import {useEffect, useState} from "react";
-import {urlConst} from "@/consts/path-consts";
+import { useEffect, useState } from "react";
+import { urlConst } from "@/consts/path-consts";
 
 function Header() {
   const router = useRouter();
@@ -17,7 +17,7 @@ function Header() {
   const deleteToken = () => {
     localStorage.clear();
     router.push(urlConst.loginRedirect);
-  }
+  };
   const [HasTokken, setHasTokken] = useState(false);
 
   useEffect(() => {
@@ -25,34 +25,36 @@ function Header() {
     setHasTokken(!!token);
   }, [router]);
 
-
   return (
-    <header className="Header">
-      <h1 className="logo">My Website</h1>
-      <nav>
-        <div className="nav">
-          { HasTokken?(
-              <>
-          <button className="home" onClick={sendToHome}>
-            Home
-          </button>
-                <button className="contact" onClick={deleteToken}>Logout</button>
-              </>
-          ): (
-              <>
-          <button className="services" onClick={sendToLogin}>
-            Login
-          </button>
+    <nav className="bg-white shadow-md">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center h-16">
 
-                <button className="about" onClick={sendToRegister}>
-                  Register
-                </button>
+          <div className="flex items-center flex-1">
+            <span className="text-2xl font-bold text-violet-600">UniHub</span>
+          </div>
+
+
+          <div className="hidden md:flex space-x-6 flex-1 justify-center">
+            {HasTokken ? (
+              <>
+                <span className="text-gray-600 hover:text-violet-600 transition cursor-pointer" onClick={sendToHome}>Home</span>
+                <span className="text-gray-600 hover:text-violet-600 transition cursor-pointer" >Add Users</span>
+                <span className="text-gray-600 hover:text-red-600 transition cursor-pointer" onClick={deleteToken}>Logout</span>
               </>
-          ) }
+            ) : (
+              <>
+                <span className="text-gray-600 hover:text-violet-600 transition cursor-pointer" onClick={sendToLogin}>Login</span>
+                <span className="text-gray-600 hover:text-violet-600 transition cursor-pointer" onClick={sendToRegister}>Register</span>
+              </>
+            )}
+          </div>
+          <div className="hidden md:flex flex-1"></div>
         </div>
-
-      </nav>
-    </header>
+      </div>
+    </nav>
   );
 }
+
+
 export default Header;
