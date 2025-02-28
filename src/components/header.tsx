@@ -14,6 +14,9 @@ function Header() {
   const sendToHome = () => {
     router.push(urlConst.dashboardRedirect);
   };
+  const sendToAddUsers = ()=>{
+    router.push("/add-student");
+  }
   const deleteToken = () => {
     localStorage.clear();
     router.push(urlConst.loginRedirect);
@@ -39,7 +42,7 @@ function Header() {
             {HasTokken ? (
               <>
                 <span className="text-gray-600 hover:text-violet-600 transition cursor-pointer" onClick={sendToHome}>Home</span>
-                <span className="text-gray-600 hover:text-violet-600 transition cursor-pointer" >Add Users</span>
+                <span className="text-gray-600 hover:text-violet-600 transition cursor-pointer" onClick={sendToAddUsers}>Add Users</span>
                 <span className="text-gray-600 hover:text-red-600 transition cursor-pointer" onClick={deleteToken}>Logout</span>
               </>
             ) : (

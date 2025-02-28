@@ -9,11 +9,13 @@ function ShowStudents() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+
     if (token) {
       axios
-        .get("http://localhost:3000/api/student-data", {
+        .get("http://localhost:3000/api/services", {
           headers: {
             Authorization: `Bearer ${token}`,
+            type: "token" ,
           },
         })
         .then((response) => {

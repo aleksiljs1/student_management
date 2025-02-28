@@ -25,7 +25,6 @@ const SignIn = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    console.log(userName, password);
     axios
       .post(urlConst.registerUrl, {
         userName,
@@ -36,7 +35,7 @@ const SignIn = () => {
         router.push(urlConst.loginRedirect);
       })
       .catch(function (error) {
-        alert(error.response?.data.message);
+        alert(error.response?.data.message || "Error submitting data.");
       });
   };
 

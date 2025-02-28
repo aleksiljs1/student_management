@@ -1,9 +1,3 @@
-
-i get lost on where to even start therefore i make a roadmap on what to do as i watch videos doing what i whant to do or i guess what to do if the logic checks out. display data/login auth etc
-++++++++ means i have not done it yet xxxxxxxxxxxxxxxxxxx means im on it
-office:i can pick 2(or 3 if it was too eazy) tasks of any of the tasks i make and if i complete them I EARN A 5 MINUTE SMOKE BREAK(IF I WHANT IT)
-coffeshop: solve 2 and i can take a 5 min browsing phone break
-home:i can pick 7 and i can play something for 45 mins
 ==============================================BASIC REACT CARDS DATA DISPLAY========================================
 step 1: learn components how do they work? how are they called? can they be nested? limits? +++
 2:make a simple home page combining components something with cards?++++
@@ -37,7 +31,7 @@ step 1: learn components how do they work? how are they called? can they be nest
 ===========================================MINOR FIXES========================================
 27.logout function ( delete token or delete local storage)  ----------------------come back to this
 28.redirect login/register/logout using their corresponding buttons
-29.Make THE DAMN PICTURE WORK
+29.Make THE DAMN PICTURE WORK ALEKS WHY IS THIS TAKING SO LONG
 =========================================login and register sepparation========================
 30.nda backun e loginit dhe registerit brenda nje folderi auth
 31.bej gjith url constante edhe theriti ku duhen
@@ -67,5 +61,35 @@ step 1: learn components how do they work? how are they called? can they be nest
 52.same theme bej footerin
 53. regullo kartat ose zevendesoi
 54. fix redirect issue after sign up
-
-
+======================================pre-db implementations================================
+55.make edit user form
+56.make add user form
+======================================db implementation and ussage========================
+57.skim through postgre doc
+58.install postgre and prisma
+59.set up postgre and prisma
+60.make log in table model using prisma
+61.make the log in and register use prisma , set and get data from prisma
+62.fix log in and register logic to match the database
+====================================student db and add student================================
+63.establish university db uml diag
+64.create the tables and models for said diagram including dependencies
+65.move student maping to api services
+66.replace the array you have been using to the database you are using and map to front
+67.mer data me hooks nga add user formi
+68.mer faculties nga backu dhe coj ne front qe ti fusesh ne select dropdown
+69.mapo daten ne dropdown faculties dhe mos haro qe mapi zbehet me string por me array
+70.mapo classes
+71.beje hook te gjithave nga formi
+72.after dropdown selection and field completion make sure every field is completed or dont send data to back at all
+73.coje daten ne back dhe bej seed databazes
+74. rregullo errorin ne lidhje me YEAR
+75.regullo errorin e db
+=====================================db adition and speeding things up
+77.coje db connection ne serviced (sduhet te doj me shum se 1 min)-------------------------
+76.create class form +hooks + send to db
+77.lidhe me db dhe u be
+78.delete student on a specific id
+79. add a are you sure? pop up ( here i learn about little pop ups?)
+80. delete class on a specific id (same with the popup)
+81.make token refresh after 1 hour(sedi si do e bej ama kam nje ide)
