@@ -57,7 +57,7 @@ const AddClass = () => {
       <div className=" flex-items-center justify-center min-h-screen">
         <div className="flex flex-col justify-center p-8 md:p-14">
           <h2 className="text-4xl font-bold text-violet-800 mb-3">
-            Add Student
+            Add New Class
           </h2>
           <p className="font-light text-gray-500 mb-8">input class details</p>
           <form onSubmit={handleSubmit}>

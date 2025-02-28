@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import axios from "axios";
 import { urlConst } from "@/consts/path-consts";
 
-const AddClass = () => {
+const AddFaculty = () => {
  const [faculty,setFaculty] = React.useState("");
  const [headOfFaculty,setHeadOfFaculty] = React.useState("");
 
@@ -83,5 +83,5 @@ const AddClass = () => {
   );
 };
 
-export default AddClass;
+export default AddFaculty;
 
