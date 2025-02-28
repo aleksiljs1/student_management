@@ -14,9 +14,9 @@ function Header() {
   const sendToHome = () => {
     router.push(urlConst.dashboardRedirect);
   };
-  const sendToAddUsers = ()=>{
+  const sendToAddUsers = () => {
     router.push("/add-student");
-  }
+  };
   const deleteToken = () => {
     localStorage.clear();
     router.push(urlConst.loginRedirect);
@@ -32,23 +32,46 @@ function Header() {
     <nav className="bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center h-16">
-
           <div className="flex items-center flex-1">
             <span className="text-2xl font-bold text-violet-600">UniHub</span>
           </div>
 
-
           <div className="hidden md:flex space-x-6 flex-1 justify-center">
             {HasTokken ? (
               <>
-                <span className="text-gray-600 hover:text-violet-600 transition cursor-pointer" onClick={sendToHome}>Home</span>
-                <span className="text-gray-600 hover:text-violet-600 transition cursor-pointer" onClick={sendToAddUsers}>Add Users</span>
-                <span className="text-gray-600 hover:text-red-600 transition cursor-pointer" onClick={deleteToken}>Logout</span>
+                <span
+                  className="text-gray-600 hover:text-violet-600 transition cursor-pointer"
+                  onClick={sendToHome}
+                >
+                  Home
+                </span>
+                <span
+                  className="text-gray-600 hover:text-violet-600 transition cursor-pointer"
+                  onClick={sendToAddUsers}
+                >
+                  Add Users
+                </span>
+                <span
+                  className="text-gray-600 hover:text-red-600 transition cursor-pointer"
+                  onClick={deleteToken}
+                >
+                  Logout
+                </span>
               </>
             ) : (
               <>
-                <span className="text-gray-600 hover:text-violet-600 transition cursor-pointer" onClick={sendToLogin}>Login</span>
-                <span className="text-gray-600 hover:text-violet-600 transition cursor-pointer" onClick={sendToRegister}>Register</span>
+                <span
+                  className="text-gray-600 hover:text-violet-600 transition cursor-pointer"
+                  onClick={sendToLogin}
+                >
+                  Login
+                </span>
+                <span
+                  className="text-gray-600 hover:text-violet-600 transition cursor-pointer"
+                  onClick={sendToRegister}
+                >
+                  Register
+                </span>
               </>
             )}
           </div>
@@ -58,6 +81,5 @@ function Header() {
     </nav>
   );
 }
-
 
 export default Header;

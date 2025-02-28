@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
-import { SECRET_KEY} from "@/lib/user-store";
+import { SECRET_KEY } from "@/lib/user-store";
 import prisma from "@/lib/prisma";
 import bcrypt from "bcrypt";
 
@@ -11,7 +11,10 @@ export async function POST(request: Request) {
     where: { username: userName },
   });
   if (!userExists) {
-    return NextResponse.json({ message: "User does not exist" }, { status: 400 });
+    return NextResponse.json(
+      { message: "User does not exist" },
+      { status: 400 },
+    );
   }
 
   const isMatch = await bcrypt.compare(password, userExists.password_hash);
@@ -20,7 +23,10 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ message: `You have logged in!`, token });
   } else {
-    return NextResponse.json({ message: "Miss-matching password" }, { status: 400 });
+    return NextResponse.json(
+      { message: "Miss-matching password" },
+      { status: 400 },
+    );
   }
 }
 //shift alt f

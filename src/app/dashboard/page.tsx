@@ -4,7 +4,7 @@ import "../globals.css";
 
 import StudentBoard from "@/components/student-board";
 import { useRouter } from "next/navigation";
-import {urlConst} from "@/consts/path-consts";
+import { urlConst } from "@/consts/path-consts";
 
 const Dashboard = () => {
   const router = useRouter();

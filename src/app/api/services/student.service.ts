@@ -6,7 +6,7 @@ export class StudentService {
     return await prisma.student.findMany({});
   }
 }
-export class  FacultyService {
+export class FacultyService {
   async getAllFaculty() {
     return await prisma.faculty.findMany({});
   }

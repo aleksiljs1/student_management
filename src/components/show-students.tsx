@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Student } from "@/app/api/student-data/models/Student";
 
 function ShowStudents() {
-  const [students, setStudents] = useState<Student[]>([]);//basically ensures students will always be an array
+  const [students, setStudents] = useState<Student[]>([]); //basically ensures students will always be an array
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ function ShowStudents() {
         .get("http://localhost:3000/api/services", {
           headers: {
             Authorization: `Bearer ${token}`,
-            type: "token" ,
+            type: "token",
           },
         })
         .then((response) => {
@@ -24,14 +24,11 @@ function ShowStudents() {
         .catch((err) => {
           console.error("Error with getting students:", err);
           setError("Error getting student data.");
-
         });
     } else {
       setError("No token found. are you logged in?");
-
     }
   }, []);
-
 
   if (error) return <p>{error}</p>;
 

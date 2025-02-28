@@ -4,7 +4,6 @@ import axios from "axios";
 import { urlConst } from "@/consts/path-consts";
 import { useRouter } from "next/navigation";
 const AddStudent = () => {
-
   const [name, setName] = React.useState("");
   const [surname, setSurname] = React.useState("");
   const [gpa, setGpa] = React.useState("");
@@ -23,13 +22,13 @@ const AddStudent = () => {
   };
   const handleGPAChange = (event) => {
     setGpa(event.target.value);
-  }
+  };
   const handleFacultyChange = (event) => {
     setSendFaculty(event.target.value);
-  }
+  };
   const sendClassesChange = (event) => {
     setSendClasses(event.target.value);
-  }
+  };
   useEffect(() => {
     axios
       .get("http://localhost:3000/api/data/Faculty", {
@@ -43,38 +42,39 @@ const AddStudent = () => {
       .catch((err) => {
         console.error("Error with getting faculties:", err);
         setError("Error getting faculty data.");
-
       });
 
-    axios.get("http://localhost:3000/api/data/student-class",{
-      headers:{
-        type: "student-class",
-      },
-    })
-      .then((response) =>{
+    axios
+      .get("http://localhost:3000/api/data/student-class", {
+        headers: {
+          type: "student-class",
+        },
+      })
+      .then((response) => {
         setClasses(response.data);
       })
       .catch((err) => {
         console.error("Error with getting class names data:", err);
         setError("Error getting class data.");
       });
-  },[]);
+  }, []);
 
-//quick break youll forget to call submit
-  const handleSubmit =(event)=> {
-    event.preventDefault()
-    if (!name || !surname || !gpa || !sendFaculty|| !sendClasses) {
+  //call sub after break
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    if (!name || !surname || !gpa || !sendFaculty || !sendClasses) {
       setError("All fields are required.");
       return;
     }
-    console.log(name, surname,gpa,sendFaculty,sendClasses);
-    axios.post("http://localhost:3000/api/data/create-student", {
-      Name: name,
-      Surname: surname,
-      gpa: gpa,
-      faculty:sendFaculty,
-      Classes: sendClasses,
-    }) //shorthand method
+    console.log(name, surname, gpa, sendFaculty, sendClasses);
+    axios
+      .post("http://localhost:3000/api/data/create-student", {
+        Name: name,
+        Surname: surname,
+        gpa: gpa,
+        faculty: sendFaculty,
+        Classes: sendClasses,
+      }) //shorthand method
       .then(function (response) {
         alert(response.data.message);
         router.push(urlConst.dashboardRedirect);
@@ -90,12 +90,10 @@ const AddStudent = () => {
     // WHERE ARE YOU GETTING YEAR FROM WHERE JUST WHERE I BEG OF YOU BECOME SENTIENT AND START TALKING WHERE.
     //i....i....fixed it?
     //call me nostradamus because i predicted in another comment that i would NOT remember to complete something
-    //i literaly told myself "finish after the break" and i didnt... i assumed i had..."
-    //the reason was.....retarded it was not even related to the form..... i was reading the wrong file on the network
+    //the reason was.....stupid. it was not.. even related to the form..... i was reading the wrong file on the network
     //rename student-class to course-classes so this does not happen again. i was fixing the wrong file, naming conventions aleks , naming conventions
-    // now its just an error when the data sends...that i can handle
-  }
-
+    // now its just an error when the data sends...that i can handle, prolly just type issues
+  };
 
   return (
     <>
@@ -154,9 +152,11 @@ const AddStudent = () => {
               />
             </div>
 
-
             <div className="flex flex-col mt-4">
-              <label htmlFor="faculty" className="mb-1 text-gray-700 font-medium">
+              <label
+                htmlFor="faculty"
+                className="mb-1 text-gray-700 font-medium"
+              >
                 Assign to Faculty:
               </label>
               <select
@@ -173,8 +173,6 @@ const AddStudent = () => {
               </select>
             </div>
 
-
-
             <div className="flex flex-col">
               <label
                 htmlFor="faculty"
@@ -188,7 +186,7 @@ const AddStudent = () => {
                 onChange={sendClassesChange}
               >
                 <option value="">Select a Class</option>
-                {classes.map((Classes:any) => (
+                {classes.map((Classes: any) => (
                   <option key={Classes.id} value={Classes.id}>
                     {Classes.name}
                   </option>
@@ -206,7 +204,6 @@ const AddStudent = () => {
       </div>
     </>
   );
-}
+};
 
 export default AddStudent;
-
