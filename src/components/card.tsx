@@ -1,8 +1,7 @@
 "use client";
 
 import { Student } from "@/app/api/student-data/models/Student";
-import Image from "next/image";
-import ProfilePic from "../images/Student.png";
+
 
 interface Cardprops {
   student: Student;
@@ -12,7 +11,7 @@ function Card({ student }: Cardprops) {
   return (
     <div className="flex items-center justify-between bg-white shadow-md p-4 rounded-lg border border-gray-300">
       <p className="text-gray-800 font-medium">
-        {student.studentName} {student.surname} | <b>ID:</b>{" "}
+        {student.studentName}  | {student.surname} | <b>ID:</b>{" "}
         {student.student_id} | <b>GPA:</b> {student.gpa}
       </p>
 

@@ -86,10 +86,18 @@ step 1: learn components how do they work? how are they called? can they be nest
 74. rregullo errorin ne lidhje me YEAR
 75.regullo errorin e db
 =====================================db adition and speeding things up
-77.coje db connection ne serviced (sduhet te doj me shum se 1 min)-------------------------
-76.create class form +hooks + send to db
-77.lidhe me db dhe u be
-78.delete student on a specific id
-79. add a are you sure? pop up ( here i learn about little pop ups?)
-80. delete class on a specific id (same with the popup)
-81.make token refresh after 1 hour(sedi si do e bej ama kam nje ide)
+76.meso differencen mes indexed the coinstraint  cfar jane dhe pse perdoren, pse na duhen
+77. meso cfar do te thote dikush kur thot duhet te bejm maintain indexed
+78.create class form +hooks + to back - mos haro te krijosh relation me faculty
+79.lidhe me db dhe u be
+80. create dhe lidh faculty also send back then to db
+81.component board to see faculties and its classes -------------------------
+82.map to it and show them all
+83.delete student on a specific id
+84.same for faculty and class ( will i need to delete students associated with it aswell? fk )
+85. add a are you sure? pop up ( here i learn about little pop ups?)
+86. meso cfare jane
+86. delete class on a specific id (same with the popup)
+87.make token refresh after 1 hour(sedi si do e bej ama kam nje ide)
+
+88?.coje db connection ne serviced (sduhet te doj me shum se 1 min)

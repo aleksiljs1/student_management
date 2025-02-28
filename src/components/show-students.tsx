@@ -9,7 +9,6 @@ function ShowStudents() {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-
     if (token) {
       axios
         .get("http://localhost:3000/api/services", {

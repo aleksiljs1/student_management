@@ -59,7 +59,7 @@ const AddStudent = () => {
       });
   }, []);
 
-  //call sub after break
+  //call sub after break, dont forget
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!name || !surname || !gpa || !sendFaculty || !sendClasses) {
@@ -86,6 +86,7 @@ const AddStudent = () => {
     // {id: 1, name: "Aleks", year: 1, faculty_id: 1} wait year 1? why year 1? where tf is it even getting year from
     // WHERE DID SURNAME GO- surname is still gone
     //year is probably a default value - i think i fixed year logic issue
+    //think i fixed it?
     //ITS NOT FIXED
     // WHERE ARE YOU GETTING YEAR FROM WHERE JUST WHERE I BEG OF YOU BECOME SENTIENT AND START TALKING WHERE.
     //i....i....fixed it?
