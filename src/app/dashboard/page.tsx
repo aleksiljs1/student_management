@@ -5,6 +5,8 @@ import "../globals.css";
 import StudentBoard from "@/components/student-board";
 import { useRouter } from "next/navigation";
 import { urlConst } from "@/consts/path-consts";
+import Showall from "@/components/all-data";
+import Header from "@/components/header";
 
 const Dashboard = () => {
   const router = useRouter();
@@ -16,7 +18,8 @@ const Dashboard = () => {
   }, [router]); //listen to router
   return (
     <div className="dashboard">
-      <StudentBoard />
+      <Header/>
+      <Showall/>
     </div>
   );
 };

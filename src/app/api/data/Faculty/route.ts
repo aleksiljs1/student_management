@@ -13,7 +13,7 @@ export async function GET(request: Request) {
     return NextResponse.json(faculties);
   } catch (error) {
     return NextResponse.json(
-      { message: "error related to faculty service" },
+      { message: "error related to faculty service", error: error },
       { status: 401 },
     );
   }

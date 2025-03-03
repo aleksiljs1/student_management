@@ -1,16 +1,18 @@
 "use client";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { urlConst } from "@/consts/path-consts";
 import { useRouter } from "next/navigation";
+
 const AddStudent = () => {
+
   const [name, setName] = React.useState("");
   const [surname, setSurname] = React.useState("");
   const [gpa, setGpa] = React.useState("");
-  const [faculty, setFaculty] = React.useState([]);
+  const [faculty, setFaculty] = useState([]);
   const [sendFaculty, setSendFaculty] = React.useState("");
   const [sendClasses, setSendClasses] = React.useState("");
-  const [classes, setClasses] = React.useState([]);
+  const [classes, setClasses] = useState<{ id: number; name: string }[]>([]);
   const [error, setError] = React.useState<string | null>(null);
   const router = useRouter();
 
@@ -23,9 +25,23 @@ const AddStudent = () => {
   const handleGPAChange = (event) => {
     setGpa(event.target.value);
   };
-  const handleFacultyChange = (event) => {
+  const handleFacultyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSendFaculty(event.target.value);
+    //send api call with faculty id to get classes
+    axios
+      .get(`http://localhost:3000/api/data/student-class/${event.target.value}`) //shorthand meth
+      .then((response) => {
+        setClasses(response.data);
+      })
+      .catch((err) => {
+        console.error("Error with getting class names data:", err);
+        setError("Error getting class data.");
+      });
   };
+    //setClasses
+    //setSendClasses(null)
+
+
   const sendClassesChange = (event) => {
     setSendClasses(event.target.value);
   };
@@ -44,19 +60,6 @@ const AddStudent = () => {
         setError("Error getting faculty data.");
       });
 
-    axios
-      .get("http://localhost:3000/api/data/student-class", {
-        headers: {
-          type: "student-class",
-        },
-      })
-      .then((response) => {
-        setClasses(response.data);
-      })
-      .catch((err) => {
-        console.error("Error with getting class names data:", err);
-        setError("Error getting class data.");
-      });
   }, []);
 
   //call sub after break, dont forget
@@ -82,18 +85,7 @@ const AddStudent = () => {
       .catch(function (error) {
         alert(error.response?.data.message || "Error submitting data.");
       });
-    // data passed on network from create-student to student class succesfully:
-    // {id: 1, name: "Aleks", year: 1, faculty_id: 1} wait year 1? why year 1? where tf is it even getting year from
-    // WHERE DID SURNAME GO- surname is still gone
-    //year is probably a default value - i think i fixed year logic issue
-    //think i fixed it?
-    //ITS NOT FIXED
-    // WHERE ARE YOU GETTING YEAR FROM WHERE JUST WHERE I BEG OF YOU BECOME SENTIENT AND START TALKING WHERE.
-    //i....i....fixed it?
-    //call me nostradamus because i predicted in another comment that i would NOT remember to complete something
-    //the reason was.....stupid. it was not.. even related to the form..... i was reading the wrong file on the network
-    //rename student-class to course-classes so this does not happen again. i was fixing the wrong file, naming conventions aleks , naming conventions
-    // now its just an error when the data sends...that i can handle, prolly just type issues
+
   };
 
   return (

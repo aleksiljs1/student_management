@@ -1,35 +1,35 @@
 ==============================================BASIC REACT CARDS DATA DISPLAY========================================
 step 1: learn components how do they work? how are they called? can they be nested? limits? +++
-2:make a simple home page combining components something with cards?++++
-3: make models to use on cards and pass them to an array after which call them++++
-4:connect them to the cards using for loop. (i was introduced into maping)++++
+2:make a simple home page combining components something with cards?
+3: make models to use on cards and pass them to an array after which call them
+4:connect them to the cards using for loop. (i was introduced into maping)
 5: fix whatever was wrong with the daata passing of the cars+
-6: learn next js. what are routes how are they used.++++
+6: learn next js. what are routes how are they used.
 ===============================================LOG IN FORM===============================================
 7.make a log in form in a log in route. and a sighn in form in a sighn in route++++
-8.find a way to fetch data that is not so brute forcy.++++
+8.find a way to fetch data that is not so brute forcy.
 9. tea introduced me to hooks learn and use usecase to fetch and save the data.++++
-10. what is local storage how to use it.++++
-11. if and else logic to check auth++++
+10. what is local storage how to use it.
+11. if and else logic to check auth
 ==============================================LOG IN FORM WITH API AUTH=========================
 12. roland whants a working api for auth how to make a nextjs api ? how does it work?+++
 13. learn basic axios. what is it? how to use it?
 14. make backend api
 15.test login with existing data using postman
 16.make front end port
-17.test with postman+++
-18.make sign up logic+++
-19.make log in logic+++
-20. display a log in on sucess+++
+17.test with postman
+18.make sign up logic
+19.make log in logic
+20. display a log in on sucess
 ============================================JWT TOKEN IMPLEMENTATION AND QUALITY OF LIFE FIXES==========================
 21. learn jwt and its implementation simply
 22.create token++++
 23.save on local storage+++
 24.redirect to dashboard on sucess or if token exists
-25.redirect from dashboard to login if i dont have a token++++
+25.redirect from dashboard to login if i dont have a token
 26.accept me in dashboard if i have a token ==================show roland here
 ===========================================MINOR FIXES========================================
-27.logout function ( delete token or delete local storage)  ----------------------come back to this
+27.logout function ( delete token or delete local storage)
 28.redirect login/register/logout using their corresponding buttons
 29.Make THE DAMN PICTURE WORK ALEKS WHY IS THIS TAKING SO LONG
 =========================================login and register sepparation========================
@@ -51,8 +51,8 @@ step 1: learn components how do they work? how are they called? can they be nest
 44 connect them
 45.make sure cards are still succesfully displayed in the front
 ========================================minor fixes===============================
-46. fix the first register issue it is probably related to array position 1 issue ++++++++++++++
-47.fix the undefined variable that shows after register+++++
+46. fix the first register issue it is probably related to array position 1 issue
+47.fix the undefined variable that shows after register
 =======================================tailwind fixes============================
 48.dont have an account register and already have an account ? login quick addition
 49.make header with tailwind
@@ -91,13 +91,18 @@ step 1: learn components how do they work? how are they called? can they be nest
 78.create class form +hooks + to back - mos haro te krijosh relation me faculty
 79.lidhe me db dhe u be
 80. create dhe lidh faculty also send back then to db
-81.component board to see faculties and its classes -------------------------
-82.map to it and show them all
-83.delete student on a specific id
-84.same for faculty and class ( will i need to delete students associated with it aswell? fk )
-85. add a are you sure? pop up ( here i learn about little pop ups?)
-86. meso cfare jane
-86. delete class on a specific id (same with the popup)
-87.make token refresh after 1 hour(sedi si do e bej ama kam nje ide)
+81.component board to see faculties and its classes
+82.bej fetch data duke ber loop/nest metod qe mund te ket: ubdate axios allows nesting LETS GOOO
+83.map to it and show them all
+84.delete student on a specific id
+85.add another unique field that prevents mismatching faculties with classes assighned to students using prisma
+86. learn dynamic routing
+87. learn relationship based indexing
+88.use get to pass params dynamically to the class end point and pass it to services, turn it to int its a string atm
+89.send back only the classes assighned to the passed faculty id
+90.SEPARATE  SERVICES NOT ALL IN ONE , DONT BE LAZY-------------------------
+91.make faculty and class deletable , if a faculty is deleted all classes within it must be deleted aswell.
+92.add a are you sure? pop up ( here i learn about little pop ups?)
+93.meso cfare jane
+94.make token refresh after 1 hour(sedi si do e bej ama kam nje ide)
 
-88?.coje db connection ne serviced (sduhet te doj me shum se 1 min)
