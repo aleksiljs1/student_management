@@ -100,7 +100,27 @@ step 1: learn components how do they work? how are they called? can they be nest
 87. learn relationship based indexing
 88.use get to pass params dynamically to the class end point and pass it to services, turn it to int its a string atm
 89.send back only the classes assighned to the passed faculty id
-90.SEPARATE  SERVICES NOT ALL IN ONE , DONT BE LAZY-------------------------
+===============================================edit student 6 moving parts with this one might be tricky===============================
+91.learn how to pass the data from dashboard to edit-student using useRouter, kalo vec idn
+92.me idn e mare kerko datan e lidhur me te ne back - bej assighn ne te njejtat hooks qe do cosh prap
+93.kopjova cfar bera ne add student per relationship based options
+94.pastaj thjeshte duhet ti ve default value ne fields ato qe kam mar nga backu
+95. THE TRICKY PARTTTT si dreqin supozohet ti ve value opsioneve qe korsepondojn me indexet + ti bejmatch me klassen
+I HAVE AN IDEA
+96. IT ALREADY USES ID I CAN JUST TELL IT TO LOOK AT THE ONE I WHANT. I AM THE HONORED ONE!!!!!! THE ONE ABOVE ALLLLLL
+ubdate i broke it...........aparently punon me faculty por klasa meqe nuk shef change tek faculty change nuk me vjen....
+97.USE USE-EFFECT DHE PERDOR DICKA QE NDRYSHON KUR VJEN DATA NGA BACKU SI TRIGER(facultyId?). I AM THE ONE!
+it is not working.....pse....data qe vjen nuk esht undefined THEN WTF IS IT....OH ZOT ISHTE FKG " " E QUAN INICIALIZIMIN
+SI FKG TRIGER BROOOOOOOOOOOOOOO this is retarded. ORE MIR AJO PO PSE SE BEN TRIGER PRAP KUR VJEN DATA NGA BAKU?.
+update-  mund te zgjidhet me nje if = " " return nothing statement SJA KAM IDEN PSE DUHET BUT WE RUN WITH IT BABY
+98. New problem tani nuk ndroj dot klasen me zgjedh perseri baziken ose defaultin pse?????? find out
+99.made all class related variables one use state that changes state and its fixed. prolly called the wrong one somewhere
+100.push to back -------------------------
+101.make ubdate student services AND BOOM WE ARE DONE WITH THIS PART
+
+
+
+90.SEPARATE  SERVICES NOT ALL IN ONE , DONT BE LAZY
 91.make faculty and class deletable , if a faculty is deleted all classes within it must be deleted aswell.
 92.add a are you sure? pop up ( here i learn about little pop ups?)
 93.meso cfare jane

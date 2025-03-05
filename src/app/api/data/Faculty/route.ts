@@ -1,6 +1,5 @@
 import {
   FacultyService,
-  StudentService,
 } from "@/app/api/services/student.service";
 import { NextResponse } from "next/server";
 

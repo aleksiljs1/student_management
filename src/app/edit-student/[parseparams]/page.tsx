@@ -1,21 +1,61 @@
-"use client";
+"use client"
 import React, { useEffect, useState } from "react";
+import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { urlConst } from "@/consts/path-consts";
-import { useParams, useRouter } from "next/navigation";
 import Header from "@/components/header";
 
-const AddStudent = () => {
-  const [name, setName] = React.useState("");
-  const [surname, setSurname] = React.useState("");
-  const [gpa, setGpa] = React.useState("");
-  const [faculty, setFaculty] = useState([]);
-  const [sendFaculty, setSendFaculty] = React.useState("");
-  const [sendClasses, setSendClasses] = React.useState("");
-  const [classes, setClasses] = useState<{ id: number; name: string }[]>([]);
-  const [error, setError] = React.useState<string | null>(null);
-  const router = useRouter();
 
+const EditStudent = () => {
+  const { parseparams } = useParams();
+  const [name, setName] = useState("");
+  const [surname, setSurname] = useState("");
+  const [gpa, setGpa] = useState("");
+  const [faculty, setFaculty] = useState("");
+  const [faculties, setFaculties] = useState([]);
+  const [facultyId, setFacultyId] = useState("");
+  const [classes, setClasses] = useState<{ id: number; name: string }[]>([]);
+  const [classId, setClassId] = useState("");
+  const [error, setError] = useState("");
+  const [sendFaculty, setSendFaculty] = useState("");
+  const router = useRouter();
+  useEffect(() => {
+    console.log(parseparams);
+    axios.get(`http://localhost:3000/api/data/get-edit-student/${parseparams}`, {
+      headers: {
+        type: "get-edit-student",//prolly a good idea to delete the headers after. im not really using them
+      },
+    })
+      .then((response) => {
+        const studentData = response.data;
+        setName(studentData.name);
+        setSurname(studentData.surname);
+        setGpa(studentData.gpa);
+        setFaculty(studentData.faculty);
+        setFacultyId(studentData.faculty_id);
+        setClassId(studentData.student_class_id);
+      })
+      .catch((err) => {
+        console.error("Error with getting student:", err);
+        setError("Error getting student data.");
+      });
+  }, []); //the get student by id section
+  useEffect(() => {
+    axios
+      .get("http://localhost:3000/api/data/Faculty", {
+        headers: {
+          type: "faculty",
+        },
+      })
+      .then((response) => {
+        setFaculties(response.data);
+      })
+      .catch((err) => {
+        console.error("Error with getting faculties:", err);
+        setError("Error getting faculty data.");
+      });
+
+  }, []); //getting all faculties section
   const handleNameChange = (event) => {
     setName(event.target.value);
   };
@@ -27,73 +67,75 @@ const AddStudent = () => {
   };
   const handleFacultyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSendFaculty(event.target.value);
+
     //send api call with faculty id to get classes
     axios
-      .get(`http://localhost:3000/api/data/student-class/${event.target.value}`) //shorthand meth
+      .get(`http://localhost:3000/api/data/student-class/${event.target.value}`)
       .then((response) => {
-        setClasses(response.data);
+        console.log(response.data);
+        setClassId(response.data);
       })
       .catch((err) => {
         console.error("Error with getting class names data:", err);
         setError("Error getting class data.");
       });
   };
-    //setClasses
-    //setSendClasses(null)
+  useEffect(() => {
+    if(facultyId === "") {
+      return; }
+//this part was pain and suffering, just makes sure not to do anything on the initial state
+    setSendFaculty(facultyId);//SHT I ALREADY FORGOT IF THIS IS EVEN IMPORTANT GOD DAMN FK FK FK FK , TEST LATER, ah yes nvm
+
+    axios
+      .get(`http://localhost:3000/api/data/student-class/${facultyId}`)
+      .then((response) => {
+        console.log(response.data);
+        setClasses(response.data);
+      })
+      .catch((err) => {
+        console.error("Error with getting class names data:", err);
+        setError("Error getting class data.");
+      });
+  }, [facultyId]);
+  // the conditional fixes the issue, need to experiment more with useEffect
+  //apparently edhe pse i thash te digjoj per faculty id. inicializohet gjithsesi  para se ti vij
+  // sepse e quan faculty id-n bosh para kur krijohet si " " , index 1 typa shiz . cuditerisht ama kur i vjene nga backu nuk inicializohet
 
 
   const sendClassesChange = (event) => {
-    setSendClasses(event.target.value);
+    console.log("sending classes data:", event.target.value);
+    setClassId(event.target.value);
   };
-  useEffect(() => {
-    axios
-      .get("http://localhost:3000/api/data/Faculty", {
-        headers: {
-          type: "faculty",
-        },
-      })
-      .then((response) => {
-        setFaculty(response.data);
-      })
-      .catch((err) => {
-        console.error("Error with getting faculties:", err);
-        setError("Error getting faculty data.");
-      });
-
-  }, []);
-
-  //call sub after break, dont forget
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!name || !surname || !gpa || !sendFaculty || !sendClasses) {
+    if (!name || !surname || !gpa || !sendFaculty || !classId) {
       setError("All fields are required.");
       return;
     }
     axios
-      .post("http://localhost:3000/api/data/create-student", {
+      .post("http://localhost:3000/api/data/edit-student", {
+        id:  parseparams ,
         Name: name,
         Surname: surname,
         gpa: gpa,
         faculty: sendFaculty,
-        Classes: sendClasses,
-      }) //shorthand method
+        Classes: classId,
+      })
       .then(function (response) {
         alert(response.data.message);
         router.push(urlConst.dashboardRedirect);
       })
       .catch(function (error) {
-        alert(error.response?.data.message || "Error submitting data.");
+        alert(error.response?.data.message || "Error updating data.");
       });
-
-  };
-
+  }
   return (
     <>
       <Header/>
       <div className=" flex-items-center justify-center min-h-screen">
         <div className="flex flex-col justify-center p-8 md:p-14">
           <h2 className="text-4xl font-bold text-violet-800 mb-3">
-            Add Student
+            Edit Student
           </h2>
           <p className="font-light text-gray-500 mb-8">input student details</p>
           <form onSubmit={handleSubmit}>
@@ -105,6 +147,7 @@ const AddStudent = () => {
                 type="text"
                 name="name"
                 id="name.id"
+                value={name}
                 placeholder="Name"
                 className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
                 onChange={handleNameChange}
@@ -122,6 +165,7 @@ const AddStudent = () => {
                 type="text"
                 name="surname"
                 id="student-id"
+                value={surname}
                 placeholder="Surname"
                 className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
                 onChange={handleSurnameChange}
@@ -139,7 +183,8 @@ const AddStudent = () => {
                 type="text"
                 name="user"
                 id="student-id"
-                placeholder="Enter your gpa"
+                placeholder="Enter GPA"
+                value={gpa}
                 className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
                 onChange={handleGPAChange}
               />
@@ -155,10 +200,11 @@ const AddStudent = () => {
               <select
                 id="faculty"
                 className="border-gray-300 outline-black p-2 rounded-md"
+                value={sendFaculty}
                 onChange={handleFacultyChange}
               >
-                <option value="">Select a Faculty</option>
-                {faculty.map((fac: any) => (
+                <option >Select a Faculty</option>
+                {faculties.map((fac: any) => (
                   <option key={fac.id} value={fac.id}>
                     {fac.name}
                   </option>
@@ -176,6 +222,7 @@ const AddStudent = () => {
               <select
                 id="faculty"
                 className="border-gray-300 outline-black p-2 rounded-md"
+                value={classId}
                 onChange={sendClassesChange}
               >
                 <option value="">Select a Class</option>
@@ -197,6 +244,5 @@ const AddStudent = () => {
       </div>
     </>
   );
-};
-
-export default AddStudent;
+}
+export default EditStudent;
