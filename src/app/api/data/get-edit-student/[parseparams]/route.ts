@@ -1,6 +1,7 @@
-import { ClassService, StudentsAllData } from "@/app/api/services/student.service";
+
 import { NextResponse } from "next/server";
-import { NextApiRequest, NextApiResponse } from "next";
+import { StudentsAllData } from "@/app/api/services/get-services/get-all-student-data";
+
 
 export async function GET(request: Request, { params }: { params: Promise<{ parseparams: string }> }) {
 
@@ -12,7 +13,7 @@ export async function GET(request: Request, { params }: { params: Promise<{ pars
     return NextResponse.json(allData);
   } catch (error) {
     return NextResponse.json(
-      { message: "error related to class service",error: error.message },
+      { message: "error related to class service", error},
       { status: 401 },//change status
     );
   }

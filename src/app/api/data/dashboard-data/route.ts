@@ -1,5 +1,5 @@
-import { AllUniversityService } from "@/app/api/services/student.service";
 import { NextResponse } from "next/server";
+import { AllUniversityService } from "@/app/api/services/get-services/get-all-data";
 
 
 export async function GET(){
@@ -12,11 +12,5 @@ try {
       { message: "error related to the Faculty table sening all data", error: error },
       {status:400},
     )
-//turn to status 401 when i will add the token requirement here
-}
-
-
-
-
-
+ }
 }

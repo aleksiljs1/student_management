@@ -1,18 +1,16 @@
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
+import { CreateFaculty } from "@/app/api/services/create-services/create-faculty";
+
 
 export async function POST( request:Request) {
   try {
     const { facultyName, facultyHead, } = await request.json();
+    const createFaculty = new CreateFaculty();
+    const createdFaculty = createFaculty.createdFaculty(facultyName, facultyHead);
 
-    const myNewFaculty = await prisma.faculty.create({
-      data: {
-        name: facultyName,
-        head_of_faculty: facultyHead,
-      }
-    })
     return NextResponse.json(
-      {message:"Faculty has been added successfully!", faculty: myNewFaculty},
+      {message:"Faculty has been added successfully!", faculty: createdFaculty },
       {status: 200}
     )
   }

@@ -19,7 +19,7 @@ export async function POST(request: Request) {
 
   const isMatch = await bcrypt.compare(password, userExists.password_hash);
   if (isMatch) {
-    const token = jwt.sign({ userName }, SECRET_KEY, { expiresIn: "1h" });
+    const token = jwt.sign({ userName }, SECRET_KEY, { expiresIn: "5h" });
 
     return NextResponse.json({ message: `You have logged in!`, token });
   } else {

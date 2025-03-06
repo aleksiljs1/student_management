@@ -1,6 +1,6 @@
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
-import { EditStudent } from "@/app/api/services/student.service";
+import { EditStudent } from "@/app/api/services/edit-services/edit-student";
 
 export async function POST(request: Request) {
   try {

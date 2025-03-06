@@ -1,6 +1,7 @@
-import { ClassService } from "@/app/api/services/student.service";
+
 import { NextResponse } from "next/server";
 import { NextApiRequest, NextApiResponse } from "next";
+import { ClassService } from "@/app/api/services/get-services/classes-for-faculty";
 
 export async function GET(request: Request, { params }: { params: Promise<{ parseparams: string }> }) {
 

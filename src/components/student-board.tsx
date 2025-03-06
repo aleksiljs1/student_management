@@ -6,7 +6,6 @@ function StudentBoard() {
   return (
     <>
       <Header />
-      <ShowStudents />
       <Footer />
     </>
   );
