@@ -2,7 +2,7 @@ import { SECRET_KEY } from "@/lib/user-store";
 import jwt from "jsonwebtoken";
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
-import { StudentService } from "@/app/api/services/student.service";
+import { StudentService } from "@/app/api/services/get-services/student.service";
 
 export async function GET(request: Request) {
   const authHeader = request.headers.get("Authorization");

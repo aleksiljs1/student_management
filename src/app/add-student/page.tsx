@@ -107,7 +107,7 @@ const AddStudent = () => {
                 id="name.id"
                 placeholder="Name"
                 className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
-                onChange={handleNameChange}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
 

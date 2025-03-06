@@ -20,19 +20,15 @@ const EditStudent = () => {
   const [sendFaculty, setSendFaculty] = useState("");
   const router = useRouter();
   useEffect(() => {
-    console.log(parseparams);
     axios.get(`http://localhost:3000/api/data/get-edit-student/${parseparams}`, {
-      headers: {
-        type: "get-edit-student",//prolly a good idea to delete the headers after. im not really using them
-      },
+      headers: {},
     })
       .then((response) => {
         const studentData = response.data;
         setName(studentData.name);
         setSurname(studentData.surname);
         setGpa(studentData.gpa);
-        setFaculty(studentData.faculty);
-        setFacultyId(studentData.faculty_id);
+        setFacultyId(studentData.faculty_id);//will send it to the faculties corresponding to student
         setClassId(studentData.student_class_id);
       })
       .catch((err) => {
@@ -43,9 +39,7 @@ const EditStudent = () => {
   useEffect(() => {
     axios
       .get("http://localhost:3000/api/data/Faculty", {
-        headers: {
-          type: "faculty",
-        },
+        headers: {},
       })
       .then((response) => {
         setFaculties(response.data);
@@ -67,43 +61,37 @@ const EditStudent = () => {
   };
   const handleFacultyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSendFaculty(event.target.value);
-
-    //send api call with faculty id to get classes
+    setClasses([]);
+    setClassId("");
+//reset class id and classes after the change , it will set it back anyway when i set class
     axios
       .get(`http://localhost:3000/api/data/student-class/${event.target.value}`)
       .then((response) => {
-        console.log(response.data);
-        setClassId(response.data);
+        setClasses(response.data);
       })
       .catch((err) => {
         console.error("Error with getting class names data:", err);
         setError("Error getting class data.");
-      });
+      });//to set class id when i change the faculty
+
   };
+
   useEffect(() => {
     if(facultyId === "") {
       return; }
-//this part was pain and suffering, just makes sure not to do anything on the initial state
-    setSendFaculty(facultyId);//SHT I ALREADY FORGOT IF THIS IS EVEN IMPORTANT GOD DAMN FK FK FK FK , TEST LATER, ah yes nvm
-
+    setSendFaculty(facultyId);
     axios
       .get(`http://localhost:3000/api/data/student-class/${facultyId}`)
       .then((response) => {
-        console.log(response.data);
         setClasses(response.data);
       })
       .catch((err) => {
         console.error("Error with getting class names data:", err);
         setError("Error getting class data.");
       });
-  }, [facultyId]);
-  // the conditional fixes the issue, need to experiment more with useEffect
-  //apparently edhe pse i thash te digjoj per faculty id. inicializohet gjithsesi  para se ti vij
-  // sepse e quan faculty id-n bosh para kur krijohet si " " , index 1 typa shiz . cuditerisht ama kur i vjene nga backu nuk inicializohet
-
+  }, [facultyId]);//to set the  class classes from outside
 
   const sendClassesChange = (event) => {
-    console.log("sending classes data:", event.target.value);
     setClassId(event.target.value);
   };
   const handleSubmit = (event) => {

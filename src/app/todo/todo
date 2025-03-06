@@ -115,12 +115,12 @@ SI FKG TRIGER BROOOOOOOOOOOOOOO this is retarded. ORE MIR AJO PO PSE SE BEN TRIG
 update-  mund te zgjidhet me nje if = " " return nothing statement SJA KAM IDEN PSE DUHET BUT WE RUN WITH IT BABY
 98. New problem tani nuk ndroj dot klasen me zgjedh perseri baziken ose defaultin pse?????? find out
 99.made all class related variables one use state that changes state and its fixed. prolly called the wrong one somewhere
-100.push to back -------------------------
+100.push to back
 101.make ubdate student services AND BOOM WE ARE DONE WITH THIS PART
+102.delete unused code
+103.SEPARATE  SERVICES NOT ALL IN ONE , DONT BE LAZY\
+104.delete useless comments dhe shto komente te reja , specifikisht per duplikimin dhe pse e vura se ngela tu e harru
 
-
-
-90.SEPARATE  SERVICES NOT ALL IN ONE , DONT BE LAZY
 91.make faculty and class deletable , if a faculty is deleted all classes within it must be deleted aswell.
 92.add a are you sure? pop up ( here i learn about little pop ups?)
 93.meso cfare jane
