@@ -14,19 +14,10 @@ const SignIn = () => {
   const sendToLogin = () => {
     router.push(urlConst.loginRedirect);
   };
-  const handleUserNameChange = (event) => {
-    setUserName(event.target.value);
-  };
-
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value); // useState hook
-  };
-
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios
-      .post(urlConst.registerUrl, {
+    axios.post(urlConst.registerUrl, {
         userName,
         password,
       })
@@ -67,7 +58,7 @@ const SignIn = () => {
                   placeholder="Choose a username"
                   className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
                   required
-                  onChange={handleUserNameChange}
+                  onChange={(e) => setUserName(e.target.value)}
                 />
               </div>
 
@@ -85,7 +76,7 @@ const SignIn = () => {
                   placeholder="Create a password"
                   className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
                   required
-                  onChange={handlePasswordChange}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
 

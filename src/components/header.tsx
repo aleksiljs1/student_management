@@ -17,6 +17,12 @@ function Header() {
   const sendToAddUsers = () => {
     router.push("/add-student");
   };
+  const sendToAddFaculties = ()=>{
+    router.push("/add-faculty");
+  }
+  const sendToAddClasses  = () =>{
+    router.push("/add-classes");
+  }
   const deleteToken = () => {
     localStorage.clear();
     router.push(urlConst.loginRedirect);
@@ -50,6 +56,18 @@ function Header() {
                   onClick={sendToAddUsers}
                 >
                   Add Users
+                </span>
+                <span
+                  className="text-gray-600 hover:text-violet-600 transition cursor-pointer"
+                  onClick={sendToAddFaculties}
+                >
+                  Add Faculties
+                </span>
+                <span
+                  className="text-gray-600 hover:text-violet-600 transition cursor-pointer"
+                  onClick={sendToAddClasses}
+                >
+                  Add Class
                 </span>
                 <span
                   className="text-gray-600 hover:text-red-600 transition cursor-pointer"

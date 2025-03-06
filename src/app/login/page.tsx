@@ -21,12 +21,6 @@ const Login = () => {
   const sendToRegister = () => {
     router.push("/Register");
   };
-  const handleUserNameChange = (event) => {
-    setUserName(event.target.value);
-  };
-  const handlePasswordChange = (event) => {
-    setPassword(event.target.value);
-  };
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -38,7 +32,6 @@ const Login = () => {
       .then(function (response) {
         alert(response.data.message);
         localStorage.setItem("token", response.data.token);
-        //token is set to local storage after coming from response
         router.push(urlConst.dashboardRedirect);
       })
       .catch(function (error) {
@@ -72,7 +65,7 @@ const Login = () => {
                   placeholder="Enter your username"
                   className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
                   required
-                  onChange={handleUserNameChange}
+                  onChange={(e) => setUserName(e.target.value)}
                 />
               </div>
 
@@ -90,7 +83,7 @@ const Login = () => {
                   placeholder="Enter your password"
                   className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
                   required
-                  onChange={handlePasswordChange}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
 
