@@ -16,18 +16,12 @@ const AddStudent = () => {
   const [error, setError] = React.useState<string | null>(null);
   const router = useRouter();
 
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
-  const handleSurnameChange = (event) => {
-    setSurname(event.target.value);
-  };
-  const handleGPAChange = (event) => {
-    setGpa(event.target.value);
-  };
+
+  const handleSendClasses = (event )=> {
+    setSendClasses(event.target.value);
+  }
   const handleFacultyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSendFaculty(event.target.value);
-    //send api call with faculty id to get classes
     axios
       .get(`http://localhost:3000/api/data/student-class/${event.target.value}`) //shorthand meth
       .then((response) => {
@@ -37,14 +31,9 @@ const AddStudent = () => {
         console.error("Error with getting class names data:", err);
         setError("Error getting class data.");
       });
-  };
-    //setClasses
-    //setSendClasses(null)
 
+  };//set classes to map based on faculty
 
-  const sendClassesChange = (event) => {
-    setSendClasses(event.target.value);
-  };
   useEffect(() => {
     axios
       .get("http://localhost:3000/api/data/Faculty", {
@@ -62,13 +51,13 @@ const AddStudent = () => {
 
   }, []);
 
-  //call sub after break, dont forget
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!name || !surname || !gpa || !sendFaculty || !sendClasses) {
       setError("All fields are required.");
       return;
     }
+console.log(sendClasses , "class names here are" ,classes);
     axios
       .post("http://localhost:3000/api/data/create-student", {
         Name: name,
@@ -76,7 +65,7 @@ const AddStudent = () => {
         gpa: gpa,
         faculty: sendFaculty,
         Classes: sendClasses,
-      }) //shorthand method
+      }) //self-explanatory
       .then(function (response) {
         alert(response.data.message);
         router.push(urlConst.dashboardRedirect);
@@ -124,7 +113,7 @@ const AddStudent = () => {
                 id="student-id"
                 placeholder="Surname"
                 className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
-                onChange={handleSurnameChange}
+                onChange={(e) => setSurname(e.target.value)}
               />
             </div>
 
@@ -141,7 +130,7 @@ const AddStudent = () => {
                 id="student-id"
                 placeholder="Enter your gpa"
                 className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
-                onChange={handleGPAChange}
+                onChange={(e) => setGpa(e.target.value)}
               />
             </div>
 
@@ -176,7 +165,7 @@ const AddStudent = () => {
               <select
                 id="faculty"
                 className="border-gray-300 outline-black p-2 rounded-md"
-                onChange={sendClassesChange}
+                onChange={handleSendClasses}
               >
                 <option value="">Select a Class</option>
                 {classes.map((Classes: any) => (

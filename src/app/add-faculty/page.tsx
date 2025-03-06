@@ -8,12 +8,6 @@ const AddFaculty = () => {
  const [headOfFaculty,setHeadOfFaculty] = React.useState("");
 
 
- const handlefacultyname = (event) =>{
-   setFaculty(event.target.value);
- }
- const handlefacultyHead = (event) =>{
-   setHeadOfFaculty(event.target.value);
- }
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -53,7 +47,7 @@ const AddFaculty = () => {
                 id="faculty-name"
                 placeholder="Faculty Name"
                 className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
-                onChange={handlefacultyname}
+                onChange={(e) => setFaculty(e.target.value)}
               />
             </div>
             <div className="flex flex-col">
@@ -66,7 +60,7 @@ const AddFaculty = () => {
                 id="faculty-head"
                 placeholder="Faculty Head Name"
                 className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
-                onChange={handlefacultyHead}
+                onChange={(e) => setHeadOfFaculty(e.target.value)}
               />
             </div>
 

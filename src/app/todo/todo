@@ -117,9 +117,12 @@ update-  mund te zgjidhet me nje if = " " return nothing statement SJA KAM IDEN 
 99.made all class related variables one use state that changes state and its fixed. prolly called the wrong one somewhere
 100.push to back
 101.make ubdate student services AND BOOM WE ARE DONE WITH THIS PART
-102.delete unused code
+102.delete unused code, and ts .
 103.SEPARATE  SERVICES NOT ALL IN ONE , DONT BE LAZY\
-104.delete useless comments dhe shto komente te reja , specifikisht per duplikimin dhe pse e vura se ngela tu e harru
+104. limit and logic testing
+105. found a logical issue i think i know how to fix it but itll be tough , alot of moving parts
+106.delete useless comments dhe shto komente te reja , specifikisht per duplikimin dhe pse e vura se ngela tu e harru
+107. aty ku ska me nevoj per metoda ne use state perdor arrow functions per me dirrekt, beje tek te gjitha
 
 91.make faculty and class deletable , if a faculty is deleted all classes within it must be deleted aswell.
 92.add a are you sure? pop up ( here i learn about little pop ups?)

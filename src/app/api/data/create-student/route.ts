@@ -8,7 +8,7 @@ export async function POST(request: Request) {
     const { Name, Surname, gpa, faculty, Classes } = await request.json();
 
     const createStudent = new CreateStudent();
-    const newStudent =  createStudent.CreatedStudent(Name, Surname, gpa, faculty, Classes)
+    const newStudent =  await createStudent.CreatedStudent(Name, Surname, gpa, faculty, Classes)
     return NextResponse.json(
       { message: "Student added successfully!", student: newStudent },
       { status: 201 },

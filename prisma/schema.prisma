@@ -28,6 +28,7 @@ model Class {
   faculty_id Int
   students Student[]
   faculty   Faculty @relation(fields: [faculty_id], references: [id])
+  @@unique([name, year, faculty_id])
 }
 
 model Student {
@@ -39,5 +40,5 @@ model Student {
   student_class_id   Int
   faculty   Faculty @relation(fields: [faculty_id], references: [id])
   student_class Class @relation(fields: [student_class_id ] , references: [id])
-  @@unique([faculty_id, student_class_id])
+  @@unique([name, surname])
 }
