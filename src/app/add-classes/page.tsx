@@ -22,7 +22,7 @@ const AddClass = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/data/Faculty", {
+      .get(`${urlConst.baseURL}/api/data/Faculty`, {
         headers: {
           type: "faculty",
         },
@@ -39,7 +39,7 @@ const AddClass = () => {
     event.preventDefault();
 
     axios
-      .post("http://localhost:3000/api/data/create-class", {
+      .post(`${urlConst.baseURL}api/data/create-class`, {
         className:className,
         sendFaculty:sendFaculty,
         year:year,

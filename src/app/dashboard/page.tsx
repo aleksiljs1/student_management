@@ -18,8 +18,7 @@ const Dashboard = () => {
   }, [router]); //listen to router
   return (
     <div className="dashboard">
-      <Header/>
-      <Showall/>
+      <StudentBoard/>
     </div>
   );
 };

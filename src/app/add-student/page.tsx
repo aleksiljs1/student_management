@@ -23,7 +23,7 @@ const AddStudent = () => {
   const handleFacultyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSendFaculty(event.target.value);
     axios
-      .get(`http://localhost:3000/api/data/student-class/${event.target.value}`) //shorthand meth
+      .get(`${urlConst.baseURL}api/data/student-class/${event.target.value}`) //shorthand meth
       .then((response) => {
         setClasses(response.data);
       })
@@ -36,7 +36,7 @@ const AddStudent = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/data/Faculty", {
+      .get(`${urlConst.baseURL}api/data/Faculty`, {
         headers: {
           type: "faculty",
         },
@@ -59,7 +59,7 @@ const AddStudent = () => {
     }
 console.log(sendClasses , "class names here are" ,classes);
     axios
-      .post("http://localhost:3000/api/data/create-student", {
+      .post(`${urlConst.baseURL}api/data/create-student`, {
         Name: name,
         Surname: surname,
         gpa: gpa,

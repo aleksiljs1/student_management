@@ -11,16 +11,16 @@ const EditStudent = () => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [gpa, setGpa] = useState("");
-  const [faculty, setFaculty] = useState("");
   const [faculties, setFaculties] = useState([]);
   const [facultyId, setFacultyId] = useState("");
   const [classes, setClasses] = useState<{ id: number; name: string }[]>([]);
   const [classId, setClassId] = useState("");
-  const [error, setError] = useState("");
+
   const [sendFaculty, setSendFaculty] = useState("");
   const router = useRouter();
+
   useEffect(() => {
-    axios.get(`http://localhost:3000/api/data/get-edit-student/${parseparams}`, {
+    axios.get(`${urlConst.baseURL}api/data/get-edit-student/${parseparams}`, {
       headers: {},
     })
       .then((response) => {
@@ -33,12 +33,12 @@ const EditStudent = () => {
       })
       .catch((err) => {
         console.error("Error with getting student:", err);
-        setError("Error getting student data.");
+
       });
   }, []); //the get student by id section
   useEffect(() => {
     axios
-      .get("http://localhost:3000/api/data/Faculty", {
+      .get(`${urlConst.baseURL}api/data/Faculty`, {
         headers: {},
       })
       .then((response) => {
@@ -46,32 +46,21 @@ const EditStudent = () => {
       })
       .catch((err) => {
         console.error("Error with getting faculties:", err);
-        setError("Error getting faculty data.");
       });
 
   }, []); //getting all faculties section
-  const handleNameChange = (event) => {
-    setName(event.target.value);
-  };
-  const handleSurnameChange = (event) => {
-    setSurname(event.target.value);
-  };
-  const handleGPAChange = (event) => {
-    setGpa(event.target.value);
-  };
   const handleFacultyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSendFaculty(event.target.value);
     setClasses([]);
     setClassId("");
 //reset class id and classes after the change , it will set it back anyway when i set class
     axios
-      .get(`http://localhost:3000/api/data/student-class/${event.target.value}`)
+      .get(`${urlConst.baseURL}api/data/student-class/${event.target.value}`)
       .then((response) => {
         setClasses(response.data);
       })
       .catch((err) => {
         console.error("Error with getting class names data:", err);
-        setError("Error getting class data.");
       });//to set class id when i change the faculty
 
   };
@@ -81,13 +70,12 @@ const EditStudent = () => {
       return; }
     setSendFaculty(facultyId);
     axios
-      .get(`http://localhost:3000/api/data/student-class/${facultyId}`)
+      .get(`${urlConst.baseURL}api/data/student-class/${facultyId}`)
       .then((response) => {
         setClasses(response.data);
       })
       .catch((err) => {
         console.error("Error with getting class names data:", err);
-        setError("Error getting class data.");
       });
   }, [facultyId]);//to set the  class classes from outside
 
@@ -97,11 +85,10 @@ const EditStudent = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!name || !surname || !gpa || !sendFaculty || !classId) {
-      setError("All fields are required.");
       return;
     }
     axios
-      .post("http://localhost:3000/api/data/edit-student", {
+      .post(`${urlConst.baseURL}api/data/edit-student`, {
         id:  parseparams ,
         Name: name,
         Surname: surname,
@@ -138,7 +125,7 @@ const EditStudent = () => {
                 value={name}
                 placeholder="Name"
                 className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
-                onChange={handleNameChange}
+                onChange={(e) => setName(e.target.value)}
               />
             </div>
 
@@ -156,7 +143,7 @@ const EditStudent = () => {
                 value={surname}
                 placeholder="Surname"
                 className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
-                onChange={handleSurnameChange}
+                onChange={(e) => setSurname(e.target.value)}
               />
             </div>
 
@@ -174,7 +161,7 @@ const EditStudent = () => {
                 placeholder="Enter GPA"
                 value={gpa}
                 className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
-                onChange={handleGPAChange}
+                onChange={(e) => setGpa(e.target.value)}
               />
             </div>
 

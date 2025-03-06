@@ -13,7 +13,7 @@ const handleStudentEdit = (studentId: string) => {
 }
   const handleStudentDelete = (studentId:string) => {
     axios
-      .post("http://localhost:3000/api/data/delete-student", {
+      .post(`${urlConst.baseURL}api/data/delete-student`, {
         student: studentId,
       })
       .then((response) => {
@@ -25,9 +25,8 @@ const handleStudentEdit = (studentId: string) => {
       });
   }
   useEffect(() => {
-    axios.get("http://localhost:3000/api/data/dashboard-data", {
+    axios.get(`${urlConst.baseURL}api/data/dashboard-data`, {
         headers: {
-          type: "allData"
         },
       })
       .then((response) => {

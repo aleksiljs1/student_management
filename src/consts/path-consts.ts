@@ -3,4 +3,5 @@ export const urlConst = {
   loginUrl: "http://localhost:3000/api/auth/login",
   dashboardRedirect: `/dashboard`,
   loginRedirect: "/login",
+  baseURL: "http://localhost:3000/",
 };

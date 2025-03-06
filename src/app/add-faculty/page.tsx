@@ -13,10 +13,10 @@ const AddFaculty = () => {
     event.preventDefault();
 
     axios
-      .post("http://localhost:3000/api/data/create-faculty", {
+      .post(`${urlConst.baseURL}api/data/create-faculty`, {
         facultyName:faculty,
         facultyHead:headOfFaculty,
-      }) //shorthand method
+      })
       .then(function (response) {
         alert(response.data.message);
         //router.push(urlConst.dashboardRedirect); do this but with faculty dashboard
