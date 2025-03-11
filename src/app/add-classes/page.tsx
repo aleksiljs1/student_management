@@ -2,6 +2,8 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import { urlConst } from "@/consts/path-consts";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 const AddClass = () => {
   const [className, setClassName] = React.useState("");
@@ -22,7 +24,7 @@ const AddClass = () => {
 
   useEffect(() => {
     axios
-      .get(`${urlConst.baseURL}/api/data/Faculty`, {
+      .get(`${urlConst.baseURL}/api/data/faculty`, {
         headers: {
           type: "faculty",
         },
@@ -54,6 +56,7 @@ const AddClass = () => {
     }
   return (
     <>
+      <Header/>
       <div className=" flex-items-center justify-center min-h-screen">
         <div className="flex flex-col justify-center p-8 md:p-14">
           <h2 className="text-4xl font-bold text-violet-800 mb-3">
@@ -124,6 +127,7 @@ const AddClass = () => {
           </form>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

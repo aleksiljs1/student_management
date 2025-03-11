@@ -117,12 +117,31 @@ update-  mund te zgjidhet me nje if = " " return nothing statement SJA KAM IDEN 
 99.made all class related variables one use state that changes state and its fixed. prolly called the wrong one somewhere
 100.push to back
 101.make ubdate student services AND BOOM WE ARE DONE WITH THIS PART
+------------------------------------clean up-----------------------------------------------
 102.delete unused code, and ts .
 103.SEPARATE  SERVICES NOT ALL IN ONE , DONT BE LAZY\
 104. limit and logic testing
 105. found a logical issue i think i know how to fix it but itll be tough , alot of moving parts
-106.delete useless comments dhe shto komente te reja , specifikisht per duplikimin dhe pse e vura se ngela tu e harru
-107. aty ku ska me nevoj per metoda ne use state perdor arrow functions per me dirrekt, beje tek te gjitha
+106.found 2nd logical issue that allows me to break the program
+107.delete useless comments dhe shto komente te reja , specifikisht per duplikimin dhe pse e vura se ngela tu e harru
+108. aty ku ska me nevoj per metoda ne use state perdor arrow functions per me dirrekt, beje tek te gjitha
+109.more minor fixes
+--------------------------------token implementation 2.0--------------------------------------
+110implement middleware
+111. mass local storage to middleware
+112.look at middleware token implementation with jose
+113.make register token implementatin
+114.make login token implementation
+115.make token logic on middle ware if its missiong if you are logged in etc
+116.duhet ta kthej ne middleware
+117.duhet te rregulloj pak llogjiken  e login/registerit
+118.meso ku rruhen dhe rregjistrohen
+
+111.tostify
+
+
+
+
 
 91.make faculty and class deletable , if a faculty is deleted all classes within it must be deleted aswell.
 92.add a are you sure? pop up ( here i learn about little pop ups?)

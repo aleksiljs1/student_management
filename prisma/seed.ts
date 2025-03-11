@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 async function main() {
   const facultyEngineering = await prisma.faculty.create({
     data: {
-      name: "Faculty of economy",
+      name: "faculty of economy",
       head_of_faculty: "Silvia Basha",
     },
   });

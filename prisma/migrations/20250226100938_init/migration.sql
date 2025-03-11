@@ -2,7 +2,7 @@
   Warnings:
 
   - Added the required column `year` to the `Class` table without a default value. This is not possible if the table is not empty.
-  - Added the required column `head_of_faculty` to the `Faculty` table without a default value. This is not possible if the table is not empty.
+  - Added the required column `head_of_faculty` to the `faculty` table without a default value. This is not possible if the table is not empty.
 
 */
 -- AlterTable

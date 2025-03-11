@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
@@ -8,6 +10,7 @@ function Showall(){
   const [error, setError] = useState<string | null>(null);
 
   const router = useRouter();
+  console.log(`HELLO`)
 const handleStudentEdit = (studentId: string) => {
   router.push(`/edit-student/${studentId}`);
 }
@@ -24,22 +27,35 @@ const handleStudentEdit = (studentId: string) => {
         alert(error.response?.data.message || "Error deleting student.");
       });
   }
+
   useEffect(() => {
+    const token = localStorage.getItem("token")
+
+    console.log(token);
     axios.get(`${urlConst.baseURL}api/data/dashboard-data`, {
-        headers: {
-        },
-      })
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
       .then((response) => {
-        setAllData(response.data);
+        console.log(response);
+        if (response.data?.error === "Missing Token") {
+          router.push("/login");
+        } else {
+          setAllData(response.data ?? []);
+        }
       })
       .catch((err) => {
-        setError(err.message || "An error occurred , always wanted to say that");
-      });
-  }, []);
+        console.log(`err is`,err)
+        setAllData([]);
+        setError(err.message)
+
+      })
+  }, [])
 
   return (
     <div>
-      {allData.map((faculty: any, index) => (
+      {allData.length > 0 ? allData.map((faculty: any, index) => (
         <div key={`faculty-${index}`} style={{ border: "2px solid black", margin: "10px", padding: "10px" }}>
           <h2>{faculty.name}</h2>
 
@@ -64,7 +80,7 @@ const handleStudentEdit = (studentId: string) => {
             </div>
           ))}
         </div>
-      ))}
+      )) : null}
     </div>
   );
           }

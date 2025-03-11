@@ -1,0 +1,31 @@
+doc links so next time im asked WHERE I TOOK IT I REMEMBER!
+
+how to get headers:
+https://medium.com/@turingvang/nextjs-middleware-protected-routes-bcb3df06db0c#:~:text=In%20Next.,before%20the%20page%20is%20rendered.
+note: const { pathname } = request.nextUrl;
+       // Define which paths should be protected
+       if (pathname.startsWith('/protected')) {
+         const token = request.cookies.get('auth_token'); // Check if the user has a valid token
+         // If no token is found, redirect to login
+         if (!token) {
+           return Response.redirect(new URL('/login', request.url)
+           );
+
+JOSE SIGHNING DOKUMENTIMI:https://github.com/panva/jose/blob/HEAD/docs/jwt/sign/classes/SignJWT.md
+EXAMPLE:
+const secret = new TextEncoder().encode(
+  'cc7e0d44fd473002f1c42167459001140ec6389b7353f8088f4d9a95f2f596f2',
+)
+const alg = 'HS256'
+
+const jwt = await new jose.SignJWT({ 'urn:example:claim': true })
+  .setProtectedHeader({ alg })
+  .setIssuedAt()
+  .setIssuer('urn:example:issuer')
+  .setAudience('urn:example:audience')
+  .setExpirationTime('2h')
+  .sign(secret)
+
+console.log(jwt)
+
+jose decrypt:https://github.com/panva/jose/blob/HEAD/docs/jwt/decrypt/functions/jwtDecrypt.md

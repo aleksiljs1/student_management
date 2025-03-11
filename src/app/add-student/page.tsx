@@ -4,6 +4,7 @@ import axios from "axios";
 import { urlConst } from "@/consts/path-consts";
 import { useParams, useRouter } from "next/navigation";
 import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 const AddStudent = () => {
   const [name, setName] = React.useState("");
@@ -36,7 +37,7 @@ const AddStudent = () => {
 
   useEffect(() => {
     axios
-      .get(`${urlConst.baseURL}api/data/Faculty`, {
+      .get(`${urlConst.baseURL}api/data/faculty`, {
         headers: {
           type: "faculty",
         },
@@ -184,6 +185,7 @@ console.log(sendClasses , "class names here are" ,classes);
           </form>
         </div>
       </div>
+      <Footer />
     </>
   );
 };

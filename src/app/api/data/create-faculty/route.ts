@@ -10,7 +10,7 @@ export async function POST( request:Request) {
     const createdFaculty = createFaculty.createdFaculty(facultyName, facultyHead);
 
     return NextResponse.json(
-      {message:"Faculty has been added successfully!", faculty: createdFaculty },
+      {message:"faculty has been added successfully!", faculty: createdFaculty },
       {status: 200}
     )
   }

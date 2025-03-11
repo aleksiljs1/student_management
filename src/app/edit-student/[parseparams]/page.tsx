@@ -16,6 +16,7 @@ const EditStudent = () => {
   const [classes, setClasses] = useState<{ id: number; name: string }[]>([]);
   const [classId, setClassId] = useState("");
 
+
   const [sendFaculty, setSendFaculty] = useState("");
   const router = useRouter();
 
@@ -38,7 +39,7 @@ const EditStudent = () => {
   }, []); //the get student by id section
   useEffect(() => {
     axios
-      .get(`${urlConst.baseURL}api/data/Faculty`, {
+      .get(`${urlConst.baseURL}api/data/faculty`, {
         headers: {},
       })
       .then((response) => {

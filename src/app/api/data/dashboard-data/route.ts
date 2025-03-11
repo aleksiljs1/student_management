@@ -9,7 +9,7 @@ try {
   return NextResponse.json(AllData)
 } catch (error){
     return NextResponse.json(
-      { message: "error related to the Faculty table sening all data", error: error },
+      { message: "error related to the faculty table sening all data", error: error },
       {status:400},
     )
  }
