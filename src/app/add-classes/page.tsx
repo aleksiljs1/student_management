@@ -39,7 +39,7 @@ const AddClass = () => {
     event.preventDefault();
 
     axiosInstance
-      .post(`ai/data/create-class`, {
+      .post(`api/data/create-class`, {
         className: className,
         sendFaculty: sendFaculty,
         year: year,
