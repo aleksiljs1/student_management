@@ -3,8 +3,7 @@ import { jwtVerify } from "jose";
 interface UserJwtPayload {
   iat: number;
   exp: number;
-}// meso se ku rruhen dhe memorizohen
-
+} // meso se ku rruhen dhe memorizohen
 
 export const getJwtSecretKey = () => {
   const secret = process.env.SECRET_KEY;
@@ -14,10 +13,8 @@ export const getJwtSecretKey = () => {
   return new TextEncoder().encode(secret); // Encode the secret for jose
 };
 
-
 export const verifyAuth = async (token: string) => {
   try {
-
     const { payload } = await jwtVerify(token, getJwtSecretKey());
 
     console.log("Token verified:", payload);

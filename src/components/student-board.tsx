@@ -5,8 +5,8 @@ import AllData from "@/components/all-data";
 function StudentBoard() {
   return (
     <>
-      <Header/>
-      <AllData/>
+      <Header />
+      <AllData />
       <Footer />
     </>
   );

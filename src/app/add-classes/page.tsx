@@ -1,9 +1,12 @@
-"use client"
+"use client";
 import React, { useEffect } from "react";
 import axios from "axios";
 import { urlConst } from "@/consts/path-consts";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import { useRouter } from "next/navigation";
+import { axiosInstance } from "@/axios";
+import { Bounce, toast, ToastContainer } from "react-toastify";
 
 const AddClass = () => {
   const [className, setClassName] = React.useState("");
@@ -11,52 +14,49 @@ const AddClass = () => {
   const [sendFaculty, setSendFaculty] = React.useState("");
   const [year, setYear] = React.useState("");
   const [error, setError] = React.useState<string | null>(null);
-
-  const handleClassName=(event)=>{
+  const router = useRouter();
+  const handleClassName = (event) => {
     setClassName(event.target.value);
-  }
-  const handleYear = (event)=>{
+  };
+  const handleYear = (event) => {
     setYear(event.target.value);
-  }
-  const handleFacultyChange=(event)=>{
+  };
+  const handleFacultyChange = (event) => {
     setSendFaculty(event.target.value);
-  }
+  };
 
   useEffect(() => {
-    axios
-      .get(`${urlConst.baseURL}/api/data/faculty`, {
-        headers: {
-          type: "faculty",
-        },
-      })
+    axiosInstance
+      .get(`/api/data/faculty`)
       .then((response) => {
         setFaculty(response.data);
       })
       .catch((err) => {
-        console.error("Error with getting faculties:", err);
-        setError("Error getting faculty data.");
+        console.log(`err is`, err);
       });
   }, []);
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios
-      .post(`${urlConst.baseURL}api/data/create-class`, {
-        className:className,
-        sendFaculty:sendFaculty,
-        year:year,
+    axiosInstance
+      .post(`ai/data/create-class`, {
+        className: className,
+        sendFaculty: sendFaculty,
+        year: year,
       }) //shorthand method
       .then(function (response) {
         alert(response.data.message);
-        //router.push(urlConst.dashboardRedirect); do this but with class dashboard
+        router.push("/dashboard");
       })
-      .catch(function (error) {
-        alert(error.response?.data.message || "Error submitting data.");
+      .catch(function (err) {
+        setError(err.message);
+        console.log(`err is`, err);
       });
-    }
+  };
   return (
     <>
-      <Header/>
+      <ToastContainer />
+      <Header />
       <div className=" flex-items-center justify-center min-h-screen">
         <div className="flex flex-col justify-center p-8 md:p-14">
           <h2 className="text-4xl font-bold text-violet-800 mb-3">
@@ -95,7 +95,6 @@ const AddClass = () => {
               />
             </div>
 
-
             <div className="flex flex-col mt-4">
               <label
                 htmlFor="faculty"
@@ -117,7 +116,6 @@ const AddClass = () => {
               </select>
             </div>
 
-
             <button
               type="submit"
               className="w-full p-3 mt-4 bg-violet-600 text-white font-bold rounded-md hover:bg-violet-700 transition"
@@ -133,4 +131,3 @@ const AddClass = () => {
 };
 
 export default AddClass;
-

@@ -6,10 +6,9 @@ import "../globals.css";
 import StudentBoard from "@/components/student-board";
 
 const Dashboard = () => {
-
   return (
     <div className="dashboard">
-      <StudentBoard/>
+      <StudentBoard />
     </div>
   );
 };

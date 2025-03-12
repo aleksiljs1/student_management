@@ -5,6 +5,8 @@ import { urlConst } from "@/consts/path-consts";
 import { useParams, useRouter } from "next/navigation";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import { axiosInstance } from "@/axios";
+import { Bounce, toast } from "react-toastify";
 
 const AddStudent = () => {
   const [name, setName] = React.useState("");
@@ -17,14 +19,13 @@ const AddStudent = () => {
   const [error, setError] = React.useState<string | null>(null);
   const router = useRouter();
 
-
-  const handleSendClasses = (event )=> {
+  const handleSendClasses = (event) => {
     setSendClasses(event.target.value);
-  }
+  };
   const handleFacultyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSendFaculty(event.target.value);
-    axios
-      .get(`${urlConst.baseURL}api/data/student-class/${event.target.value}`) //shorthand meth
+    axiosInstance
+      .get(`api/data/student-class/${event.target.value}`)
       .then((response) => {
         setClasses(response.data);
       })
@@ -32,24 +33,34 @@ const AddStudent = () => {
         console.error("Error with getting class names data:", err);
         setError("Error getting class data.");
       });
-
-  };//set classes to map based on faculty
+  };
 
   useEffect(() => {
-    axios
-      .get(`${urlConst.baseURL}api/data/faculty`, {
-        headers: {
-          type: "faculty",
-        },
-      })
+    axiosInstance
+      .get(`api/data/faculty`)
       .then((response) => {
         setFaculty(response.data);
       })
       .catch((err) => {
-        console.error("Error with getting faculties:", err);
-        setError("Error getting faculty data.");
+        if (err.response.status === 401) {
+          console.log(`Unauthorized - Redirecting to login`);
+          router.push("/login");
+        } else {
+          setError(err.message);
+          toast.error(err.message, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+          });
+          console.log(`err is`, err);
+        }
       });
-
   }, []);
 
   const handleSubmit = (event) => {
@@ -58,8 +69,8 @@ const AddStudent = () => {
       setError("All fields are required.");
       return;
     }
-console.log(sendClasses , "class names here are" ,classes);
-    axios
+    console.log(sendClasses, "class names here are", classes);
+    axiosInstance
       .post(`${urlConst.baseURL}api/data/create-student`, {
         Name: name,
         Surname: surname,
@@ -74,12 +85,11 @@ console.log(sendClasses , "class names here are" ,classes);
       .catch(function (error) {
         alert(error.response?.data.message || "Error submitting data.");
       });
-
   };
 
   return (
     <>
-      <Header/>
+      <Header />
       <div className=" flex-items-center justify-center min-h-screen">
         <div className="flex flex-col justify-center p-8 md:p-14">
           <h2 className="text-4xl font-bold text-violet-800 mb-3">

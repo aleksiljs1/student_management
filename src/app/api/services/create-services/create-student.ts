@@ -1,7 +1,13 @@
 import prisma from "@/lib/prisma";
 
-export class CreateStudent{
-  async CreatedStudent(Name: string, Surname: string, gpa: string, faculty:string ,Classes:string ) {
+export class CreateStudent {
+  async CreatedStudent(
+    Name: string,
+    Surname: string,
+    gpa: string,
+    faculty: string,
+    Classes: string,
+  ) {
     return await prisma.student.create({
       data: {
         name: Name,

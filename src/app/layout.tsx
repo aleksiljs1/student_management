@@ -1,6 +1,7 @@
 import { Theme } from "@radix-ui/themes";
 import type { Metadata } from "next";
 import "./globals.css";
+import "@/lib/interceptor";
 
 export const metadata: Metadata = {
   title: "My Next.js App",

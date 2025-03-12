@@ -1,4 +1,3 @@
-
 import { NextResponse } from "next/server";
 import { FacultyService } from "@/app/api/services/get-services/get-all-faculty";
 

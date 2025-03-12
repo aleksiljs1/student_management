@@ -1,10 +1,11 @@
-"use client"
+"use client";
 import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { urlConst } from "@/consts/path-consts";
 import Header from "@/components/header";
-
+import { axiosInstance } from "@/axios";
+import { Bounce, toast } from "react-toastify";
 
 const EditStudent = () => {
   const { parseparams } = useParams();
@@ -15,70 +16,83 @@ const EditStudent = () => {
   const [facultyId, setFacultyId] = useState("");
   const [classes, setClasses] = useState<{ id: number; name: string }[]>([]);
   const [classId, setClassId] = useState("");
-
+  const [error, setError] = useState<string | null>(null);
 
   const [sendFaculty, setSendFaculty] = useState("");
   const router = useRouter();
 
   useEffect(() => {
-    axios.get(`${urlConst.baseURL}api/data/get-edit-student/${parseparams}`, {
-      headers: {},
-    })
+    axiosInstance
+      .get(`api/data/get-edit-student/${parseparams}`)
       .then((response) => {
         const studentData = response.data;
         setName(studentData.name);
         setSurname(studentData.surname);
         setGpa(studentData.gpa);
-        setFacultyId(studentData.faculty_id);//will send it to the faculties corresponding to student
+        setFacultyId(studentData.faculty_id); //will send it to the faculties corresponding to student
         setClassId(studentData.student_class_id);
       })
       .catch((err) => {
-        console.error("Error with getting student:", err);
+        if (err.response.status === 401) {
+          console.log(`Unauthorized - Redirecting to login`);
 
+          router.push("/login");
+        } else {
+          setError(err.message);
+          toast.error(err.message, {
+            position: "top-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: false,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "colored",
+            transition: Bounce,
+          });
+          console.log(`err is`, err);
+        }
       });
   }, []); //the get student by id section
   useEffect(() => {
-    axios
-      .get(`${urlConst.baseURL}api/data/faculty`, {
-        headers: {},
-      })
+    axiosInstance
+      .get(`api/data/faculty`)
       .then((response) => {
         setFaculties(response.data);
       })
       .catch((err) => {
         console.error("Error with getting faculties:", err);
       });
-
   }, []); //getting all faculties section
   const handleFacultyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSendFaculty(event.target.value);
     setClasses([]);
     setClassId("");
-//reset class id and classes after the change , it will set it back anyway when i set class
-    axios
-      .get(`${urlConst.baseURL}api/data/student-class/${event.target.value}`)
+    //reset class id and classes after the change , it will set it back anyway when i set class
+    axiosInstance
+      .get(`api/data/student-class/${event.target.value}`)
       .then((response) => {
         setClasses(response.data);
       })
       .catch((err) => {
         console.error("Error with getting class names data:", err);
-      });//to set class id when i change the faculty
-
+      }); //to set class id when i change the faculty
   };
 
   useEffect(() => {
-    if(facultyId === "") {
-      return; }
+    if (facultyId === "") {
+      return;
+    }
     setSendFaculty(facultyId);
-    axios
-      .get(`${urlConst.baseURL}api/data/student-class/${facultyId}`)
+    axiosInstance
+      .get(`api/data/student-class/${facultyId}`)
       .then((response) => {
         setClasses(response.data);
       })
       .catch((err) => {
         console.error("Error with getting class names data:", err);
       });
-  }, [facultyId]);//to set the  class classes from outside
+  }, [facultyId]);
 
   const sendClassesChange = (event) => {
     setClassId(event.target.value);
@@ -88,9 +102,9 @@ const EditStudent = () => {
     if (!name || !surname || !gpa || !sendFaculty || !classId) {
       return;
     }
-    axios
-      .post(`${urlConst.baseURL}api/data/edit-student`, {
-        id:  parseparams ,
+    axiosInstance
+      .post(`api/data/edit-student`, {
+        id: parseparams,
         Name: name,
         Surname: surname,
         gpa: gpa,
@@ -104,10 +118,10 @@ const EditStudent = () => {
       .catch(function (error) {
         alert(error.response?.data.message || "Error updating data.");
       });
-  }
+  };
   return (
     <>
-      <Header/>
+      <Header />
       <div className=" flex-items-center justify-center min-h-screen">
         <div className="flex flex-col justify-center p-8 md:p-14">
           <h2 className="text-4xl font-bold text-violet-800 mb-3">
@@ -179,7 +193,7 @@ const EditStudent = () => {
                 value={sendFaculty}
                 onChange={handleFacultyChange}
               >
-                <option >Select a Faculty</option>
+                <option>Select a Faculty</option>
                 {faculties.map((fac: any) => (
                   <option key={fac.id} value={fac.id}>
                     {fac.name}
@@ -220,5 +234,5 @@ const EditStudent = () => {
       </div>
     </>
   );
-}
+};
 export default EditStudent;

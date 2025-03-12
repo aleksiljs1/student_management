@@ -29,3 +29,11 @@ const jwt = await new jose.SignJWT({ 'urn:example:claim': true })
 console.log(jwt)
 
 jose decrypt:https://github.com/panva/jose/blob/HEAD/docs/jwt/decrypt/functions/jwtDecrypt.md
+==================================interceptors==============================================
+request+ responce interceptors(thank roland):https://lightrains.com/blogs/axios-intercepetors-react/
+and:https://sandeepbansod.medium.com/effortless-api-request-handling-in-next-js-with-axios-a-comprehensive-guide-8b424ce403c5
+
+
+redirecting in axios interceptors:https://dev.to/darkmavis1980/how-to-use-axios-interceptors-to-handle-api-error-responses-2ij1
+https://github.com/axios/axios/issues/5144
+window.location.href = '/';

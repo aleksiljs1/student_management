@@ -4,11 +4,17 @@ import { EditStudent } from "@/app/api/services/edit-services/edit-student";
 
 export async function POST(request: Request) {
   try {
-    const { id ,Name, Surname, gpa, faculty, Classes } = await request.json();
+    const { id, Name, Surname, gpa, faculty, Classes } = await request.json();
     //will need to fix variable-naming after it ensuring it works but for now i just whant it to run
-    const editStudent = new EditStudent;
-    const editedStudent= editStudent.getAllStudents(id, Name, Surname, gpa, faculty, Classes)
-
+    const editStudent = new EditStudent();
+    const editedStudent = editStudent.getAllStudents(
+      id,
+      Name,
+      Surname,
+      gpa,
+      faculty,
+      Classes,
+    );
 
     return NextResponse.json(
       { message: "Student edited successfully!", student: editedStudent },

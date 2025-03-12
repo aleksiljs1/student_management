@@ -135,9 +135,31 @@ update-  mund te zgjidhet me nje if = " " return nothing statement SJA KAM IDEN 
 115.make token logic on middle ware if its missiong if you are logged in etc
 116.duhet ta kthej ne middleware
 117.duhet te rregulloj pak llogjiken  e login/registerit
-118.meso ku rruhen dhe rregjistrohen
+--------------------------------middleware---------------------------------------------------------
+118.fix middleware logic
+119.set a global use-effect token that only loads after client loads
+120.set a loading state so get data does not run before the token has arrived
+121.futa header me tokenin ne cdo req delete,edit,createF,createC,createS
+122.make logic so request is sent only after recieving the token and if you have not recieved it at all sent us to login
+123.NVM LEARN INTERCEPTORS INSTEAD
+124.use axios interceptors to attach the token to every request
+125.now add status codes to all
+126.fix axiosinterceptor import redundancy
+127.check toastify doc
+128.perdor toastdy per erroret
+129.tani qe interceptori per te cuar requeste u mesua meso per te mar to fix redundancy
+130. pastaj perdore
+131. futa toastify per exeptions dhe erroret ne request
+132.fix toastify redundancy------------------------
+133.fix axios redundancy
+134. redundancy per kodin e riperdorur
+135.kam shum variabla duhen me pak mos i nda ardhjen dhe cimin
+136.duhet te ndroj menyren si e regullova edit student error me nje menyr tjeter , it looks like sht .
 
-111.tostify
+
+idk kur:
+118.meso ku rruhen dhe rregjistrohen
+119refresh token
 
 
 

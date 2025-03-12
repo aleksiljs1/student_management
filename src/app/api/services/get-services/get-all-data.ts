@@ -2,7 +2,6 @@ import prisma from "@/lib/prisma";
 
 export class AllUniversityService {
   async getAllUniversity() {
-
     return await prisma.faculty.findMany({
       include: {
         classes: {
@@ -12,5 +11,6 @@ export class AllUniversityService {
           },
         },
       },
-    })
-  }}
+    });
+  }
+}

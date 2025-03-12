@@ -17,12 +17,12 @@ function Header() {
   const sendToAddUsers = () => {
     router.push("/add-student");
   };
-  const sendToAddFaculties = ()=>{
+  const sendToAddFaculties = () => {
     router.push("/add-faculty");
-  }
-  const sendToAddClasses  = () =>{
+  };
+  const sendToAddClasses = () => {
     router.push("/add-classes");
-  }
+  };
   const deleteToken = () => {
     localStorage.clear();
     router.push(urlConst.loginRedirect);

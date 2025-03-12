@@ -1,35 +1,33 @@
-"use client"
+"use client";
 import React, { useEffect } from "react";
-import axios from "axios";
 import { urlConst } from "@/consts/path-consts";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import { axiosInstance } from "@/axios";
 
 const AddFaculty = () => {
- const [faculty,setFaculty] = React.useState("");
- const [headOfFaculty,setHeadOfFaculty] = React.useState("");
-
-
+  const [faculty, setFaculty] = React.useState("");
+  const [headOfFaculty, setHeadOfFaculty] = React.useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios
-      .post(`${urlConst.baseURL}api/data/create-faculty`, {
-        facultyName:faculty,
-        facultyHead:headOfFaculty,
+    axiosInstance
+      .post(`api/data/create-faculty`, {
+        facultyName: faculty,
+        facultyHead: headOfFaculty,
       })
       .then(function (response) {
         alert(response.data.message);
         //router.push(urlConst.dashboardRedirect); do this but with faculty dashboard
       })
-      .catch(function (error) {
-        alert(error.response?.data.message || "Error submitting data.");
+      .catch(function (err) {
+        alert(err.response?.data.message || "Error submitting data.");
       });
-  }
+  };
   return (
     <>
-      <Header/>
+      <Header />
       <div className=" flex-items-center justify-center min-h-screen">
         <div className="flex flex-col justify-center p-8 md:p-14">
           <h2 className="text-4xl font-bold text-violet-800 mb-3">
@@ -82,4 +80,3 @@ const AddFaculty = () => {
 };
 
 export default AddFaculty;
-

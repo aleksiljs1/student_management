@@ -17,7 +17,8 @@ const SignIn = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios.post(urlConst.registerUrl, {
+    axios
+      .post(urlConst.registerUrl, {
         userName,
         password,
       })
