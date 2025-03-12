@@ -12,9 +12,7 @@ function Showall() {
 
   const router = useRouter();
   console.log("being read");
-  //waits for client to load to get token so we avoid that dumb ahh error
-  //so i dont reuse the code to ,get token. loading is neccecary as an event lissener
-  //it does not get token in the first render
+
 
   useEffect(() => {
     console.log("useEffect parsing token:");
