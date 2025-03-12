@@ -1,6 +1,4 @@
-# My Next.js Application
-
-This is a **Next.js** project built with NextJS).
+# Student Menagement System
 
 ## 🚀 Features
 
