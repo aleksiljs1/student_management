@@ -4,7 +4,7 @@ function Footer() {
       <div className="flex flex-col items-center">
         <p className="text-sm">&copy; {new Date().getFullYear()} - UniHub</p>
         <p className="text-sm font-semibold">
-          It is 3 am and its finally at the bottom, choose UniHub.
+          The Home of Learning and cradle of knowledge, UniHub.
         </p>
       </div>
     </footer>

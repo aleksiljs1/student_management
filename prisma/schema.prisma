@@ -27,7 +27,7 @@ model Class {
   year      Int
   faculty_id Int
   students Student[]
-  faculty   Faculty @relation(fields: [faculty_id], references: [id])
+  faculty   Faculty @relation(fields: [faculty_id], references: [id],onDelete: Cascade)
   @@unique([name, year, faculty_id])
 }
 
@@ -38,7 +38,7 @@ model Student {
   gpa       Float
   faculty_id Int
   student_class_id   Int
-  faculty   Faculty @relation(fields: [faculty_id], references: [id])
-  student_class Class @relation(fields: [student_class_id ] , references: [id])
+  faculty   Faculty @relation(fields: [faculty_id], references: [id], onDelete: Cascade)
+  student_class Class @relation(fields: [student_class_id ] , references: [id],onDelete: Cascade)
   @@unique([name, surname])
 }

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { FacultyService } from "@/app/api/services/get-services/get-all-faculty";
 
-export async function GET(request: Request) {
+export async function GET() {
   const facultyService = new FacultyService();
 
   try {

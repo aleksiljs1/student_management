@@ -1,7 +1,16 @@
+"use client";
+
+import React from "react";
+import "../globals.css";
+
 import StudentBoard from "@/components/student-board";
 
-const login = () => {
-  return <StudentBoard />;
+const Dashboard = () => {
+  return (
+    <div className="dashboard">
+      <StudentBoard />
+    </div>
+  );
 };
 
-export default login;
+export default Dashboard;

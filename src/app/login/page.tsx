@@ -1,10 +1,11 @@
 "use client";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { urlConst } from "@/consts/path-consts";
 import Header from "@/components/header";
+import { axiosInstance } from "@/axios";
+import { ToastContainer } from "react-toastify";
 
 const Login = () => {
   const [userName, setUserName] = useState("");
@@ -24,23 +25,23 @@ const Login = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios
-      .post(urlConst.loginUrl, {
+    axiosInstance
+      .post(`/api/auth/login`, {
         userName,
         password,
       }) //shorthand method
       .then(function (response) {
-        alert(response.data.message);
-        localStorage.setItem("token", response.data.token);
         router.push(urlConst.dashboardRedirect);
+        const token = response.data.token;
+        if (token) {
+          localStorage.setItem("token", token);
+        }
       })
-      .catch(function (error) {
-        alert(error.response?.data.message);
-      });
   };
 
   return (
     <>
+      <ToastContainer />
       <Header />
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">

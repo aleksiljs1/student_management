@@ -10,7 +10,7 @@ export const getJwtSecretKey = () => {
   if (!secret) {
     throw new Error("SECRET_KEY is not set");
   }
-  return new TextEncoder().encode(secret); // Encode the secret for jose
+  return new TextEncoder().encode(secret);
 };
 
 export const verifyAuth = async (token: string) => {

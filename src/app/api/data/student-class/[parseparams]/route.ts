@@ -13,8 +13,8 @@ export async function GET(
     return NextResponse.json(allclass);
   } catch (error) {
     return NextResponse.json(
-      { message: "error related to class service" },
-      { status: 401 }, //change status
+      { message: "error related to class service", error  },
+      { status: 401 },
     );
   }
 }

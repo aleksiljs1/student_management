@@ -1,52 +1,69 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { axiosInstance } from "@/axios";
-import { Bounce, toast, ToastContainer } from "react-toastify";
+import {ToastContainer } from "react-toastify";
 
-function Showall() {
+function Alldata() {
   const [allData, setAllData] = useState<any[]>([]);
-  const [error, setError] = useState<string | null>(null);
 
   const router = useRouter();
-  console.log("being read");
+
 
 
   useEffect(() => {
-    console.log("useEffect parsing token:");
-    console.log("sending token");
     axiosInstance
       .get(`api/data/dashboard-data`)
       .then((response) => {
-        console.log(response);
+
         setAllData(response.data ?? []);
       })
-      .catch((err) => {
+      .catch(() => {
         setAllData([]);
       });
   }, []);
 
   const handleStudentEdit = (studentId: string) => {
-    router.push(`/edit-student/${studentId}`);
+    router.push(`users/edit/${studentId}`);
+  };
+  const handleFacultyEdit = (facultyId: string) => {
+    router.push(`faculties/edit/${facultyId}`);
+  };
+  const handleClassEdit = (studentId: string) => {
+    router.push(`classes/edit/${studentId}`);
   };
   const handleStudentDelete = (studentId: string) => {
+    const confirmSubmission = window.confirm("Are you sure you want to delete this student?");
+    if (!confirmSubmission) return;
     axiosInstance
       .post(
         `api/data/delete-student`,
         {
           student: studentId,
-        },
-        {},
-      )
-      .then((response) => {
-        alert("student has been deleted:");
-        alert(response.data);
+        })
+      .then(() => {
       })
-      .catch((err) => {
-        console.log(`err is`, err);
-      });
+  };
+  const handleClassDelete = (classId: string) => {
+    const confirmSubmission = window.confirm("Are you sure you want to delete this class?");
+    if (!confirmSubmission) return;
+    axiosInstance
+      .post(
+        `api/data/delete-class`,
+        { classId
+        })
+      .then(() => {
+      })
+  };
+  const handleFacultyDelete = (facultyId: string) => {
+    const confirmSubmission = window.confirm("Are you sure you want to delete this faculty?");
+    if (!confirmSubmission) return;
+    axiosInstance
+      .post(
+        `api/data/delete-faculty`,
+        { facultyId
+        })
   };
 
   return (
@@ -63,8 +80,22 @@ function Showall() {
                   padding: "10px",
                 }}
               >
-                <h2>{faculty.name}</h2>
-
+                <h2>{faculty.name} Head:{faculty.head_of_faculty}
+                  <button
+                    onClick={() => handleFacultyEdit(faculty.id)}
+                    className="bg-blue-600 text-white px-3 py-1 mx-2 rounded-lg hover:bg-white hover:text-blue-600 hover:border hover:border-blue-600 transition"
+                  >
+                    Edit
+                  </button>
+                <button
+                  onClick={() =>
+                    handleFacultyDelete(faculty.id)
+                  }
+                  className="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-white hover:text-red-600 hover:border hover:border-red-600 transition"
+                >
+                  Delete
+                </button>
+                </h2>
                 {faculty.classes.map((cls: any, index) => (
                   <div
                     key={`class-${index}`}
@@ -75,8 +106,26 @@ function Showall() {
                     }}
                   >
                     <h3>
-                      {cls.name} {cls.year}
+                      Class {cls.name} Year {cls.year}
+                      <button
+                        onClick={() => handleClassEdit(cls.id)}
+                        className="bg-blue-600 text-white px-3 py-1 mx-2 rounded-lg hover:bg-white hover:text-blue-600 hover:border hover:border-blue-600 transition"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() =>
+                          handleClassDelete(cls.id)
+                        }
+                        className="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-white hover:text-red-600 hover:border hover:border-red-600 transition"
+                      >
+                        Delete
+                       </button>
+
                     </h3>
+
+
+
                     <ul>
                       {cls.students?.map((student: any) => (
                         <li key={student.student_id}>
@@ -111,4 +160,4 @@ function Showall() {
     </>
   );
 }
-export default Showall;
+export default Alldata;

@@ -38,7 +38,7 @@ export async function middleware(request: NextRequest) {
     );
   }
 
-  //FUNDI!!!!!!!
+
   console.log(`Request Accepted`);
   return NextResponse.next();
 }

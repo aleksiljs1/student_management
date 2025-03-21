@@ -2,27 +2,11 @@
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { urlConst } from "@/consts/path-consts";
+import Link from "next/link";
 
 function Header() {
   const router = useRouter();
-  const sendToLogin = () => {
-    router.push(urlConst.loginRedirect);
-  };
-  const sendToRegister = () => {
-    router.push("/Register");
-  };
-  const sendToHome = () => {
-    router.push(urlConst.dashboardRedirect);
-  };
-  const sendToAddUsers = () => {
-    router.push("/add-student");
-  };
-  const sendToAddFaculties = () => {
-    router.push("/add-faculty");
-  };
-  const sendToAddClasses = () => {
-    router.push("/add-classes");
-  };
+
   const deleteToken = () => {
     localStorage.clear();
     router.push(urlConst.loginRedirect);
@@ -33,7 +17,6 @@ function Header() {
     const token = localStorage.getItem("token");
     setHasTokken(!!token);
   }, [router]);
-
   return (
     <nav className="bg-white shadow-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -45,51 +28,30 @@ function Header() {
           <div className="hidden md:flex space-x-6 flex-1 justify-center">
             {HasTokken ? (
               <>
-                <span
-                  className="text-gray-600 hover:text-violet-600 transition cursor-pointer"
-                  onClick={sendToHome}
-                >
+                <Link href={urlConst.dashboardRedirect} className="text-gray-600 hover:text-violet-600 transition">
                   Home
-                </span>
-                <span
-                  className="text-gray-600 hover:text-violet-600 transition cursor-pointer"
-                  onClick={sendToAddUsers}
-                >
+                </Link>
+                <Link href="/users/add" className="text-gray-600 hover:text-violet-600 transition">
                   Add Users
-                </span>
-                <span
-                  className="text-gray-600 hover:text-violet-600 transition cursor-pointer"
-                  onClick={sendToAddFaculties}
-                >
+                </Link>
+                <Link href="/faculties/add" className="text-gray-600 hover:text-violet-600 transition">
                   Add Faculties
-                </span>
-                <span
-                  className="text-gray-600 hover:text-violet-600 transition cursor-pointer"
-                  onClick={sendToAddClasses}
-                >
+                </Link>
+                <Link href="/classes/add-classes" className="text-gray-600 hover:text-violet-600 transition">
                   Add Class
-                </span>
-                <span
-                  className="text-gray-600 hover:text-red-600 transition cursor-pointer"
-                  onClick={deleteToken}
-                >
+                </Link>
+                <Link href={urlConst.loginRedirect} className="text-gray-600 hover:text-red-600 transition" onClick={deleteToken}>
                   Logout
-                </span>
+                </Link>
               </>
             ) : (
               <>
-                <span
-                  className="text-gray-600 hover:text-violet-600 transition cursor-pointer"
-                  onClick={sendToLogin}
-                >
+                <Link href={urlConst.loginRedirect} className="text-gray-600 hover:text-violet-600 transition">
                   Login
-                </span>
-                <span
-                  className="text-gray-600 hover:text-violet-600 transition cursor-pointer"
-                  onClick={sendToRegister}
-                >
+                </Link>
+                <Link href="/Register" className="text-gray-600 hover:text-violet-600 transition">
                   Register
-                </span>
+                </Link>
               </>
             )}
           </div>
@@ -99,5 +61,6 @@ function Header() {
     </nav>
   );
 }
+
 
 export default Header;

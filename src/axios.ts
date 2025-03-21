@@ -8,6 +8,7 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
+    console.log('we are in interceptors');
     const token = localStorage.getItem("token");
     if (token) {
       config.headers[`Authorization`] = `Bearer ${token}`;
@@ -20,8 +21,23 @@ axiosInstance.interceptors.request.use(
   },
 );
 axiosInstance.interceptors.response.use(
-  (responce) => responce,
+  (response) => {
+    if (response.data?.message) {
+      toast.success(response.data.message, {
+        position: "top-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        theme: "colored",
+      });
+    }
+    return response;
+  },
+
   (error) => {
+
     console.error(`api call failed: ${error}`);
     if (error.response.status === 401) {
       console.log("Unauthorized - Redirecting to login");

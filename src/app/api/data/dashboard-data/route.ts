@@ -9,7 +9,7 @@ export async function GET() {
   } catch (error) {
     return NextResponse.json(
       {
-        message: "error related to the faculty table sening all data",
+        message: "error related to the faculty table sending all data",
         error: error,
       },
       { status: 400 },

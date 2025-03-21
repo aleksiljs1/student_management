@@ -21,12 +21,12 @@ export async function POST(request: Request) {
   const isMatch = await bcrypt.compare(password, userExists.password_hash);
   if (isMatch) {
     const token = await new SignJWT()
-      .setProtectedHeader({ alg: "HS256" }) // shkurt esht algoritmi
+      .setProtectedHeader({ alg: "HS256" })
       .setIssuedAt()
       .setExpirationTime("7d")
-      .sign(new TextEncoder().encode(SECRET_KEY)); // ato presin binary dhe kjo e kthen ne binary
-    //llogjik e ngjashme me jwt e meparshme por sintaks e ndryshme. also i like issued at
-    console.log("SECRET KEY IS :", SECRET_KEY);
+      .sign(new TextEncoder().encode(SECRET_KEY));
+
+
 
     return NextResponse.json({ message: "You have logged in!", token });
   } else {

@@ -1,10 +1,11 @@
 "use client";
 import React from "react";
 import { useState } from "react";
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { urlConst } from "@/consts/path-consts";
 import Header from "@/components/header";
+import { ToastContainer } from "react-toastify";
+import { axiosInstance } from "@/axios";
 
 const SignIn = () => {
   const [userName, setUserName] = useState(""); //hook set up
@@ -17,7 +18,7 @@ const SignIn = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    axios
+    axiosInstance
       .post(urlConst.registerUrl, {
         userName,
         password,
@@ -26,13 +27,11 @@ const SignIn = () => {
         console.log(response);
         router.push(urlConst.loginRedirect);
       })
-      .catch(function (error) {
-        alert(error.response?.data.message || "Error submitting data.");
-      });
   };
 
   return (
     <>
+      <ToastContainer />
       <Header />
       <div className="flex items-center justify-center min-h-screen bg-gray-100">
         <div className="relative flex flex-col m-6 space-y-8 bg-white shadow-2xl rounded-2xl md:flex-row md:space-y-0">
