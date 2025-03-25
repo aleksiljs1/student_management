@@ -31,6 +31,9 @@ function Header() {
                 <Link href={urlConst.dashboardRedirect} className="text-gray-600 hover:text-violet-600 transition">
                   Home
                 </Link>
+                <Link href={"/student-table"} className="text-gray-600 hover:text-violet-600 transition">
+                  Show Students
+                </Link>
                 <Link href="/users/add" className="text-gray-600 hover:text-violet-600 transition">
                   Add Users
                 </Link>
