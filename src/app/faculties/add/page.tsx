@@ -1,18 +1,35 @@
 "use client";
-import React, { useEffect } from "react";
+import React from "react";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { axiosInstance } from "@/axios";
 import { useRouter } from "next/navigation";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 const AddFaculty = () => {
   const [faculty, setFaculty] = React.useState("");
   const [headOfFaculty, setHeadOfFaculty] = React.useState("");
   const router = useRouter();
+
+
+  const validateInputs = () => {
+    const nameRegex = /^[A-Za-z]+$/;
+
+    if (!faculty || !headOfFaculty) {
+      toast.error("All fields are required.");
+      return false;
+    }
+    if (!nameRegex.test(faculty) || !nameRegex.test(headOfFaculty)) {
+      toast.error("Faculty and Faculty head must contain only letters.");
+      return false;
+    }
+    return true;
+  };
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    if (!validateInputs()) return;
     axiosInstance
       .post(`api/data/faculties/add`, {
         facultyName: faculty,

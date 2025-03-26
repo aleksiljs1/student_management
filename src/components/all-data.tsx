@@ -67,97 +67,123 @@ function Alldata() {
   };
 
   return (
-    <>
+    <div className="container mx-auto px-4 py-8">
       <ToastContainer />
-      <div>
-        {allData.length > 0
-          ? allData.map((faculty: any, index) => (
-              <div
-                key={`faculty-${index}`}
-                style={{
-                  border: "2px solid black",
-                  margin: "10px",
-                  padding: "10px",
-                }}
-              >
-                <h2>{faculty.name} Head:{faculty.head_of_faculty}
+
+      <div className="grid gap-6">
+        {allData.length > 0 ? (
+          allData.map((faculty: any, facultyIndex) => (
+            <div
+              key={`faculty-${facultyIndex}`}
+              className="bg-white shadow-lg rounded-xl border border-gray-200 overflow-hidden"
+            >
+              <div className="bg-violet-100 p-4 flex justify-between items-center">
+                <div>
+                  <h2 className="text-2xl font-bold text-violet-800">
+                    {faculty.name}
+                  </h2>
+                  <p className="text-gray-600">Head: {faculty.head_of_faculty}</p>
+                </div>
+                <div className="flex space-x-2">
                   <button
                     onClick={() => handleFacultyEdit(faculty.id)}
-                    className="bg-blue-600 text-white px-3 py-1 mx-2 rounded-lg hover:bg-white hover:text-blue-600 hover:border hover:border-blue-600 transition"
+                    className="text-blue-600 hover:bg-blue-100 p-2 rounded-full transition"
+                    title="Edit Faculty"
                   >
                     Edit
                   </button>
-                <button
-                  onClick={() =>
-                    handleFacultyDelete(faculty.id)
-                  }
-                  className="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-white hover:text-red-600 hover:border hover:border-red-600 transition"
-                >
-                  Delete
-                </button>
-                </h2>
-                {faculty.classes.map((cls: any, index) => (
-                  <div
-                    key={`class-${index}`}
-                    style={{
-                      border: "1px solid gray",
-                      margin: "10px",
-                      padding: "10px",
-                    }}
+                  <button
+                    onClick={() => handleFacultyDelete(faculty.id)}
+                    className="text-red-600 hover:bg-red-100 p-2 rounded-full transition"
+                    title="Delete Faculty"
                   >
-                    <h3>
-                      Class {cls.name} Year {cls.year}
-                      <button
-                        onClick={() => handleClassEdit(cls.id)}
-                        className="bg-blue-600 text-white px-3 py-1 mx-2 rounded-lg hover:bg-white hover:text-blue-600 hover:border hover:border-blue-600 transition"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() =>
-                          handleClassDelete(cls.id)
-                        }
-                        className="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-white hover:text-red-600 hover:border hover:border-red-600 transition"
-                      >
-                        Delete
-                       </button>
+                    Delete
+                  </button>
+                </div>
+              </div>
 
-                    </h3>
+              <div className="p-4 space-y-4">
+                {faculty.classes.map((cls: any, classIndex) => (
+                  <div
+                    key={`class-${classIndex}`}
+                    className="bg-gray-50 rounded-lg p-4 border border-gray-200"
+                  >
+                    <div className="flex justify-between items-center mb-4">
+                      <div>
+                        <h3 className="text-xl font-semibold text-gray-800">
+                          {cls.name} - Year {cls.year}
+                        </h3>
+                      </div>
+                      <div className="flex space-x-2">
+                        <button
+                          onClick={() => handleClassEdit(cls.id)}
+                          className="text-blue-600 hover:bg-blue-100 p-2 rounded-full transition"
+                          title="Edit Class"
+                        >
+                          Edit
+                        </button>
+                        <button
+                          onClick={() => handleClassDelete(cls.id)}
+                          className="text-red-600 hover:bg-red-100 p-2 rounded-full transition"
+                          title="Delete Class"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </div>
 
-
-
-                    <ul>
-                      {cls.students?.map((student: any) => (
-                        <li key={student.student_id}>
-                          {student.name} {student.surname} | GPA: {student.gpa}
-                          <div className="space-x-2">
-                            <button
-                              onClick={() =>
-                                handleStudentEdit(student.student_id)
-                              }
-                              className="bg-violet-800 text-white px-3 py-1 rounded-lg hover:bg-white hover:text-violet-800 hover:border hover:border-violet-800 transition"
-                            >
-                              Edit
-                            </button>
-                            <button
-                              onClick={() =>
-                                handleStudentDelete(student.student_id)
-                              }
-                              className="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-white hover:text-red-600 hover:border hover:border-red-600 transition"
-                            >
-                              Delete
-                            </button>
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-sm text-left text-gray-600">
+                        <thead className="bg-gray-100 text-xs text-gray-700 uppercase">
+                        <tr>
+                          <th className="px-4 py-2">Name</th>
+                          <th className="px-4 py-2">Surname</th>
+                          <th className="px-4 py-2">GPA</th>
+                          <th className="px-4 py-2">Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {cls.students?.map((student: any) => (
+                          <tr
+                            key={student.student_id}
+                            className="border-b hover:bg-gray-100 transition"
+                          >
+                            <td className="px-4 py-2">{student.name}</td>
+                            <td className="px-4 py-2">{student.surname}</td>
+                            <td className="px-4 py-2">{student.gpa}</td>
+                            <td className="px-4 py-2 flex space-x-2">
+                              <button
+                                onClick={() => handleStudentEdit(student.student_id)}
+                                className="text-violet-600 hover:bg-violet-100 p-2 rounded-full transition"
+                                title="Edit Student"
+                              >
+                                Edit
+                              </button>
+                              <button
+                                onClick={() => handleStudentDelete(student.student_id)}
+                                className="text-red-600 hover:bg-red-100 p-2 rounded-full transition"
+                                title="Delete Student"
+                              >
+                                Delete
+                              </button>
+                            </td>
+                          </tr>
+                        ))}
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 ))}
               </div>
-            ))
-          : null}
+            </div>
+          ))
+        ) : (
+          <div className="text-center py-12 bg-white shadow rounded-lg">
+            <p className="text-gray-500 text-xl">No data available</p>
+          </div>
+        )}
       </div>
-    </>
+    </div>
   );
 }
 export default Alldata;

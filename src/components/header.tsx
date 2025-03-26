@@ -35,7 +35,7 @@ function Header() {
                   Show Students
                 </Link>
                 <Link href="/users/add" className="text-gray-600 hover:text-violet-600 transition">
-                  Add Users
+                  Add Students
                 </Link>
                 <Link href="/faculties/add" className="text-gray-600 hover:text-violet-600 transition">
                   Add Faculties

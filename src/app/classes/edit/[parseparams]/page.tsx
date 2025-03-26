@@ -5,7 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { urlConst } from "@/consts/path-consts";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 
 
@@ -39,9 +39,24 @@ const EditClass = () => {
       })
   }, []);
 
+  const validateInputs = () => {
+    const nameRegex = /^[A-Za-z]+$/;
+
+    if (!classes|| !facultyId || year === "" ) {
+      toast.error("All fields are required.");
+      return false;
+    }
+    if (!nameRegex.test(classes) ) {
+      toast.error("Class name must contain only letters.");
+      return false;
+    }
+    return true;
+  };
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!validateInputs()) return;
     const confirmSubmission = window.confirm("Are you sure you want to edit this class?");
     if (!confirmSubmission) return;
     axiosInstance

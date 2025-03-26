@@ -4,7 +4,7 @@ import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { useRouter } from "next/navigation";
 import { axiosInstance } from "@/axios";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 const AddClass = () => {
   const [className, setClassName] = React.useState("");
@@ -29,9 +29,24 @@ const AddClass = () => {
         setFaculty(response.data);
       })
   }, []);
+
+  const validateInputs = () => {
+    const nameRegex = /^[A-Za-z]+$/;
+
+    if (!className|| !sendFaculty || year === "" ) {
+      toast.error("All fields are required.");
+      return false;
+    }
+    if (!nameRegex.test(className) ) {
+      toast.error("Class name must contain only letters.");
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-
+    if (!validateInputs()) return;
     axiosInstance
       .post(`api/data/classes/add`, {
         className: className,

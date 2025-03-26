@@ -5,6 +5,7 @@ import { useParams, useRouter } from "next/navigation";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
 import { urlConst } from "@/consts/path-consts";
+import { toast, ToastContainer } from "react-toastify";
 
 
 
@@ -26,9 +27,23 @@ const EditFaculty = () => {
       });
   }, []);
 
+  const validateInputs = () => {
+    const nameRegex = /^[A-Za-z]+$/;
+
+    if (!faculty || !headOfFaculty) {
+      toast.error("All fields are required.");
+      return false;
+    }
+    if (!nameRegex.test(faculty) || !nameRegex.test(headOfFaculty)) {
+      toast.error("Faculty and Faculty head must contain only letters.");
+      return false;
+    }
+    return true;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!validateInputs()) return;
     const confirmSubmission = window.confirm("Are you sure you want to edit this faculty?");
     if (!confirmSubmission) return;
     axiosInstance
@@ -47,6 +62,7 @@ const EditFaculty = () => {
   }
   return (
     <>
+      <ToastContainer />
       <Header />
       <div className=" flex-items-center justify-center min-h-screen">
         <div className="flex flex-col justify-center p-8 md:p-14">

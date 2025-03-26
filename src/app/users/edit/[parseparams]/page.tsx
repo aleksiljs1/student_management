@@ -4,7 +4,7 @@ import { useParams, useRouter } from "next/navigation";
 import { urlConst } from "@/consts/path-consts";
 import Header from "@/components/header";
 import { axiosInstance } from "@/axios";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 
 const EditStudent = () => {
   const { parseparams } = useParams();
@@ -51,7 +51,19 @@ const EditStudent = () => {
         setClasses(response.data);
       })
   };
+  const validateInputs = () => {
+    const nameRegex = /^[A-Za-z]+$/;
 
+    if (!name || !surname || gpa === "" || !sendFaculty || !classId) {
+      toast.error("All fields are required.");
+      return false;
+    }
+    if (!nameRegex.test(name) || !nameRegex.test(surname)) {
+      toast.error("Name and Surname must contain only letters.");
+      return false;
+    }
+    return true;
+  };
   useEffect(() => {
     if (facultyId === "") {
       return;
@@ -69,9 +81,8 @@ const EditStudent = () => {
   };
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (!name || !surname || !gpa || !sendFaculty || !classId) {
-      return;
-    }
+    if (!validateInputs()) return;
+
     const confirmSubmission = window.confirm("Are you sure you want to edit this student?");
     if (!confirmSubmission) return;
     axiosInstance
