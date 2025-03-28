@@ -60,8 +60,7 @@ const EditClass = () => {
     const confirmSubmission = window.confirm("Are you sure you want to edit this class?");
     if (!confirmSubmission) return;
     axiosInstance
-      .post(`api/data/classes/edit`, {
-        id: parseparams,
+      .put(`/api/data/classes/edit/${parseparams}`, {
         className: classes,
         year: year,
         faculty: facultyId,
@@ -69,7 +68,7 @@ const EditClass = () => {
       .then(function() {
         router.push(urlConst.dashboardRedirect);
       })
-  }
+  } // id needs to be send as a param not an object/with a variable in it
   return (<>
     <ToastContainer />
     <Header />

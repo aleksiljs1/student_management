@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { axiosInstance } from "@/axios";
 import {ToastContainer } from "react-toastify";
+import { urlConst } from "@/consts/path-consts";
 
 function Alldata() {
   const [allData, setAllData] = useState<any[]>([]);
@@ -33,37 +34,22 @@ function Alldata() {
   const handleClassEdit = (studentId: string) => {
     router.push(`classes/edit/${studentId}`);
   };
-  const handleStudentDelete = (studentId: string) => {
+  const handleStudentDelete = async (studentId: string) => {
     const confirmSubmission = window.confirm("Are you sure you want to delete this student?");
     if (!confirmSubmission) return;
-    axiosInstance
-      .post(
-        `api/data/delete-student`,
-        {
-          student: studentId,
-        })
-      .then(() => {
-      })
-  };
-  const handleClassDelete = (classId: string) => {
+    await axiosInstance.delete(`api/data/users/delete/${studentId}`);
+  }
+    const handleClassDelete = async (classId: string) => {
     const confirmSubmission = window.confirm("Are you sure you want to delete this class?");
     if (!confirmSubmission) return;
-    axiosInstance
-      .post(
-        `api/data/delete-class`,
-        { classId
-        })
-      .then(() => {
-      })
+    await axiosInstance.delete(`api/data/classes/delete/${classId}`);
   };
-  const handleFacultyDelete = (facultyId: string) => {
+  const handleFacultyDelete =  async (facultyId: string) => {
     const confirmSubmission = window.confirm("Are you sure you want to delete this faculty?");
     if (!confirmSubmission) return;
-    axiosInstance
-      .post(
-        `api/data/delete-faculty`,
-        { facultyId
-        })
+
+await axiosInstance.delete(`api/data/faculties/delete/${facultyId}`);
+
   };
 
   return (

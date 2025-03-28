@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 import { DeleteStudent } from "@/app/api/services/delete-services/delete-student";
 
-export async function POST(request: Request) {
+export async function DELETE(request: Request, { params }: { params: { parseparams: string } }) {
   try {
-    const { student } = await request.json();
+    const { parseparams } = params;
     const studentId = new DeleteStudent();
-    const deletedStudent = await  studentId.deleteStudent(student);
+    const deletedStudent = await  studentId.deleteStudent(parseparams);
 
     return NextResponse.json(
       { message: "Student deleted successfully!", student: deletedStudent },

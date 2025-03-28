@@ -86,8 +86,7 @@ const EditStudent = () => {
     const confirmSubmission = window.confirm("Are you sure you want to edit this student?");
     if (!confirmSubmission) return;
     axiosInstance
-      .post(`api/data/users/edit`, {
-        id: parseparams,
+      .put(`api/data/users/edit/${parseparams}`, {
         Name: name,
         Surname: surname,
         gpa: gpa,

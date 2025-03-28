@@ -28,7 +28,7 @@ const EditFaculty = () => {
   }, []);
 
   const validateInputs = () => {
-    const nameRegex = /^[A-Za-z]+$/;
+    const nameRegex = /^[A-Za-z\s-]+$/;
 
     if (!faculty || !headOfFaculty) {
       toast.error("All fields are required.");
@@ -47,8 +47,7 @@ const EditFaculty = () => {
     const confirmSubmission = window.confirm("Are you sure you want to edit this faculty?");
     if (!confirmSubmission) return;
     axiosInstance
-      .post(`api/data/faculties/edit`, {
-        id: parseparams,
+      .put(`api/data/faculties/edit/${parseparams}`, {
         Name: faculty,
         HeadOfFaculty: headOfFaculty,
 

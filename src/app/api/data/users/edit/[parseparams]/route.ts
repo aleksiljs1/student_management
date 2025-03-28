@@ -1,13 +1,14 @@
 import { NextResponse } from "next/server";
 import { EditStudent } from "@/app/api/services/edit-services/edit-student";
 
-export async function POST(request: Request) {
+export async function PUT(request: Request, { params }: { params: { parseparams: string } }) {
   try {
-    const { id, Name, Surname, gpa, faculty, Classes } = await request.json();
+    const {  Name, Surname, gpa, faculty, Classes } = await request.json();
+    const {parseparams} =  params;
 
     const editStudent = new EditStudent();
     const editedStudent = await editStudent.getAllStudents(
-      id,
+      parseparams,
       Name,
       Surname,
       gpa,
