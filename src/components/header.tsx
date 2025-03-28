@@ -40,7 +40,7 @@ function Header() {
                 <Link href="/faculties/add" className="text-gray-600 hover:text-violet-600 transition">
                   Add Faculties
                 </Link>
-                <Link href="/classes/add-classes" className="text-gray-600 hover:text-violet-600 transition">
+                <Link href="/classes/add" className="text-gray-600 hover:text-violet-600 transition">
                   Add Class
                 </Link>
                 <Link href={urlConst.loginRedirect} className="text-gray-600 hover:text-red-600 transition" onClick={deleteToken}>

@@ -49,7 +49,6 @@ function Alldata() {
     if (!confirmSubmission) return;
 
 await axiosInstance.delete(`api/data/faculties/delete/${facultyId}`);
-
   };
 
   return (

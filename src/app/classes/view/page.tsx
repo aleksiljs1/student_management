@@ -39,19 +39,16 @@ export default function StudentTable() {
   }, [currentPage, query]);
 
 
-  const handleClassDelete = async (Id: string) => {
-    const confirmSubmission = window.confirm("Are you sure you want to delete this Class?");
+  const handleStudentDelete = async (studentId: string) => {
+    const confirmSubmission = window.confirm("Are you sure you want to delete this student?");
     if (!confirmSubmission) return;
+    await axiosInstance.delete(`api/data/users/delete/${studentId}`);
+  }
+  const handleStudentEdit = (studentId: string) => {
 
-    try {
-      await axiosInstance.post("/api/data/delete-class", { student: Id });
-      fetchClasses(currentPage, query);
-    } catch (error) {
-      console.error("error is :", error);
-    }
-  };
-  const handleClassEdit = (Id: string) => {
-    router.push(`/classes/edit/${Id}`);
+    const confirmSubmission = window.confirm("Are you sure you want to edit this student?");
+    if (!confirmSubmission) return;
+    router.push(`users/edit/${studentId}`);
   };
   const handlePagination = (newPage: number) => {
     const params = new URLSearchParams(searchParams);
@@ -98,13 +95,13 @@ export default function StudentTable() {
                   <td className="border p-2">{student.student_class.year}</td>
                   <td className="border p-2">
                     <button
-                      onClick={() => handleClassEdit(student.student_id)}
+                      onClick={() => handleStudentEdit(student.student_id)}
                       className="bg-violet-800 text-white px-3 py-1 rounded-lg hover:bg-white hover:text-violet-800 hover:border hover:border-violet-800 transition mr-1"
                     >
                       Edit
                     </button>
                     <button
-                      onClick={() => handleClassDelete(student.student_id)}
+                      onClick={() => handleStudentDelete(student.student_id)}
                       className="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-white hover:text-red-600 hover:border hover:border-red-600 transition"
                     >
                       Delete
