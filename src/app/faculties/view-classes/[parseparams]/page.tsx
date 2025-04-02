@@ -1,134 +1,120 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { axiosInstance } from "@/axios";
-import { useParams, useRouter } from "next/navigation";
+
+import { ToastContainer } from "react-toastify";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
-import { toast, ToastContainer } from "react-toastify";
-import { urlConst } from "@/consts/path-consts";
+import { useRouter, useParams, useSearchParams } from "next/navigation";
+import { axiosInstance } from "@/axios";
+import React, { useEffect, useState } from "react";
 
+export default function ClassesTable() {
+  const [classes, setClasses] = useState([]);
+  const [facultyName, setFacultyName] = useState("");
+  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(false);
 
-type ClassData = {
-  className: string;
-  classYear: number;
-  avgGpa: number;
-};
-
-const EditFaculties = () => {
   const { parseparams } = useParams();
-  const [classes, setClasses] = useState<ClassData[]>([]);
-  const [className, setClassName] = useState("");
-  const [classYear, setClassYear] = useState("");
+  const searchParams = useSearchParams();
   const router = useRouter();
 
+  const currentPage = Number(searchParams.get("page")) || 1;
+  const query = searchParams.get("query") || "";
+
   useEffect(() => {
-    axiosInstance
-      .get(`api/data/classes/view/faculty-class/${parseparams}`)
-      .then((response) => {
-        setClasses(response.data.classes);
-      })
-      .catch(() => {
-        toast.error("Error fetching classes data");
-      });
-  }, [parseparams]);
+    fetchClasses(currentPage, query);
+  }, [currentPage, query]);
 
+  const fetchClasses = async (page: number, search: string) => {
+    setLoading(true);
+    try {
+      const response =await axiosInstance.get(`/api/data/classes/view/get-classes-data/${parseparams}?page=${page}&query=${search}`);
+      setClasses(response.data.classes);
+      setFacultyName(response.data.classes[0]?.facultyName || "");
+      setTotalPages(response.data.totalPages);
+    } catch (error) {
+      console.error("Error fetching classes: ", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  const handlePagination = (newPage: number) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("page", newPage.toString());
+    router.push(`?${params.toString()}`);
+  };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-
-    const confirmSubmission = window.confirm(
-      "Are you sure you want to edit this class?"
-    );
-    if (!confirmSubmission) return;
-
-    axiosInstance
-      .put(`api/data/classes/edit/${parseparams}`, {
-        name: className,
-        year: parseInt(classYear),
-      })
-      .then((response) => {
-        alert(response.data.message);
-        router.push(urlConst.dashboardRedirect);
-      })
-      .catch(() => {
-        toast.error("Error updating class data");
-      });
+  const handleSearch = (searchQuery: string) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("query", searchQuery);
+    params.set("page", "1");
+    router.push(`?${params.toString()}`);
   };
 
   return (
     <>
       <ToastContainer />
       <Header />
-      <div className="flex-items-center justify-center min-h-screen">
-        <div className="flex flex-col justify-center p-8 md:p-14">
-          <h2 className="text-4xl font-bold text-violet-800 mb-3">
-            Edit Classes
-          </h2>
-          <p className="font-light text-gray-500 mb-8">
-            Input class details
-          </p>
-          <form onSubmit={handleSubmit}>
-            <div className="flex flex-col">
-              <label htmlFor="class-name" className="mb-1 text-gray-700 font-medium">
-                Class Name:
-              </label>
-              <input
-                type="text"
-                name="class-name"
-                id="class-name"
-                placeholder="Class Name"
-                className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
-                value={className}
-                onChange={(e) => setClassName(e.target.value)}
-              />
-            </div>
-            <div className="flex flex-col mt-4">
-              <label htmlFor="class-year" className="mb-1 text-gray-700 font-medium">
-                Class Year:
-              </label>
-              <input
-                type="number"
-                name="class-year"
-                id="class-year"
-                placeholder="Class Year"
-                className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
-                value={classYear}
-                onChange={(e) => setClassYear(e.target.value)}
-              />
-            </div>
-            <button
-              type="submit"
-              className="w-full p-3 mt-4 bg-violet-600 text-white font-bold rounded-md hover:bg-violet-700 transition"
-            >
-              Submit
-            </button>
-          </form>
-
-          <h3 className="text-2xl font-bold text-violet-800 mt-8">Existing Classes</h3>
-          {classes.length > 0 ? (
-            <ul className="mt-4 space-y-2">
-              {classes.map((classes, index) => (
-                <li
-                  key={index}
-                  className="p-4 bg-gray-100 rounded-md shadow-md flex justify-between"
-                >
-    <span>
-      {classes.className} - {classes.classYear}
-    </span>
-                  <span>GPA: {classes.avgGpa.toFixed(2)}</span>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p className="mt-4 text-gray-500">No classes available</p>
-          )}
+      <div className="p-4">
+        <h1 className="text-2xl font-bold mb-4">Faculty: {facultyName}</h1>
+        <div className="mb-4">
+          <input
+            type="text"
+            placeholder="Search classes..."
+            onChange={(e) => handleSearch(e.target.value)}
+            className="p-2 border rounded mb-4"
+          />
         </div>
+        {loading ? (
+          <p className="text-2xl">Loading...</p>
+        ) : (
+          <>
+            <table className="table-auto w-full border-collapse border border-gray-200">
+              <thead className="text-violet-600">
+              <tr className="bg-gray-100">
+                <th className="border p-2">Class Name</th>
+                <th className="border p-2">Year</th>
+                <th className="border p-2">No. of Students</th>
+                <th className="border p-2">Average GPA</th>
+                <th className="border p-2">Median GPA</th>
+              </tr>
+              </thead>
+              <tbody>
+              {classes.map((classItem: any, index: number) => (
+                <tr key={index} className="border">
+                  <td className="border p-2">{classItem.className}</td>
+                  <td className="border p-2">{classItem.classYear}</td>
+                  <td className="border p-2">{classItem.numOfStudents}</td>
+                  <td className="border p-2">{classItem.avgGpa}</td>
+                  <td className="border p-2">{classItem.medianGpa}</td>
+                </tr>
+              ))}
+              </tbody>
+            </table>
+
+            <div className="flex justify-center mt-4 gap-2">
+              <button
+                onClick={() => handlePagination(Math.max(currentPage - 1, 1))}
+                disabled={currentPage === 1}
+                className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+              >
+                Previous
+              </button>
+              <span className="px-4 py-2">
+                Page {currentPage} of {totalPages}
+              </span>
+              <button
+                onClick={() => handlePagination(Math.min(currentPage + 1, totalPages))}
+                disabled={currentPage === totalPages}
+                className="px-4 py-2 bg-gray-300 rounded disabled:opacity-50"
+              >
+                Next
+              </button>
+            </div>
+          </>
+        )}
       </div>
       <Footer />
     </>
   );
-};
-
-export default EditFaculties;
+}

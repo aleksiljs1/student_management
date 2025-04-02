@@ -1,61 +1,84 @@
+import { Prisma } from "@prisma/client";
 import prisma from "@/lib/prisma";
 
-export class FacultyTableData {
-  async getFacultyTableData(id: string) {
+export class ClassesTable {
+  async getClassesTable(
+    id: string | null,
+    page: number,
+    pageSize: number,
+    search?: string,
+  ) {
+    const skip = (page - 1) * pageSize;
 
-    const faculty = await prisma.faculty.findUnique({
-      where: { id: parseInt(id) },
-      select: {
-        name: true,
-        classes: {
-          select: {
-            name: true,
-            year: true,
-            students: {
-              select: {
-                gpa: true,
-              },
+    const Searching: Prisma.ClassWhereInput = search
+      ? {
+        name: {
+          contains: search,
+          mode: "insensitive",
+        },
+      }
+      : {};
+
+    if (id == null) {
+      return { classes: [], totalPages: 0 };
+    }
+
+    const [classes, totalClasses] = await Promise.all([
+      prisma.class.findMany({
+        skip,
+        take: pageSize,
+        where: {
+          AND: [{ faculty_id: parseInt(id) }, Searching],
+        },
+        select: {
+          name: true,
+          year: true,
+          students: {
+            select: {
+              gpa: true,
+            },
+          },
+          faculty: {
+            select: {
+              name: true,
             },
           },
         },
-      },
-    });
+      }),
+      prisma.class.count({
+        where: {
+          AND: [{ faculty_id: parseInt(id) }, Searching],
+        },
+      }),
+    ]);
 
-
-    if (!faculty) {
-      return { classes: [] };
-    }
-
-
-    const classData = faculty.classes.map((classItem) => {
-      const studentCount = classItem.students.length;
-
-
+    const classesDto = classes.map((currentClass) => {
+      const studentCount = currentClass.students.length;
       let gpaSum = 0;
-      for (const student of classItem.students) {
+
+      for (const student of currentClass.students) {
         gpaSum += student.gpa;
       }
-      const avgGpa = studentCount > 0 ? gpaSum / studentCount : 0;
+      const avgGpa = gpaSum / studentCount;
 
-
-      const sortedGpas = classItem.students
-        .map(student => student.gpa)
+      const sortedGpas = currentClass.students
+        .map((student) => student.gpa)
         .sort((a, b) => a - b);
 
-      const medianGpa =
-        studentCount > 0
-          ? sortedGpas[Math.ceil(studentCount / 2) - 1]
-          : 0;
+      const medianGpa = sortedGpas[Math.ceil(studentCount / 2) - 1];
 
       return {
-        className: classItem.name,
-        classYear: classItem.year,
+        className: currentClass.name,
+        classYear: currentClass.year,
         numOfStudents: studentCount,
         avgGpa,
         medianGpa,
+        facultyName: currentClass.faculty.name,
       };
     });
 
-    return { classes: classData };
+    const totalPages = Math.ceil(totalClasses / pageSize);
+
+    return { classes: classesDto, totalPages, currentPage: page };
   }
 }

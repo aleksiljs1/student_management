@@ -7,8 +7,8 @@ import { ToastContainer } from "react-toastify";
 import Search from "@/components/search";
 import React, { useEffect, useState } from "react";
 
-// need classname / class year / number of students in class /average gpa
-export default function StudentTable() {
+
+export default function View() {
   const [students, setClasses] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);

@@ -113,7 +113,6 @@ const EditFaculty = () => {
       </div>
       <Footer />
 
-
     </>
   )
 
