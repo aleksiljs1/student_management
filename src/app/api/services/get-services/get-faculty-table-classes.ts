@@ -33,6 +33,7 @@ export class ClassesTable {
         select: {
           name: true,
           year: true,
+          id: true,
           students: {
             select: {
               gpa: true,
@@ -70,6 +71,7 @@ export class ClassesTable {
       return {
         className: currentClass.name,
         classYear: currentClass.year,
+        classId: currentClass.id,
         numOfStudents: studentCount,
         avgGpa,
         medianGpa,

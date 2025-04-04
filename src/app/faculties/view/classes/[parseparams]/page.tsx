@@ -27,7 +27,7 @@ export default function ClassesTable() {
   const fetchClasses = async (page: number, search: string) => {
     setLoading(true);
     try {
-      const response =await axiosInstance.get(`/api/data/classes/view/get-classes-data/${parseparams}?page=${page}&query=${search}`);
+      const response =await axiosInstance.get(`/api/data/faculties/view/classes/${parseparams}?page=${page}&query=${search}`);
       setClasses(response.data.classes);
       setFacultyName(response.data.classes[0]?.facultyName || "");
       setTotalPages(response.data.totalPages);
@@ -35,6 +35,7 @@ export default function ClassesTable() {
       console.error("Error fetching classes: ", error);
     } finally {
       setLoading(false);
+
     }
   };
 
@@ -51,6 +52,24 @@ export default function ClassesTable() {
     router.push(`?${params.toString()}`);
   };
 
+  const handleExpandClass = (Id: string) => {
+    router.push(`/faculties/view/classes/students/${Id}`);
+  };
+  const handleClassEdit = (id: string) => {
+    router.push(`/classes/edit/${id}`)
+  };
+  const handleClassDelete = async (Id: string) => {
+    const confirmSubmission = window.confirm("Are you sure you want to delete this student?");
+    if (!confirmSubmission) return;
+
+    try {
+      await axiosInstance.delete(`/api/data/classes/delete/${Id}`);
+
+      await fetchClasses(currentPage, query);
+    } catch (error) {
+      console.error("error is :", error);
+    }
+  };
   return (
     <>
       <ToastContainer />
@@ -69,6 +88,8 @@ export default function ClassesTable() {
           <p className="text-2xl">Loading...</p>
         ) : (
           <>
+
+
             <table className="table-auto w-full border-collapse border border-gray-200">
               <thead className="text-violet-600">
               <tr className="bg-gray-100">
@@ -77,6 +98,7 @@ export default function ClassesTable() {
                 <th className="border p-2">No. of Students</th>
                 <th className="border p-2">Average GPA</th>
                 <th className="border p-2">Median GPA</th>
+                <th className="border p-2">Actions</th>
               </tr>
               </thead>
               <tbody>
@@ -87,6 +109,27 @@ export default function ClassesTable() {
                   <td className="border p-2">{classItem.numOfStudents}</td>
                   <td className="border p-2">{classItem.avgGpa}</td>
                   <td className="border p-2">{classItem.medianGpa}</td>
+                  <td className="border p-2">
+                    <button
+                      onClick={() => handleExpandClass(classItem.classId)}
+                      className="bg-violet-800 text-white px-3 py-1 rounded-lg hover:bg-white hover:text-violet-800 hover:border hover:border-violet-800 transition mr-1"
+                    >
+                      Expand
+                    </button>
+                    <button
+                      onClick={() => handleClassEdit(classItem.classId)}
+                      className="bg-violet-800 text-white px-3 py-1 rounded-lg hover:bg-white hover:text-violet-800 hover:border hover:border-violet-800 transition mr-1"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleClassDelete(classItem.classId)}
+                      className="bg-red-600 text-white px-3 py-1 rounded-lg hover:bg-white hover:text-red-600 hover:border hover:border-red-600 transition"
+                    >
+                      Delete
+                    </button>
+
+                  </td>
                 </tr>
               ))}
               </tbody>

@@ -1,7 +1,6 @@
+
 import { NextResponse } from "next/server";
-import { ClassesTable } from "@/app/api/services/get-services/get-faculty-table-classes";
-
-
+import { StudentTable } from "@/app/api/services/get-services/get-student-class-table";
 
 export async function GET(
   request: Request,
@@ -16,10 +15,10 @@ export async function GET(
   const query = searchParams.get("query") || "";
 
 
-  const Classtable = new ClassesTable();
+  const classtable = new StudentTable;
 
   try {
-    const result = await Classtable.getClassesTable(parseparams,page, pageSize, query);
+    const result = await classtable.getStudentTable(parseparams,page, pageSize, query);
     return NextResponse.json(result);
   } catch (error) {
     return NextResponse.json({ message: "Server Error" }, { status: 500 });

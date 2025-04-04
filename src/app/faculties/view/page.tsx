@@ -25,7 +25,7 @@ export default function Faculties() {
     setLoading(true);
     try {
       const response = await axiosInstance.get(
-        `/api/data/faculties/get-faculties-data?page=${page}&query=${search}`
+        `/api/data/faculties/view?page=${page}&query=${search}`
       );
 
       setFaculties(response.data.data);
@@ -35,7 +35,7 @@ export default function Faculties() {
     }
   };
   const handleExpandClass = (facultyId: string) => {
-    router.push(`/faculties/edit/${facultyId}`)
+    router.push(`/faculties/view/classes/${facultyId}`)
   }
   const handleFacultyEdit = (facultyId: string) => {
     router.push(`/faculties/edit/${facultyId}`)

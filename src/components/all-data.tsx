@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { axiosInstance } from "@/axios";
 import {ToastContainer } from "react-toastify";
-import { urlConst } from "@/consts/path-consts";
+
 
 function Alldata() {
   const [allData, setAllData] = useState<any[]>([]);
