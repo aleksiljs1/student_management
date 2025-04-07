@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { ClassesTable } from "@/app/api/services/get-services/get-faculty-table-classes";
+import { ClassesTable } from "@/app/api/services/faculties/view/classes/get-faculty-table-classes";
 
 
 

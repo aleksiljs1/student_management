@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { CreateFaculty } from "@/app/api/services/create-services/create-faculty";
+import { CreateFaculty } from "@/app/api/services/faculties/add/create-faculty";
 
 export async function POST(request: Request) {
   try {

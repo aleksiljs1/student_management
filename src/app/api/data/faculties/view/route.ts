@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { FacultiesTable } from "@/app/api/services/get-services/get-faculty-table";
+import { FacultiesTable } from "@/app/api/services/faculties/view/get-faculty-table";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

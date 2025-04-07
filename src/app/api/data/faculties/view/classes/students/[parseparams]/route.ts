@@ -1,6 +1,6 @@
 
 import { NextResponse } from "next/server";
-import { StudentTable } from "@/app/api/services/get-services/get-student-class-table";
+import { StudentTable } from "@/app/api/services/faculties/view/classes/students/get-student-class-table";
 
 export async function GET(
   request: Request,

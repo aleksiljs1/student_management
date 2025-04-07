@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { DeleteFaculty } from "@/app/api/services/delete-services/delete-faculty";
+import { DeleteFaculty } from "@/app/api/services/faculties/delete/delete-faculty";
 
 export async function DELETE(request: Request, { params }: { params: { parseparams: string } }) {
   try {
