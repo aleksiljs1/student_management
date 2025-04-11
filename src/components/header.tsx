@@ -28,8 +28,8 @@ function Header() {
           <div className="hidden md:flex space-x-6 flex-1 justify-center">
             {HasTokken ? (
               <>
-                <Link href={urlConst.dashboardRedirect} className="text-gray-600 hover:text-violet-600 transition">
-                  Home
+                <Link href={"/Show-All"} className="text-gray-600 hover:text-violet-600 transition">
+                  Show All
                 </Link>
 
                 <Link href={"/faculties/view"} className="text-gray-600 hover:text-violet-600 transition">

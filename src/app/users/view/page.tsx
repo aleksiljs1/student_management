@@ -6,6 +6,7 @@ import Footer from "@/components/footer";
 import { useRouter, useSearchParams } from "next/navigation";
 import { ToastContainer } from "react-toastify";
 import Search from "@/components/search";
+import GpaDistributionChart from "@/components/gpa-distribution";
 
 export default function StudentTable() {
   const [students, setStudents] = useState([]);
@@ -40,7 +41,7 @@ export default function StudentTable() {
 
     try {
       await axiosInstance.post("/api/data/delete-student", { student: studentId });
-      // Refresh data after deletion
+      // refresh data after deletion
       fetchStudents(currentPage, query);
     } catch (error) {
       console.error("error is :", error);
@@ -146,10 +147,13 @@ export default function StudentTable() {
                   Next
                 </button>
               </div>
+              <GpaDistributionChart/>
             </>
           )}
         </div>
+
       </div>
+
       <Footer />
     </>
   );

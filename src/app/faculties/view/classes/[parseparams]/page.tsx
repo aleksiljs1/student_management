@@ -80,7 +80,7 @@ export default function ClassesTable() {
     }
   };
 
-  // Chart data for Average GPA per Class
+  // Chart data for Average GPA per Class DONT TOUCH THIS ANY MORE
   const barChartData = {
     labels: classes.map((c: any) => c.className),
     datasets: [

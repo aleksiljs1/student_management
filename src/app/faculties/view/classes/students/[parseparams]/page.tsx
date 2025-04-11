@@ -8,11 +8,9 @@ import Header from "@/components/header";
 import Search from "@/components/search";
 import Footer from "@/components/footer";
 
-export default function StudentTable() {
+export default function ClassStudentTable() {
   const [students, setStudents] = useState([]);
-  const [className, setClassName] = useState(""); //change from classname reserved keyword
-  const [classYear, setClassYear] = useState("");
-  const [facultyName, setFacultyName] = useState("");
+
   const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
 
@@ -35,9 +33,6 @@ export default function StudentTable() {
       );
 
       setStudents(response.data.students);
-      setClassName(response.data.className);
-      setClassYear(response.data.classYear);
-      setFacultyName(response.data.facultyName);
       setTotalPages(response.data.totalPages);
     } catch (error) {
       console.error("Error fetching students:", error);
