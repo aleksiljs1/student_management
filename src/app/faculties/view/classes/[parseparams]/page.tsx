@@ -95,7 +95,7 @@ export default function ClassesTable() {
     ],
   };
 
-  // Chart data for Number of Students per Class
+  // Chart side-data for Number of Students per Class
   const pieChartData = {
     labels: classes.map((c: any) => c.className),
     datasets: [

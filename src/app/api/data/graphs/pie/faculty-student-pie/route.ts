@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { FacultyStudentStats } from "@/app/api/services/get-services/get-faculty-student-graph";
+import { FacultyStudentStats } from "@/app/api/services/graph/pie/students-per-faculty/get-faculty-student-graph";
 
 
 export async function GET() {

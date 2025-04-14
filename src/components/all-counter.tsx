@@ -15,7 +15,7 @@ export default function Faculties() {
   const fetchStats = async () => {
     setLoading(true);
     try {
-      const response = await axiosInstance.get("/api/data/dashboard/charts/count-alldata");
+      const response = await axiosInstance.get("/api/data/graphs/side-data/count-alldata");
       setStats(response.data);
     } catch (error) {
       console.error("Error fetching stats:", error);

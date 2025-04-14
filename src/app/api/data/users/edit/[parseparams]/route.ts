@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { EditStudent } from "@/app/api/services/edit-services/edit-student";
+import { EditStudent } from "@/app/api/services/students/edit/edit-student";
 
 export async function PUT(request: Request, { params }: { params: { parseparams: string } }) {
   try {

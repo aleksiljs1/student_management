@@ -15,7 +15,7 @@ function Alldata() {
 
   useEffect(() => {
     axiosInstance
-      .get(`api/data/dashboard-data`)
+      .get(`api/data/show-alldata/dashboard-data`)
       .then((response) => {
 
         setAllData(response.data ?? []);

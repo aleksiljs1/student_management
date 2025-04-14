@@ -21,7 +21,7 @@ const EditStudent = () => {
 
   useEffect(() => {
     axiosInstance
-      .get(`api/data/get-edit-student/${parseparams}`)
+      .get(`api/data/users/edit/get-edit/${parseparams}`)
       .then((response) => {
         const studentData = response.data;
         setName(studentData.name);
@@ -30,23 +30,23 @@ const EditStudent = () => {
         setFacultyId(studentData.faculty_id); //will send it to the faculties corresponding to student
         setClassId(studentData.student_class_id);
       })
-  }, []); //the get student by id section
+  }, []);
   useEffect(() => {
     axiosInstance
-      .get(`api/data/faculty`)
+      .get(`/api/data/faculties/get/get-all-faculties`)
       .then((response) => {
         setFaculties(response.data );
       })
 
 
-  }, []); //getting all faculties section
+  }, []);
   const handleFacultyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSendFaculty(event.target.value);
     setClasses([]);
     setClassId("");
     //reset class id and classes after the change , it will set it back anyway when i set class
     axiosInstance
-      .get(`api/data/student-class/${event.target.value}`)
+      .get(`api/data/users/edit/assighn-student-class/student-class/${event.target.value}`)
       .then((response) => {
         setClasses(response.data);
       })
@@ -70,7 +70,7 @@ const EditStudent = () => {
     }
     setSendFaculty(facultyId);
     axiosInstance
-      .get(`api/data/student-class/${facultyId}`)
+      .get(`api/data/users/edit/assighn-student-class/student-class/${facultyId}`)
       .then((response) => {
         setClasses(response.data);
       })

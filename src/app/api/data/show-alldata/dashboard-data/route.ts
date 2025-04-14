@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { AllUniversityService } from "@/app/api/services/get-services/get-all-data";
+import { AllUniversityService } from "@/app/api/services/show-alldata/dashboard-data/get-all-data";
 
 export async function GET() {
   const sendAllData = new AllUniversityService();

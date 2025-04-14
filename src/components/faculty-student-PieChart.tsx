@@ -18,7 +18,7 @@ export default function FacultyStudentChart() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axiosInstance.get("/api/data/dashboard/charts/faculty-student-pie");
+        const response = await axiosInstance.get("/api/data/graphs/pie/faculty-student-pie");
         setFacultyData(response.data);
       } catch (err) {
         console.error("Failed to load faculty student chart", err);
@@ -61,7 +61,7 @@ export default function FacultyStudentChart() {
 
   const options = {
     responsive: true,
-    maintainAspectRatio: false, 
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         position: "right" as const,

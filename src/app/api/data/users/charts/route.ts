@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getGpaDistribution } from "@/app/api/services/get-services/get-graph-gpa";
+import { getGpaDistribution } from "@/app/api/services/graph/pie/gpa/get-graph-gpa";
 
 
 export async function GET() {

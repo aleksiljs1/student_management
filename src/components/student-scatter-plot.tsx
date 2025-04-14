@@ -21,7 +21,7 @@ export default function GpaScatterPlot() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axiosInstance.get("/api/data/dashboard/charts/student-gpa-scatterPlot");
+        const response = await axiosInstance.get("/api/data/graphs/scatter-plots/student-gpa-scatterPlot");
         setGpaData(response.data);
       } catch (err) {
         console.error("Failed to load GPA scatter plot", err);

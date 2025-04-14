@@ -21,7 +21,7 @@ const EditClass = () => {
 
   useEffect(() => {
     axiosInstance
-      .get(`/api/data/faculty`)
+      .get(`/api/data/faculties/get/get-all-faculties`)
       .then((response) => {
         setFaculty(response.data);
       })
@@ -30,7 +30,7 @@ const EditClass = () => {
 
   useEffect(() => {
     axiosInstance
-      .get(`api/data/get-edit-class/${parseparams}`)
+      .get(`api/data/classes/edit/get-edit/${parseparams}`)
       .then((response) => {
         const facultiesData = response.data;
         setClasses(facultiesData.name);

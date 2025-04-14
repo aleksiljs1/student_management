@@ -24,7 +24,7 @@ const AddClass = () => {
 
   useEffect(() => {
     axiosInstance
-      .get(`/api/data/faculty`)
+      .get(`/api/data/faculties/get/get-all-faculties`)
       .then((response) => {
         setFaculty(response.data);
       })

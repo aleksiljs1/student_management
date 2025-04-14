@@ -26,7 +26,7 @@ export default function StudentTable() {
     setLoading(true);
     try {
       const response = await axiosInstance.get(
-        `/api/data/students?page=${page}&query=${search}`
+        `/api/data/show-alldata/show-allstudents?page=${page}&query=${search}`
       );
       setStudents(response.data.students);
       setTotalPages(response.data.totalPages);
@@ -41,7 +41,7 @@ export default function StudentTable() {
 
     try {
       await axiosInstance.post("/api/data/delete-student", { student: studentId });
-      // refresh data after deletion
+      // refresh side-data after deletion
       fetchStudents(currentPage, query);
     } catch (error) {
       console.error("error is :", error);

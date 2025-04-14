@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { FacultyService } from "@/app/api/services/get-services/get-all-faculty";
+import { FacultyService } from "@/app/api/services/faculties/get/get-all-faculties/get-all-faculty";
 
 export async function GET() {
   const facultyService = new FacultyService();

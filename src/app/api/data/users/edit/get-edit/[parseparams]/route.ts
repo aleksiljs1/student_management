@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { StudentsAllData } from "@/app/api/services/get-services/get-all-student-data";
+import { StudentsAllData } from "@/app/api/services/students/edit/get-edit/get-all-student-data";
 
 export async function GET(
   request: Request,

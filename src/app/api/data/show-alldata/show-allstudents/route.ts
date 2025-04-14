@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { getStudents } from "@/app/api/services/get-services/get-student-table";
+import { getStudents } from "@/app/api/services/show-alldata/show-all-students/get-student-table";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);

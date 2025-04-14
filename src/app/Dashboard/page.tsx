@@ -24,7 +24,7 @@ const Dashboard = () => {
     const fetchStats = async () => {
       try {
         const response = await axiosInstance.get(
-          "/api/data/dashboard/charts/count-alldata",
+          "/api/data/graphs/side-data/count-alldata",
         );
         setStats(response.data);
       } catch (error) {
@@ -112,7 +112,7 @@ const Dashboard = () => {
             </div>
           )}
 
-          {/* Overview , this is where the main content will go . PS, i should remember not to include everything here */}
+          {/* Overview , this is where the check-side-data content will go . PS, i should remember not to include everything here */}
           {!loading && activeTab === "overview" && (
             <>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -200,7 +200,7 @@ const Dashboard = () => {
             </>
           )}
 
-          {/* Faculty Analysis - will be where the faculty and classes data will go , students-by class is debatable will decide later */}
+          {/* Faculty Analysis - will be where the faculty and classes side-data will go , students-by class is debatable will decide later */}
           {!loading && activeTab === "faculty" && (
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               <FacultyStudentChart />
@@ -210,7 +210,7 @@ const Dashboard = () => {
             </div>
           )}
 
-          {/* Student Performance - esenctially student specific data will go here , prolly my basic piue charts and the scatter , student by class is debatable */}
+          {/* Student Performance - esenctially student specific side-data will go here , prolly my basic piue charts and the scatter , student by class is debatable */}
           {!loading && activeTab === "students" && (
             <div className="space-y-6">
               <div className="bg-white  shadow-md p-7">

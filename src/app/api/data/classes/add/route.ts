@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { CreateClass } from "@/app/api/services/create-services/create-class";
+import { CreateClass } from "@/app/api/services/classes/add/create-class";
 
 export async function POST(request: Request) {
   try {

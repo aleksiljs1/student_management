@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { urlConst } from "@/consts/path-consts";
 import { useRouter } from "next/navigation";
 import Header from "@/components/header";
@@ -11,7 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 const AddStudent = () => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
-  const [gpa, setGpa] = useState<number | "">(""); // GPA as a number or empty string
+  const [gpa, setGpa] = useState<number | "">("");
   const [faculty, setFaculty] = useState<{ id: number; name: string }[]>([]);
   const [sendFaculty, setSendFaculty] = useState("");
   const [sendClasses, setSendClasses] = useState("");
@@ -19,7 +18,7 @@ const AddStudent = () => {
   const router = useRouter();
 
   useEffect(() => {
-    axiosInstance.get(`api/data/faculty`).then((response) => {
+    axiosInstance.get(`/api/data/faculties/get/get-all-faculties`).then((response) => {
       setFaculty(response.data);
     });
   }, []);

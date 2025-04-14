@@ -17,7 +17,7 @@ const EditFaculty = () => {
 
   useEffect(() => {
     axiosInstance
-      .get(`api/data/get-edit-faculty/${parseparams}`)
+      .get(`api/data/faculties/edit/get-edit/${parseparams}`)
       .then((response) => {
         const facultiesData = response.data;
         setFaculty(facultiesData.name);

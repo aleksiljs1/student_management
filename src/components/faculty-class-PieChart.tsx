@@ -23,7 +23,7 @@ export default function FacultyClassChart() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axiosInstance.get("/api/data/dashboard/charts/faculty-class-pie");
+        const response = await axiosInstance.get("/api/data/graphs/pie/faculty-class-pie");
         setFacultyData(response.data);
       } catch (err) {
         console.error("Failed to load faculty class chart", err);

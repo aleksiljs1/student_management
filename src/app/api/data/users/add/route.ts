@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { CreateStudent } from "@/app/api/services/create-services/create-student";
+import { CreateStudent } from "@/app/api/services/students/add/create-student";
 
 export async function POST(request: Request) {
   try {

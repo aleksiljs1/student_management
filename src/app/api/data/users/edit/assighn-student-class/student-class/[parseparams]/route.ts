@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { ClassService } from "@/app/api/services/get-services/classes-for-faculty";
+import { ClassService } from "@/app/api/services/students/edit/assighn-student-class/student-class/classes-for-faculty";
 
 export async function GET(
   request: Request,

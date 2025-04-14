@@ -20,7 +20,7 @@ export default function Home() {
         const theData = await axiosInstance.get("/api/data/main");
         setHasFaculty(theData.data.hasFaculty);
       } catch (error) {
-        console.error("Error checking faculty data:", error);
+        console.error("Error checking faculty side-data:", error);
         setHasFaculty(false);
       } finally {
         setLoading(false);

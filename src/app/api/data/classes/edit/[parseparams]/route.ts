@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { EditClass } from "@/app/api/services/edit-services/edit-class";
+import { EditClass } from "@/app/api/services/classes/edit/edit-class";
 
 
 

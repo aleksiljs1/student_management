@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { DeleteStudent } from "@/app/api/services/delete-services/delete-student";
+import { DeleteStudent } from "@/app/api/services/students/delete/delete-student";
 
 export async function DELETE(request: Request, { params }: { params: { parseparams: string } }) {
   try {

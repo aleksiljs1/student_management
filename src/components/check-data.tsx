@@ -24,10 +24,10 @@ export default function CheckIfData({children}: { children: ReactNode }) {
   useEffect(() => {
     const isThereData = async () => {
       try {
-        const theData = await axiosInstance.get("/api/data/main");
+        const theData = await axiosInstance.get("/api/data/check-data");
         setHasFaculty(theData.data.hasFaculty);
       } catch (error) {
-        console.error("Error checking faculty data:", error);
+        console.error("Error checking faculty side-data:", error);
         setHasFaculty(false);
       } finally {
         setLoading(false);

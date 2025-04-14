@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { ClassesAllData } from "@/app/api/services/get-services/get-classes-alldata";
+import { ClassesAllData } from "@/app/api/services/classes/edit/get-edit/get-classes-alldata";
 
 export async function GET(
   request: Request,
