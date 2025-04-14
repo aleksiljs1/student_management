@@ -2,14 +2,20 @@
 import StudentBoard from "@/components/student-board";
 import "./globals.css";
 import "@radix-ui/themes/styles.css";
-import React from "react";
-import { urlConst } from "@/consts/path-consts";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
-
+import CheckIfData from "@/components/check-data";
 
 export default function Home() {
   const router = useRouter();
-  router.push(urlConst.dashboardRedirect);
-  return;
-  <StudentBoard />;
+
+  useEffect(() => {
+    router.push("/Dashboard");
+  }, [router]);
+
+  return (
+    <CheckIfData>
+      <div>Redirecting...</div>
+    </CheckIfData>
+  );
 }

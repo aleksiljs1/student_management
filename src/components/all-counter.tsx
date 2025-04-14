@@ -2,8 +2,7 @@
 import { useEffect, useState } from "react";
 import { axiosInstance } from "@/axios";
 import { ToastContainer } from "react-toastify";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
+
 
 export default function Faculties() {
   const [stats, setStats] = useState<{ students: number; classes: number; faculties: number } | null>(null);

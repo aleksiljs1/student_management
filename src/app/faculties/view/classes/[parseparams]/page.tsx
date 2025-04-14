@@ -18,6 +18,7 @@ import {
   Legend
 } from "chart.js";
 import { Bar, Pie } from "react-chartjs-2";
+import CheckIfData from "@/components/check-data";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
 
@@ -80,7 +81,7 @@ export default function ClassesTable() {
     }
   };
 
-  // Chart data for Average GPA per Class DONT TOUCH THIS ANY MORE
+  // Average GPA per class DONT TOUCH THIS ANY MORE
   const barChartData = {
     labels: classes.map((c: any) => c.className),
     datasets: [
@@ -111,6 +112,7 @@ export default function ClassesTable() {
 
   return (
     <>
+      <CheckIfData>
       <ToastContainer />
       <Header />
       <div className="p-6 bg-gray-50 min-h-screen">
@@ -244,6 +246,7 @@ export default function ClassesTable() {
         </div>
       </div>
       <Footer />
+        </CheckIfData>
     </>
   );
 }

@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import Header from "@/components/header";
 import Search from "@/components/search";
 import Footer from "@/components/footer";
+import CheckIfData from "@/components/check-data";
 
 export default function ClassStudentTable() {
   const [students, setStudents] = useState([]);
@@ -65,6 +66,7 @@ export default function ClassStudentTable() {
 
   return (
     <>
+      <CheckIfData>
       <ToastContainer />
       <Header />
       <div className="p-6 bg-gray-50 min-h-screen">
@@ -153,6 +155,7 @@ export default function ClassStudentTable() {
         </div>
       </div>
       <Footer />
+        </CheckIfData>
     </>
   );
 }

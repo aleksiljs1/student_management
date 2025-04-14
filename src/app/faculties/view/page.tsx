@@ -17,6 +17,7 @@ import {
   Legend
 } from "chart.js";
 import { Bar, Pie } from "react-chartjs-2";
+import CheckIfData from "@/components/check-data";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
 
@@ -108,6 +109,7 @@ export default function Faculties() {
 
   return (
     <>
+      <CheckIfData>
       <ToastContainer />
       <Header />
       <div className="p-6 bg-gray-50 min-h-screen">
@@ -245,6 +247,7 @@ export default function Faculties() {
         </div>
       </div>
       <Footer />
+        </CheckIfData>
     </>
   );
 }
