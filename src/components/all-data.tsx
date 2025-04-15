@@ -26,7 +26,7 @@ function Alldata() {
   }, []);
 
   const handleStudentEdit = (studentId: string) => {
-    router.push(`users/edit/${studentId}`);
+    router.push(`students/edit/${studentId}`);
   };
   const handleFacultyEdit = (facultyId: string) => {
     router.push(`faculties/edit/${facultyId}`);
@@ -37,7 +37,7 @@ function Alldata() {
   const handleStudentDelete = async (studentId: string) => {
     const confirmSubmission = window.confirm("Are you sure you want to delete this student?");
     if (!confirmSubmission) return;
-    await axiosInstance.delete(`api/data/users/delete/${studentId}`);
+    await axiosInstance.delete(`api/data/students/delete/${studentId}`);
   }
     const handleClassDelete = async (classId: string) => {
     const confirmSubmission = window.confirm("Are you sure you want to delete this class?");

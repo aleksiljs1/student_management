@@ -28,26 +28,43 @@ function Header() {
           <div className="hidden md:flex space-x-6 flex-1 justify-center">
             {HasTokken ? (
               <>
-                <Link href={"/Show-All"} className="text-gray-600 hover:text-violet-600 transition">
-                  Show All
+                <Link href={"/dashboard"} className="block px-4 py-2 hover:bg-violet-50 text-gray-700 rounded">
+                  Dashboard
                 </Link>
+                <div className="group relative">
+                  <button className="block px-4 py-2 hover:bg-violet-50 text-gray-700 rounded">
+                    Show
+                  </button>
+                  <div
+                    className="absolute left-0 top-full mt-0 hidden group-hover:block bg-white shadow-lg rounded-md p-2 space-y-1 z-10 w-48">
 
-                <Link href={"/faculties/view"} className="text-gray-600 hover:text-violet-600 transition">
-                  Show Faculties
-                </Link>
-                <Link href={"/users/view"} className="text-gray-600 hover:text-violet-600 transition">
-                  Show Students
-                </Link>
-                <Link href="/users/add" className="text-gray-600 hover:text-violet-600 transition">
-                  Add Students
-                </Link>
-                <Link href="/faculties/add" className="text-gray-600 hover:text-violet-600 transition">
-                  Add Faculties
-                </Link>
-                <Link href="/classes/add" className="text-gray-600 hover:text-violet-600 transition">
-                  Add Class
-                </Link>
-                <Link href={urlConst.loginRedirect} className="text-gray-600 hover:text-red-600 transition" onClick={deleteToken}>
+                    <div className="absolute h-2 w-full top-0 -translate-y-full"></div>
+                    <a href="/faculties/view"
+                       className="block px-4 py-2 hover:bg-violet-50 text-gray-700 rounded">Faculties</a>
+                    <a href="/students/view"
+                       className="block px-4 py-2 hover:bg-violet-50 text-gray-700 rounded">Students</a>
+                    <a href="/Show-All"
+                       className="block px-4 py-2 hover:bg-violet-50 text-gray-700 rounded">all</a>
+                  </div>
+                </div>
+                <div className="group relative">
+                  <button className="block px-4 py-2 hover:bg-violet-50 text-gray-700 rounded">
+                    Add
+                  </button>
+                  <div
+                    className="absolute left-0 top-full mt-0 hidden group-hover:block bg-white shadow-lg rounded-md p-2 space-y-1 z-10 w-48">
+                    {/* FUTURE ME DONT REMOVE THIS ITS THE BRIDGE , also need to remove block its unnececary*/}
+                    <div className="absolute h-2 w-full top-0 -translate-y-full"></div>
+                    <a href="/students/add"
+                       className="block px-4 py-2 hover:bg-violet-50 text-gray-700 rounded">Add Students</a>
+                    <a href="/faculties/add"
+                       className="block px-4 py-2 hover:bg-violet-50 text-gray-700 rounded">Add Faculties</a>
+                    <a href="/classes/add"
+                       className="block px-4 py-2 hover:bg-violet-50 text-gray-700 rounded">Add Class</a>
+                  </div>
+                </div>
+                <Link href={urlConst.loginRedirect} className="block px-4 py-2 hover:bg-violet-50 text-gray-700 rounded"
+                      onClick={deleteToken}>
                   Logout
                 </Link>
               </>

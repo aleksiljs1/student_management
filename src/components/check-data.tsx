@@ -9,11 +9,21 @@ import Link from "next/link";
 export default function CheckIfData({children}: { children: ReactNode }) {
   const [hasFaculty, setHasFaculty] = useState<boolean | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
-  const [seeding, setSeeding] = useState<boolean>(false);
+  const [seeding, setSeeding] = useState<boolean>(false); // will do sth with seeding after
   const router = useRouter();
 
-  const handleDataSeed = (data: any) => {
-
+  const handleDataSeed =  async ()  => {
+    try {
+      setSeeding(true);
+      await axiosInstance.post("/api/data/seed-database");
+      router.refresh(); // SO he does not spam it as he waits and new data is displayed
+    } catch (error) {
+      console.error("Seeding failed", error);
+      alert("Something went wrong while seeding.");
+    } finally {
+      setSeeding(false);
+      router.refresh();
+    }
 
   }
   useEffect(() => {

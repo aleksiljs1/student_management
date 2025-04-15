@@ -49,7 +49,7 @@ export default function ClassStudentTable() {
   };
 
   const handleStudentEdit = (id: string) => {
-    router.push(`/users/edit/${id}`);
+    router.push(`/students/edit/${id}`);
   };
 
   const handleStudentDelete = async (Id: string) => {
@@ -57,7 +57,7 @@ export default function ClassStudentTable() {
     if (!confirmSubmission) return;
 
     try {
-      await axiosInstance.delete(`/api/data/users/delete/${Id}`);
+      await axiosInstance.delete(`/api/data/students/delete/${Id}`);
       await fetchStudents(currentPage, query);
     } catch (error) {
       console.error("error is :", error);

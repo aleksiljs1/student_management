@@ -25,7 +25,7 @@ const AddStudent = () => {
 
   const handleFacultyChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setSendFaculty(event.target.value);
-    axiosInstance.get(`api/data/student-class/${event.target.value}`).then((response) => {
+    axiosInstance.get(`api/data/students/edit/student-class/${event.target.value}`).then((response) => {
       setClasses(response.data);
     });
   };
@@ -49,7 +49,7 @@ const AddStudent = () => {
     if (!validateInputs()) return;
 
     axiosInstance
-      .post(`${urlConst.baseURL}api/data/users/add`, {
+      .post(`${urlConst.baseURL}api/data/students/add`, {
         Name: name,
         Surname: surname,
         gpa,

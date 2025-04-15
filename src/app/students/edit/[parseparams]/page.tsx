@@ -21,13 +21,13 @@ const EditStudent = () => {
 
   useEffect(() => {
     axiosInstance
-      .get(`api/data/users/edit/get-edit/${parseparams}`)
+      .get(`api/data/students/edit/get-edit/${parseparams}`)
       .then((response) => {
         const studentData = response.data;
         setName(studentData.name);
         setSurname(studentData.surname);
         setGpa(studentData.gpa);
-        setFacultyId(studentData.faculty_id); //will send it to the faculties corresponding to student
+        setFacultyId(studentData.faculty_id);
         setClassId(studentData.student_class_id);
       })
   }, []);
@@ -46,7 +46,7 @@ const EditStudent = () => {
     setClassId("");
     //reset class id and classes after the change , it will set it back anyway when i set class
     axiosInstance
-      .get(`api/data/users/edit/assighn-student-class/student-class/${event.target.value}`)
+      .get(`api/data/students/edit/student-class/${event.target.value}`)
       .then((response) => {
         setClasses(response.data);
       })
@@ -70,7 +70,7 @@ const EditStudent = () => {
     }
     setSendFaculty(facultyId);
     axiosInstance
-      .get(`api/data/users/edit/assighn-student-class/student-class/${facultyId}`)
+      .get(`api/data/students/edit/student-class/${facultyId}`)
       .then((response) => {
         setClasses(response.data);
       })
@@ -86,7 +86,7 @@ const EditStudent = () => {
     const confirmSubmission = window.confirm("Are you sure you want to edit this student?");
     if (!confirmSubmission) return;
     axiosInstance
-      .put(`api/data/users/edit/${parseparams}`, {
+      .put(`api/data/students/edit/${parseparams}`, {
         Name: name,
         Surname: surname,
         gpa: gpa,

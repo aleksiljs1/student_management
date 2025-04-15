@@ -10,7 +10,7 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    router.push("/Dashboard");
+    router.push("/dashboard");
   }, [router]);
 
   return (

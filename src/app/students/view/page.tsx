@@ -49,7 +49,7 @@ export default function StudentTable() {
   };
 
   const handleStudentEdit = (studentId: string) => {
-    router.push(`/users/edit/${studentId}`);
+    router.push(`/students/edit/${studentId}`);
   };
 
   const handlePagination = (newPage: number) => {

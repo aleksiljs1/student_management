@@ -17,7 +17,7 @@ export default function GpaDistributionChart() {
   useEffect(() => {
     const fetchGpaData = async () => {
       try {
-        const response = await axiosInstance.get("/api/data/users/charts");
+        const response = await axiosInstance.get("/api/data/students/charts");
         setDistribution(response.data);
       } catch (err) {
         console.error("Failed to load GPA distribution", err);
