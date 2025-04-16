@@ -17,6 +17,12 @@ export async function POST(request: Request) {
       { status: 400 },
     );
   }
+  if (!userExists.isVerified) {
+    return NextResponse.json(
+      { message: "Email not verified - check your inbox" },
+      { status: 400 }
+    );
+  }
 
   const isMatch = await bcrypt.compare(password, userExists.password_hash);
   if (isMatch) {

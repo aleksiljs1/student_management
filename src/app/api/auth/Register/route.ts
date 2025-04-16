@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import bcrypt from "bcrypt";
-import { SignJWT } from "jose";
+import crypto from "crypto";
+import { sendVerificationEmail } from "@/lib/mail";
+import { RegisterUser } from "@/app/api/services/auth/register/create-user";
 
 export async function POST(request: Request) {
   const { userName, password } = await request.json();
@@ -18,24 +20,18 @@ export async function POST(request: Request) {
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
+  const verifyToken = crypto.randomBytes(32).toString("hex");
+  const verifyExpiry = new Date(Date.now() + 3600 * 1000); // 1 hour
 
-  await prisma.users.create({
-    data: {
-      username: userName,
-      password_hash: hashedPassword,
-    },
+  const createUser = new RegisterUser()
+
+  await createUser.createUser(userName,hashedPassword,verifyToken,verifyExpiry)
+
+
+
+  await sendVerificationEmail(userName, verifyToken);
+
+  return NextResponse.json({
+    message: "Registration successful! Please check your email to verify your account."
   });
-
-  const secretKey = process.env.SECRET_KEY;
-  if (!secretKey) {
-    throw new Error("SECRET_KEY is not set");
-  }
-
-  const token = await new SignJWT({})
-    .setProtectedHeader({ alg: "HS256" })
-    .setIssuedAt()
-    .setExpirationTime("7d")
-    .sign(new TextEncoder().encode(secretKey));
-
-  return NextResponse.json({ message: "User registered successfully!", token });
 }

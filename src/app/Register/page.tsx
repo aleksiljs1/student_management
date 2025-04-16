@@ -24,7 +24,7 @@ const SignIn = () => {
         password,
       })
       .then(function (response) {
-        console.log(response);
+        alert("Registration successful! Please check your email to verify your account.");
         router.push(urlConst.loginRedirect);
       })
   };
