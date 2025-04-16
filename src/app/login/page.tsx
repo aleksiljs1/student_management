@@ -57,13 +57,13 @@ const Login = () => {
                   htmlFor="user"
                   className="mb-1 text-gray-700 font-medium"
                 >
-                  Username
+                  Email Address
                 </label>
                 <input
                   type="text"
                   name="user"
                   id="user"
-                  placeholder="Enter your username"
+                  placeholder="Enter your Email Address"
                   className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
                   required
                   onChange={(e) => setUserName(e.target.value)}

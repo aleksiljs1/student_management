@@ -49,13 +49,13 @@ const SignIn = () => {
                   htmlFor="username"
                   className="mb-1 text-gray-700 font-medium"
                 >
-                  Username
+                  Email address
                 </label>
                 <input
                   type="text"
                   name="username"
                   id="username"
-                  placeholder="Choose a username"
+                  placeholder="Enter Email"
                   className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-violet-500"
                   required
                   onChange={(e) => setUserName(e.target.value)}
