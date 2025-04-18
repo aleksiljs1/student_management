@@ -27,7 +27,7 @@ const Login = () => {
 
     axiosInstance
       .post(`/api/auth/login`, {
-        userName,
+        userName,//email
         password,
       }) //shorthand method
       .then(function (response) {

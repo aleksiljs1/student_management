@@ -1,6 +1,6 @@
 import nodemailer from 'nodemailer';
 
-export async function sendVerificationEmail(email: string, token: string) {
+export async function sendInvitationEmail(email: string, token: string) {
   const transporter = nodemailer.createTransport({
     service: process.env.EMAIL_SERVICE,
     auth: {
@@ -9,12 +9,12 @@ export async function sendVerificationEmail(email: string, token: string) {
     },
   });
 
-  const verificationUrl = `${process.env.BASE_URL}/api/auth/verify-email?token=${token}`;
+  const invitationUrl = `${process.env.BASE_URL}/Register?token=${token}`;
 
   await transporter.sendMail({
-    from: `"Your App" <${process.env.EMAIL_USER}>`,
+    from: `"UniHub" <${process.env.EMAIL_USER}>`,
     to: email,
-    subject: "Verify Your Email",
-    html: `To verify your Account and gain acess to UniCit open the following link otherwise feel free to ignore : <a href="${verificationUrl}">${verificationUrl}</a>`,
+    subject: "Your Registration Invitation",
+    html: `Click this link to complete your registration: <a href="${invitationUrl}">${invitationUrl}</a> (expires in 1 hour)`,
   });
 }

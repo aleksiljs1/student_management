@@ -3,88 +3,141 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { urlConst } from "@/consts/path-consts";
 import Link from "next/link";
+import { InvitationModal } from "@/components/invintation-modal";
 
 function Header() {
   const router = useRouter();
-
-  const deleteToken = () => {
-    localStorage.clear();
-    router.push(urlConst.loginRedirect);
-  };
   const [HasTokken, setHasTokken] = useState(false);
+  const [showOpen, setShowOpen] = useState(false);
+  const [addOpen, setAddOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [showInvitationModal, setShowInvitationModal] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
     setHasTokken(!!token);
   }, [router]);
+
+  const deleteToken = () => {
+    localStorage.clear();
+    router.push(urlConst.loginRedirect);
+  };
+
+  const toggleSidebar = () => {
+    setSidebarCollapsed(!sidebarCollapsed);
+  };
+
   return (
-    <nav className="bg-white shadow-md">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center h-16">
-          <div className="flex items-center flex-1">
-            <span className="text-2xl font-bold text-violet-600">UniHub</span>
-          </div>
+    <div className="flex">
+      <nav className={`w-64 h-screen bg-white shadow-md p-4 fixed left-0 top-0 transition-transform duration-300 z-20 ${
+        sidebarCollapsed ? "-translate-x-full" : "translate-x-0"
+      }`}>
+        <div className="flex items-center justify-between mb-6">
+          <div className="text-2xl font-bold text-violet-600">UniHub</div>
 
-          <div className="hidden md:flex space-x-6 flex-1 justify-center">
-            {HasTokken ? (
-              <>
-                <Link href={"/dashboard"} className="block px-4 py-2 hover:bg-violet-50 text-gray-700 rounded">
-                  Dashboard
-                </Link>
-                <div className="group relative">
-                  <button className="block px-4 py-2 hover:bg-violet-50 text-gray-700 rounded">
-                    Show
-                  </button>
-                  <div
-                    className="absolute left-0 top-full mt-0 hidden group-hover:block bg-white shadow-lg rounded-md p-2 space-y-1 z-10 w-48">
-
-                    <div className="absolute h-2 w-full top-0 -translate-y-full"></div>
-                    <a href="/faculties/view"
-                       className="block px-4 py-2 hover:bg-violet-50 text-gray-700 rounded">Faculties</a>
-                    <a href="/students/view"
-                       className="block px-4 py-2 hover:bg-violet-50 text-gray-700 rounded">Students</a>
-                    <a href="/Show-All"
-                       className="block px-4 py-2 hover:bg-violet-50 text-gray-700 rounded">all</a>
-                  </div>
-                </div>
-                <div className="group relative">
-                  <button className="block px-4 py-2 hover:bg-violet-50 text-gray-700 rounded">
-                    Add
-                  </button>
-                  <div
-                    className="absolute left-0 top-full mt-0 hidden group-hover:block bg-white shadow-lg rounded-md p-2 space-y-1 z-10 w-48">
-                    {/* FUTURE ME DONT REMOVE THIS ITS THE BRIDGE , also need to remove block its unnececary*/}
-                    <div className="absolute h-2 w-full top-0 -translate-y-full"></div>
-                    <a href="/students/add"
-                       className="block px-4 py-2 hover:bg-violet-50 text-gray-700 rounded">Add Students</a>
-                    <a href="/faculties/add"
-                       className="block px-4 py-2 hover:bg-violet-50 text-gray-700 rounded">Add Faculties</a>
-                    <a href="/classes/add"
-                       className="block px-4 py-2 hover:bg-violet-50 text-gray-700 rounded">Add Class</a>
-                  </div>
-                </div>
-                <Link href={urlConst.loginRedirect} className="block px-4 py-2 hover:bg-violet-50 text-gray-700 rounded"
-                      onClick={deleteToken}>
-                  Logout
-                </Link>
-              </>
-            ) : (
-              <>
-                <Link href={urlConst.loginRedirect} className="text-gray-600 hover:text-violet-600 transition">
-                  Login
-                </Link>
-                <Link href="/Register" className="text-gray-600 hover:text-violet-600 transition">
-                  Register
-                </Link>
-              </>
-            )}
-          </div>
-          <div className="hidden md:flex flex-1"></div>
+          <button
+            onClick={toggleSidebar}
+            className="p-2 hover:bg-gray-100 rounded-full"
+            aria-label="Collapse sidebar"
+          >
+            ◀
+          </button>
         </div>
+
+        {HasTokken ? (
+          <div className="space-y-2">
+            <Link href="/dashboard" className="block px-4 py-2 hover:bg-violet-50 text-gray-700 rounded">
+              Dashboard
+            </Link>
+
+            <button
+              onClick={() => setShowOpen(!showOpen)}
+              className="w-full text-left flex items-center justify-between px-4 py-2 hover:bg-violet-50 text-gray-700 rounded"
+            >
+              <span>Show</span>
+              <span className="text-sm">{showOpen ? "▼" : "▶"}</span>
+            </button>
+            {showOpen && (
+              <div className="ml-4 space-y-1">
+                <Link href="/faculties/view" className="block px-2 py-1 text-gray-600 hover:bg-violet-50 rounded">
+                  Faculties
+                </Link>
+                <Link href="/students/view" className="block px-2 py-1 text-gray-600 hover:bg-violet-50 rounded">
+                  Students
+                </Link>
+                <Link href="/Show-All" className="block px-2 py-1 text-gray-600 hover:bg-violet-50 rounded">
+                  All
+                </Link>
+              </div>
+            )}
+
+            <button
+              onClick={() => setAddOpen(!addOpen)}
+              className="w-full text-left flex items-center justify-between px-4 py-2 hover:bg-violet-50 text-gray-700 rounded"
+            >
+              <span>Add</span>
+              <span className="text-sm">{addOpen ? "▼" : "▶"}</span>
+            </button>
+            {addOpen && (
+              <div className="ml-4 space-y-1">
+                <Link href="/students/add" className="block px-2 py-1 text-gray-600 hover:bg-violet-50 rounded">
+                  Add Students
+                </Link>
+                <Link href="/faculties/add" className="block px-2 py-1 text-gray-600 hover:bg-violet-50 rounded">
+                  Add Faculties
+                </Link>
+                <Link href="/classes/add" className="block px-2 py-1 text-gray-600 hover:bg-violet-50 rounded">
+                  Add Class
+                </Link>
+                <button
+                  onClick={() => {
+                    setAddOpen(false);
+                    setShowInvitationModal(true);
+                  }}
+                  className="block px-2 py-1 text-gray-600 hover:bg-violet-50 rounded"
+                >
+                  Send Invitation
+                </button>
+              </div>
+            )}
+
+            <button
+              onClick={deleteToken}
+              className="block w-full text-left px-4 py-2 hover:bg-violet-50 text-gray-700 rounded"
+            >
+              Logout
+            </button>
+          </div>
+        ) : (
+          <div className="space-y-2">
+            <Link href={urlConst.loginRedirect} className="block text-gray-600 hover:text-violet-600">
+              Login
+            </Link>
+            <Link href="/Register" className="block text-gray-600 hover:text-violet-600">
+              Register
+            </Link>
+          </div>
+        )}
+      </nav>
+
+      {sidebarCollapsed && (
+        <button
+          onClick={toggleSidebar}
+          className="fixed top-4 left-0 z-30 bg-white p-2 shadow-md rounded-r"
+          aria-label="Expand sidebar"
+        >
+          ▶
+        </button>
+      )}
+
+      <div className={`transition-all duration-300 p-4 w-full ${
+        sidebarCollapsed ? "ml-0" : "ml-64"
+      }`}>
+
       </div>
-    </nav>
+      {showInvitationModal && <InvitationModal onClose={() => setShowInvitationModal(false)} />}
+    </div>
   );
 }
-
 
 export default Header;

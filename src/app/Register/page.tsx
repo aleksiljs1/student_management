@@ -1,36 +1,81 @@
 "use client";
 import React from "react";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useState,useEffect } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { urlConst } from "@/consts/path-consts";
 import Header from "@/components/header";
 import { ToastContainer } from "react-toastify";
 import { axiosInstance } from "@/axios";
 
 const SignIn = () => {
-  const [userName, setUserName] = useState(""); //hook set up
+  const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
+  const [validToken, setValidToken] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const searchParams = useSearchParams();
+
 
   const sendToLogin = () => {
     router.push(urlConst.loginRedirect);
   };
+
+  useEffect(() => {
+    const checkToken = async () => {
+      const token = searchParams.get("token");
+      console.log("token is ", token);
+      if (!token) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        await axiosInstance.get(`/api/auth/invintations/validate?token=${token}`);
+        setValidToken(true);
+      } catch (error) {
+
+      }
+      setLoading(false);
+    };
+
+    checkToken();
+  }, []);
+
+
+
   const handleSubmit = (event) => {
     event.preventDefault();
 
     axiosInstance
       .post(urlConst.registerUrl, {
-        userName,
+        userName,//email
         password,
       })
       .then(function (response) {
-        alert("Registration successful! Please check your email to verify your account.");
+        alert("Registration successful!.");
         router.push(urlConst.loginRedirect);
       })
   };
+  if (loading) {
+    return <div>Loading...</div>; // will make the actual loading here
+  }
 
+  if (!validToken) {
+    return (
+      <>
+        <ToastContainer />
+        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+          <div className="p-8 bg-white rounded shadow">
+            <h2 className="text-2xl font-bold text-red-600">Access Restricted</h2>
+            <p className="mt-4">You need a valid invitation link to register.</p>
+          </div>
+        </div>
+      </>
+    );
+  }
   return (
     <>
+
       <ToastContainer />
       <Header />
       <div className="flex items-center justify-center min-h-screen bg-gray-100">

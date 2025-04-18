@@ -1,44 +1,34 @@
-import { SignJWT } from "jose";
 import { NextResponse } from "next/server";
-import { SECRET_KEY } from "@/lib/user-store";
-import prisma from "@/lib/prisma";
-import bcrypt from "bcrypt";
+import { findUserByUsername } from "@/app/api/services/auth/login/find-user-by-username/find-user-by-username";
+import { validatePassword } from "@/app/api/services/auth/login/validate-password/validate-password";
+import { generateJwtToken } from "@/app/api/services/auth/login/generate-jwt-token/generate-jwt-token";
+
 
 export async function POST(request: Request) {
   const { userName, password } = await request.json();
 
-  const userExists = await prisma.users.findUnique({
-    where: { username: userName },
-  });
+  const user = await findUserByUsername(userName);
 
-  if (!userExists) {
+  if (!user) {
     return NextResponse.json(
       { message: "User does not exist" },
-      { status: 400 },
-    );
-  }
-  if (!userExists.isVerified) {
-    return NextResponse.json(
-      { message: "Email not verified - check your inbox" },
       { status: 400 }
     );
   }
 
-  const isMatch = await bcrypt.compare(password, userExists.password_hash);
-  if (isMatch) {
-    const token = await new SignJWT()
-      .setProtectedHeader({ alg: "HS256" })
-      .setIssuedAt()
-      .setExpirationTime("7d")
-      .sign(new TextEncoder().encode(SECRET_KEY));
+  const isMatch = await validatePassword(password, user.password_hash);
 
-
-
-    return NextResponse.json({ message: "You have logged in!", token });
-  } else {
+  if (!isMatch) {
     return NextResponse.json(
       { message: "Mismatching password" },
-      { status: 400 },
+      { status: 400 }
     );
   }
+
+  const token = await generateJwtToken();
+
+  return NextResponse.json({
+    message: "You have logged in!",
+    token,
+  });
 }

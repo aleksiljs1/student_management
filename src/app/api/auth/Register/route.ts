@@ -1,37 +1,53 @@
 import { NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
-import bcrypt from "bcrypt";
-import crypto from "crypto";
-import { sendVerificationEmail } from "@/lib/mail";
-import { RegisterUser } from "@/app/api/services/auth/register/create-user";
+import { findInvitationByEmail } from "@/app/api/services/auth/register/find-invintation-by-email/find-invintation-by-email";
+import { isInvitationExpired } from "@/app/api/services/auth/register/invintation-expiry/invintation-expiry";
+import { findUserByUsername } from "@/app/api/services/auth/register/find-user-by-username/find-user-by-username";
+import { createUser } from "@/app/api/services/auth/register/create-user/create-user";
+import { markInvitationUsed } from "@/app/api/services/auth/register/mark-invintation-used/mark-invintation-used";
+
 
 export async function POST(request: Request) {
   const { userName, password } = await request.json();
 
-  const userExists = await prisma.users.findUnique({
-    where: { username: userName },
-  });
+  const invitation = await findInvitationByEmail(userName);
 
-  if (userExists) {
+  if (!invitation) {
     return NextResponse.json(
-      { message: "Username already taken" },
-      { status: 400 },
+      {
+        message:
+          "Invitation Not Found. Please register using the same email the invitation was sent to.",
+      },
+      { status: 400 }
     );
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10);
-  const verifyToken = crypto.randomBytes(32).toString("hex");
-  const verifyExpiry = new Date(Date.now() + 3600 * 1000); // 1 hour
+  if (invitation.usedAt) {
+    return NextResponse.json(
+      { message: "Invitation has already been used." },
+      { status: 400 }
+    );
+  }
 
-  const createUser = new RegisterUser()
+  if (isInvitationExpired(invitation)) {
+    return NextResponse.json(
+      { message: "Expired invitation." },
+      { status: 400 }
+    );
+  }
 
-  await createUser.createUser(userName,hashedPassword,verifyToken,verifyExpiry)
+  const userExists = await findUserByUsername(userName);
 
+  if (userExists) {
+    return NextResponse.json(
+      { message: "User already exists." },
+      { status: 400 }
+    );
+  }
 
-
-  await sendVerificationEmail(userName, verifyToken);
+  await createUser(userName, password);
+  await markInvitationUsed(invitation.id);
 
   return NextResponse.json({
-    message: "Registration successful! Please check your email to verify your account."
+    message: "Registration successful! You can now login.",
   });
 }

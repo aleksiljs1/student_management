@@ -11,9 +11,15 @@ model users {
   username      String    @unique @db.VarChar(50)
   password_hash String    @db.VarChar(255)
   created_at    DateTime? @default(now()) @db.Timestamp(6)
-  isVerified    Boolean   @default(false)
-  verifyToken   String?   @db.VarChar(255)
-  verifyExpiry  DateTime? @db.Timestamp(6)
+
+}
+model Invitation {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  token     String   @unique
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime @default(now())
 }
 model Faculty {
   id             Int     @id @default(autoincrement())
