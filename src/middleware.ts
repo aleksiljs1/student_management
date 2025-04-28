@@ -1,7 +1,7 @@
 // middleware.ts
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { verifyAuth } from "@/lib/auth";
+import { verifyAuth } from "../../upay/src/lib/auth";
 
 export async function middleware(request: NextRequest) {
   const authHeader = request.headers.get("Authorization");
@@ -13,7 +13,6 @@ export async function middleware(request: NextRequest) {
     (await verifyAuth(token).catch((err) => {
       console.error(err);
     }));
-
   if (authHeader === `Bearer ${null}`) {
     console.log("No token provided");
     return NextResponse.json({ error: "No Token Provided" }, { status: 401 });

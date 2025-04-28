@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { FacultyChecker } from "@/app/api/services/check-data/get-has-data";
+import { FacultyChecker } from "@/app/api/services/check-data/check-faculty-data/get-has-data";
 
 
 export async function GET() {

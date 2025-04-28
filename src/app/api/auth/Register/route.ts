@@ -1,13 +1,17 @@
 import { NextResponse } from "next/server";
-import { findInvitationByEmail } from "@/app/api/services/auth/register/find-invintation-by-email/find-invintation-by-email";
+
+import bcrypt from "bcrypt";
+import { findInvitationByEmail } from "@/app/api/services/auth/invintations/send/find-invintation/find-invintation";
 import { isInvitationExpired } from "@/app/api/services/auth/register/invintation-expiry/invintation-expiry";
-import { findUserByUsername } from "@/app/api/services/auth/register/find-user-by-username/find-user-by-username";
+import { findUserByUsername } from "@/app/api/services/auth/login/find-user-by-username/find-user-by-username";
 import { createUser } from "@/app/api/services/auth/register/create-user/create-user";
 import { markInvitationUsed } from "@/app/api/services/auth/register/mark-invintation-used/mark-invintation-used";
 
 
 export async function POST(request: Request) {
   const { userName, password } = await request.json();
+try{
+
 
   const invitation = await findInvitationByEmail(userName);
 
@@ -35,6 +39,7 @@ export async function POST(request: Request) {
     );
   }
 
+
   const userExists = await findUserByUsername(userName);
 
   if (userExists) {
@@ -43,11 +48,15 @@ export async function POST(request: Request) {
       { status: 400 }
     );
   }
-
-  await createUser(userName, password);
+  const hashedPassword = await bcrypt.hash(password, 10);
+  await createUser(userName, hashedPassword);
   await markInvitationUsed(invitation.id);
 
   return NextResponse.json({
     message: "Registration successful! You can now login.",
   });
+} catch (error) {
+  return NextResponse.json({error})
 }
+}
+

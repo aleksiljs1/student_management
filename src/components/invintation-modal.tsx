@@ -16,7 +16,7 @@ export function InvitationModal({ onClose }: { onClose: () => void }) {
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[1000]">
       <div className="bg-white p-6 rounded-lg">
         <h3 className="text-lg font-bold mb-4">Send Invitation</h3>
         <input

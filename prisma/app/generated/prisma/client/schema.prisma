@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "app/generated/prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model users {
+  id            Int       @id @default(autoincrement())
+  username      String    @unique @db.VarChar(50)
+  password_hash String    @db.VarChar(255)
+  created_at    DateTime? @default(now()) @db.Timestamp(6)
+
+  invitations    Invitation[]
+  invitationLogs InvitationLog[]
+}
+
+model Invitation {
+  id              Int       @id @default(autoincrement())
+  email           String    @unique
+  token           String    @unique
+  expiresAt       DateTime
+  usedAt          DateTime?
+  createdAt       DateTime  @default(now())
+  createdByUserId Int
+  createdBy       users     @relation(fields: [createdByUserId], references: [id])
+}
+
+model InvitationLog {
+  id              Int      @id @default(autoincrement())
+  email           String
+  token           String   @unique
+  createdByUserId Int
+  createdBy       users    @relation(fields: [createdByUserId], references: [id])
+  createdAt       DateTime
+  expiresAt       DateTime
+  usedAt          DateTime @default(now())
+}
+
+model Faculty {
+  id              Int       @id @default(autoincrement())
+  name            String    @unique
+  head_of_faculty String
+  classes         Class[]
+  students        Student[]
+}
+
+model Class {
+  id         Int       @id @default(autoincrement())
+  name       String
+  year       Int
+  faculty_id Int
+  students   Student[]
+  faculty    Faculty   @relation(fields: [faculty_id], references: [id], onDelete: Cascade)
+
+  @@unique([name, year, faculty_id])
+}
+
+model Student {
+  student_id       Int     @id @default(autoincrement())
+  name             String
+  surname          String
+  gpa              Float
+  faculty_id       Int
+  student_class_id Int
+  faculty          Faculty @relation(fields: [faculty_id], references: [id], onDelete: Cascade)
+  student_class    Class   @relation(fields: [student_class_id], references: [id], onDelete: Cascade)
+
+  @@unique([name, surname])
+}

@@ -12,14 +12,29 @@ model users {
   password_hash String    @db.VarChar(255)
   created_at    DateTime? @default(now()) @db.Timestamp(6)
 
+  invitations    Invitation[]
+  invitationLogs InvitationLog[]
 }
 model Invitation {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  token     String   @unique
-  expiresAt DateTime
-  usedAt    DateTime?
-  createdAt DateTime @default(now())
+  id             Int      @id @default(autoincrement())
+  email          String   @unique
+  token          String   @unique
+  expiresAt      DateTime
+  usedAt         DateTime?
+  createdAt      DateTime @default(now())
+  createdByUserId Int
+  createdBy      users    @relation(fields: [createdByUserId], references: [id])
+}
+
+model InvitationLog {
+  id              Int      @id @default(autoincrement())
+  email           String
+  token           String   @unique
+  createdByUserId Int
+  createdBy       users    @relation(fields: [createdByUserId], references: [id])
+  createdAt       DateTime
+  expiresAt       DateTime
+  usedAt          DateTime @default(now())
 }
 model Faculty {
   id             Int     @id @default(autoincrement())

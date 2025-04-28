@@ -14,8 +14,25 @@ console.log("back end token is ", token);
     where: { token },
   });
 
-  if (!invitation || invitation.expiresAt < new Date() || invitation.usedAt) {
-    return NextResponse.json({ valid: false }, { status: 400 });
+  if (!invitation) {
+    return NextResponse.json(
+      { valid: false, message: "Invalid token" },
+      { status: 400 }
+    );
+  }
+
+  if (invitation.expiresAt < new Date()) {
+    return NextResponse.json(
+      { valid: false, message: "Invitation expired" },
+      { status: 400 }
+    );
+  }
+
+  if (invitation.usedAt) {
+    return NextResponse.json(
+      { valid: false, message: "Invitation already used" },
+      { status: 400 }
+    );
   }
 // will make sepparate messages and sepparate them in 3 services or 1 usecase, im just generalizing them here
   return NextResponse.json({ valid: true });
