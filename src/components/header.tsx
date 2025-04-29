@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { urlConst } from "@/consts/path-consts";
 import Link from "next/link";
 import { InvitationModal } from "@/components/invintation-modal";
+import { EditCredentialsModal } from "@/components/edit-credentials";
+
 
 function Header() {
   const router = useRouter();
@@ -12,6 +14,7 @@ function Header() {
   const [addOpen, setAddOpen] = useState(false);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [showInvitationModal, setShowInvitationModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -101,6 +104,14 @@ function Header() {
               </div>
             )}
 
+            {/* New Edit Account Button */}
+            <button
+              onClick={() => setShowEditModal(true)}
+              className="block w-full text-left px-4 py-2 hover:bg-violet-50 text-gray-700 rounded"
+            >
+              Edit Account
+            </button>
+
             <button
               onClick={deleteToken}
               className="block w-full text-left px-4 py-2 hover:bg-violet-50 text-gray-700 rounded"
@@ -132,10 +143,11 @@ function Header() {
 
       <div className={`transition-all duration-300 p-4 w-full ${
         sidebarCollapsed ? "ml-0" : "ml-64"
-      }`}>
+      }`}></div>
 
-      </div>
+      {/* Modals */}
       {showInvitationModal && <InvitationModal onClose={() => setShowInvitationModal(false)} />}
+      {showEditModal && <EditCredentialsModal onClose={() => setShowEditModal(false)} />}
     </div>
   );
 }

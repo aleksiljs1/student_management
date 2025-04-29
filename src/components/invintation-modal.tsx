@@ -8,7 +8,6 @@ export function InvitationModal({ onClose }: { onClose: () => void }) {
   const sendInvitation = async () => {
     try {
       await axiosInstance.post("/api/auth/invintations/send", { email });
-      //alert("Invitation sent!");
       onClose();
     } catch (error) {
       console.log(error);
