@@ -7,6 +7,7 @@ export async function createUser(userName: string, password: string) {
     data: {
       username: userName,
       password_hash: password,
+      role: "USER"
     },
   });
 }

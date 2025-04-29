@@ -6,11 +6,19 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum Role {
+  USER
+  ADMIN
+  SUPERADMIN
+}
+
 model users {
   id            Int       @id @default(autoincrement())
   username      String    @unique @db.VarChar(50)
   password_hash String    @db.VarChar(255)
   created_at    DateTime? @default(now()) @db.Timestamp(6)
+  role          Role      @default(USER)
 
   invitations    Invitation[]
   invitationLogs InvitationLog[]
