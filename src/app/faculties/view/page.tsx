@@ -27,14 +27,24 @@ export default function Faculties() {
   const [loading, setLoading] = useState(false);
   const searchParams = useSearchParams();
   const router = useRouter();
+  const [userRole, setUserRole] = useState<string>("");
 
   const currentPage = Number(searchParams.get('page')) || 1;
   const query = searchParams.get('query') || '';
 
   useEffect(() => {
+
+    checkAuthAndRole();
     fetchFaculties(currentPage, query);
   }, [currentPage, query]);
-
+  const checkAuthAndRole = async () => {
+    try {
+      const response = await axiosInstance.get("/api/auth/user/role/get");
+      setUserRole(response.data.role);
+    } catch (error) {
+      console.error("Error fetching user role:", error);
+    }
+  };
   const fetchFaculties = async (page: number, search: string) => {
     setLoading(true);
     try {
@@ -49,23 +59,36 @@ export default function Faculties() {
     }
   }
 
+
   const handleExpandClass = (facultyId: string) => {
     router.push(`/faculties/view/classes/${facultyId}`)
   }
 
   const handleFacultyEdit = (facultyId: string) => {
-    router.push(`/faculties/edit/${facultyId}`)
+    if (userRole == "SUPERADMIN" ||userRole == "ADMIN" ) {
+      router.push(`/faculties/edit/${facultyId}`)
+      alert(userRole);
+    }
+    else {
+      alert("You do not have the necessary permissions to edit this faculty");
+    }
+
   };
 
   const handleFacultyDelete = async (studentId: string) => {
-    const confirmSubmission = window.confirm("Are you sure you want to delete this student?");
-    if (!confirmSubmission) return;
+    if (userRole == "ADMIN" ||userRole == "SUPERADMIN" ) {
+      const confirmSubmission = window.confirm("Are you sure you want to delete this faculty?");
+      if (!confirmSubmission) return;
+      try {
+        await axiosInstance.post("/api/data/faculties/delete", { student: studentId });
+        fetchFaculties(currentPage, query);
+      } catch (error) {
+        console.error("error is :", error);
+      }
+    }
+    else {
+      alert("You do not have the necessary permission to delete this faculty");
 
-    try {
-      await axiosInstance.post("/api/data/faculties/delete", { student: studentId });
-      fetchFaculties(currentPage, query);
-    } catch (error) {
-      console.error("error is :", error);
     }
   };
 

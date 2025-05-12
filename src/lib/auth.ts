@@ -1,10 +1,11 @@
 import { jwtVerify } from "jose";
 
 interface UserJwtPayload {
+  id: number;
+  role: string;
   iat: number;
   exp: number;
-  id: number;
-} // meso se ku rruhen dhe memorizohen
+}
 
 const getJwtSecretKey = () => {
   const secret = process.env.SECRET_KEY;

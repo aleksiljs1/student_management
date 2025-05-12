@@ -27,6 +27,7 @@ export default function ClassesTable() {
   const [facultyName, setFacultyName] = useState("");
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [userRole, setUserRole] = useState<string>("");
 
   const { parseparams } = useParams();
   const searchParams = useSearchParams();
@@ -37,7 +38,17 @@ export default function ClassesTable() {
 
   useEffect(() => {
     fetchClasses(currentPage, query);
+    checkAuthAndRole();
   }, [currentPage, query]);
+
+  const checkAuthAndRole = async () => {
+    try {
+      const response = await axiosInstance.get("/api/auth/user/role/get");
+      setUserRole(response.data.role);
+    } catch (error) {
+      console.error("Error fetching user role:", error);
+    }
+  };
 
   const fetchClasses = async (page: number, search: string) => {
     setLoading(true);
@@ -66,10 +77,16 @@ export default function ClassesTable() {
   };
 
   const handleClassEdit = (id: string) => {
-    router.push(`/classes/edit/${id}`);
+   if(userRole == "ADMIN" ||userRole == "SUPERADMIN"){
+     router.push(`/classes/edit/${id}`);
+   }
+   else {
+     alert("You do not have the necessary permissions to edit this class");
+   }
   };
 
   const handleClassDelete = async (Id: string) => {
+    if(userRole == "ADMIN" ||userRole == "SUPERADMIN"){
     const confirmSubmission = window.confirm("Are you sure you want to delete this class?");
     if (!confirmSubmission) return;
 
@@ -78,6 +95,9 @@ export default function ClassesTable() {
       await fetchClasses(currentPage, query);
     } catch (error) {
       console.error("error is :", error);
+    }
+    } else{
+      alert("You do not have the necessary permissions to delete this class");
     }
   };
 

@@ -1,11 +1,12 @@
 import { NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 import { SECRET_KEY } from "@/lib/user-store";
-import prisma from "@/lib/prisma";
 import bcrypt from "bcrypt";
+import { findUserByUsername } from "@/app/api/services/auth/update-credentials/user-by-name/get-user-id";
+import { updateUserCredentials } from "@/app/api/services/auth/update-credentials/update-credentials";
+
 
 export async function PUT(request: Request) {
-
   const token = request.headers.get("Authorization")?.split(" ")[1];
 
   if (!token) {
@@ -26,11 +27,8 @@ export async function PUT(request: Request) {
       password_hash?: string;
     } = {};
 
-
     if (newUsername) {
-      const existingUser = await prisma.users.findUnique({
-        where: { username: newUsername },
-      });
+      const existingUser = await findUserByUsername(newUsername);
 
       if (existingUser && existingUser.id !== userId) {
         return NextResponse.json(
@@ -38,6 +36,7 @@ export async function PUT(request: Request) {
           { status: 400 }
         );
       }
+
       updateData.username = newUsername;
     }
 
@@ -45,15 +44,12 @@ export async function PUT(request: Request) {
       updateData.password_hash = await bcrypt.hash(newPassword, 10);
     }
 
-
     if (Object.keys(updateData).length > 0) {
-      await prisma.users.update({
-        where: { id: userId },
-        data: updateData,
-      });
+      await updateUserCredentials(userId, updateData);
     }
 
     return NextResponse.json({ message: "Credentials updated successfully" });
+
   } catch (error) {
     console.error("Update error:", error);
     return NextResponse.json(

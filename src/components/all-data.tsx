@@ -8,12 +8,13 @@ import {ToastContainer } from "react-toastify";
 
 function Alldata() {
   const [allData, setAllData] = useState<any[]>([]);
-
+  const [userRole, setUserRole] = useState<string>("");
   const router = useRouter();
 
 
 
   useEffect(() => {
+    checkAuthAndRole();
     axiosInstance
       .get(`api/data/show-alldata/dashboard-data`)
       .then((response) => {
@@ -24,31 +25,70 @@ function Alldata() {
         setAllData([]);
       });
   }, []);
-
+   const checkAuthAndRole = async () => {
+     try {
+       const response = await axiosInstance.get("/api/auth/user/role/get");
+       setUserRole(response.data.role);
+     } catch (error) {
+       console.error("Error fetching user role:", error);
+     }
+   };
   const handleStudentEdit = (studentId: string) => {
+    if(userRole == "ADMIN" || userRole == "SUPERADMIN"){
     router.push(`students/edit/${studentId}`);
-  };
+    }
+    else {
+      alert("You do not have the necessary permissions to edit this student");
+    }
+    };
   const handleFacultyEdit = (facultyId: string) => {
+    if(userRole == "ADMIN" || userRole == "SUPERADMIN"){
     router.push(`faculties/edit/${facultyId}`);
+    }
+    else {
+      alert("You do not have the necessary permissions to edit this Faculty");
+    }
   };
   const handleClassEdit = (studentId: string) => {
+    if(userRole == "ADMIN" ||userRole == "SUPERADMIN"){
     router.push(`classes/edit/${studentId}`);
+    }
+    else {
+      alert("You do not have the necessary permissions to edit this class");
+    }
   };
   const handleStudentDelete = async (studentId: string) => {
+    if(userRole == "ADMIN" ||userRole == "SUPERADMIN"){
     const confirmSubmission = window.confirm("Are you sure you want to delete this student?");
     if (!confirmSubmission) return;
     await axiosInstance.delete(`api/data/students/delete/${studentId}`);
+    }
+    else {
+      alert("You do not have the necessary permissions to delete this student");
+    }
+
   }
     const handleClassDelete = async (classId: string) => {
+      if(userRole == "ADMIN" ||userRole == "SUPERADMIN"){
     const confirmSubmission = window.confirm("Are you sure you want to delete this class?");
     if (!confirmSubmission) return;
     await axiosInstance.delete(`api/data/classes/delete/${classId}`);
+      }
+      else {
+        alert("You do not have the necessary permissions to delete this Class");
+      }
   };
+
   const handleFacultyDelete =  async (facultyId: string) => {
+    if(userRole == "ADMIN" ||userRole == "SUPERADMIN"){
     const confirmSubmission = window.confirm("Are you sure you want to delete this faculty?");
     if (!confirmSubmission) return;
 
 await axiosInstance.delete(`api/data/faculties/delete/${facultyId}`);
+    }
+    else {
+      alert("You do not have the necessary permissions to delete this Faculty");
+    };
   };
 
   return (

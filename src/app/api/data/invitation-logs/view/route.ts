@@ -1,6 +1,6 @@
 // File: app/api/data/invitation-logs/view/route.ts
 import { NextResponse } from "next/server";
-import { InvitationLogsTable } from "@/app/api/data/invitation-logs/view/getInvintationLogsTable";
+import { InvitationLogsTable } from "@/app/api/services/invitation logs/view/getInvintationLogsTable";
 
 
 export async function GET(request: Request) {

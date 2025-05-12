@@ -11,9 +11,9 @@ import CheckIfData from "@/components/check-data";
 
 export default function ClassStudentTable() {
   const [students, setStudents] = useState([]);
-
   const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
+  const [userRole, setUserRole] = useState<string>("");
 
   const router = useRouter();
   const { parseparams } = useParams();
@@ -23,9 +23,18 @@ export default function ClassStudentTable() {
   const query = searchParams.get("query") || "";
 
   useEffect(() => {
+    checkAuthAndRole();
     fetchStudents(currentPage, query);
   }, [currentPage, query]);
 
+  const checkAuthAndRole = async () => {
+    try {
+      const response = await axiosInstance.get("/api/auth/user/role/get");
+      setUserRole(response.data.role);
+    } catch (error) {
+      console.error("Error fetching user role:", error);
+    }
+  };
   const fetchStudents = async (page = 1, search = "") => {
     setLoading(true);
     try {
@@ -49,10 +58,15 @@ export default function ClassStudentTable() {
   };
 
   const handleStudentEdit = (id: string) => {
-    router.push(`/students/edit/${id}`);
+   if(userRole == "ADMIN" ||userRole == "SUPERADMIN"){
+     router.push(`/students/edit/${id}`);
+   } else {
+     alert("You do not have the necessary permissions to edit this student");
+   }
   };
 
   const handleStudentDelete = async (Id: string) => {
+   if(userRole == "ADMIN" ||userRole == "SUPERADMIN"){
     const confirmSubmission = window.confirm("Are you sure you want to delete this student?");
     if (!confirmSubmission) return;
 
@@ -62,6 +76,9 @@ export default function ClassStudentTable() {
     } catch (error) {
       console.error("error is :", error);
     }
+   }else{
+     alert("You do not have the necessary permissions to delete this student");
+   }
   };
 
   return (
